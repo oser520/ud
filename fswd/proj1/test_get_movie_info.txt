@@ -1,0 +1,109 @@
+Searching for movie: braveheart
+Movie braveheart found!
+The key=value pairs for braveheart are:
+	Plot=William Wallace is a Scottish rebel who leads an uprising against the cruel English ruler Edward the Longshanks, who wishes to inherit the crown of Scotland for himself. When he was a young boy, William Wallace's father and brother, along with many others, lost their lives trying to free Scotland. Once he loses another of his loved ones, William Wallace begins his long quest to make Scotland free once and for all, along with the assistance of Robert the Bruce.
+	Rated=R
+	Response=True
+	Language=English, French, Latin, Scottish Gaelic
+	Title=Braveheart
+	Country=USA
+	Writer=Randall Wallace
+	Metascore=68
+	imdbRating=8.4
+	Director=Mel Gibson
+	Released=24 May 1995
+	Actors=James Robinson, Sean Lawlor, Sandy Nelson, James Cosmo
+	Year=1995
+	Genre=Biography, Drama, History
+	Awards=Won 5 Oscars. Another 26 wins & 29 nominations.
+	Runtime=178 min
+	Type=movie
+	Poster=http://ia.media-imdb.com/images/M/MV5BNjA4ODYxMDU3Nl5BMl5BanBnXkFtZTcwMzkzMTk3OA@@._V1_SX300.jpg
+	imdbVotes=729,628
+	imdbID=tt0112573
+Response:
+{u'Plot': u"William Wallace is a Scottish rebel who leads an uprising against the cruel English ruler Edward the Longshanks, who wishes to inherit the crown of Scotland for himself. When he was a young boy, William Wallace's father and brother, along with many others, lost their lives trying to free Scotland. Once he loses another of his loved ones, William Wallace begins his long quest to make Scotland free once and for all, along with the assistance of Robert the Bruce.", u'Rated': u'R', u'Response': u'True', u'Language': u'English, French, Latin, Scottish Gaelic', u'Title': u'Braveheart', u'Country': u'USA', u'Writer': u'Randall Wallace', u'Metascore': u'68', u'imdbRating': u'8.4', u'Director': u'Mel Gibson', u'Released': u'24 May 1995', u'Actors': u'James Robinson, Sean Lawlor, Sandy Nelson, James Cosmo', u'Year': u'1995', u'Genre': u'Biography, Drama, History', u'Awards': u'Won 5 Oscars. Another 26 wins & 29 nominations.', u'Runtime': u'178 min', u'Type': u'movie', u'Poster': u'http://ia.media-imdb.com/images/M/MV5BNjA4ODYxMDU3Nl5BMl5BanBnXkFtZTcwMzkzMTk3OA@@._V1_SX300.jpg', u'imdbVotes': u'729,628', u'imdbID': u'tt0112573'}
+
+Searching for movie: jason bourne
+Movie jason bourne found!
+The key=value pairs for jason bourne are:
+	Plot=N/A
+	Rated=N/A
+	Response=True
+	Language=English
+	Title=Jason Bourne
+	Country=USA
+	Writer=Ron Preston
+	Metascore=N/A
+	imdbRating=9.3
+	Director=Andrew Kyle Bacon
+	Released=07 Mar 2012
+	Actors=Sarah Lynn Frank, Teresa Garrison, Ron Preston
+	Year=2012
+	Genre=Short, Music
+	Awards=N/A
+	Runtime=N/A
+	Type=movie
+	Poster=http://ia.media-imdb.com/images/M/MV5BMTY5MjU0NjA0NV5BMl5BanBnXkFtZTgwNDkyODU5NzE@._V1_SX300.jpg
+	imdbVotes=9
+	imdbID=tt3529996
+Response:
+{u'Plot': u'N/A', u'Rated': u'N/A', u'Response': u'True', u'Language': u'English', u'Title': u'Jason Bourne', u'Country': u'USA', u'Writer': u'Ron Preston', u'Metascore': u'N/A', u'imdbRating': u'9.3', u'Director': u'Andrew Kyle Bacon', u'Released': u'07 Mar 2012', u'Actors': u'Sarah Lynn Frank, Teresa Garrison, Ron Preston', u'Year': u'2012', u'Genre': u'Short, Music', u'Awards': u'N/A', u'Runtime': u'N/A', u'Type': u'movie', u'Poster': u'http://ia.media-imdb.com/images/M/MV5BMTY5MjU0NjA0NV5BMl5BanBnXkFtZTgwNDkyODU5NzE@._V1_SX300.jpg', u'imdbVotes': u'9', u'imdbID': u'tt3529996'}
+
+Searching for movie: inception
+Movie inception found!
+The key=value pairs for inception are:
+	Plot=A thief, who steals corporate secrets through use of dream-sharing technology, is given the inverse task of planting an idea into the mind of a CEO.
+	Rated=PG-13
+	Response=True
+	Language=English, Japanese, French
+	Title=Inception
+	Country=USA, UK
+	Writer=Christopher Nolan
+	Metascore=74
+	imdbRating=8.8
+	Director=Christopher Nolan
+	Released=16 Jul 2010
+	Actors=Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page, Tom Hardy
+	Year=2010
+	Genre=Action, Adventure, Crime
+	Awards=Won 4 Oscars. Another 143 wins & 198 nominations.
+	Runtime=148 min
+	Type=movie
+	Poster=http://ia.media-imdb.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg
+	imdbVotes=1,446,708
+	imdbID=tt1375666
+Response:
+{u'Plot': u'A thief, who steals corporate secrets through use of dream-sharing technology, is given the inverse task of planting an idea into the mind of a CEO.', u'Rated': u'PG-13', u'Response': u'True', u'Language': u'English, Japanese, French', u'Title': u'Inception', u'Country': u'USA, UK', u'Writer': u'Christopher Nolan', u'Metascore': u'74', u'imdbRating': u'8.8', u'Director': u'Christopher Nolan', u'Released': u'16 Jul 2010', u'Actors': u'Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page, Tom Hardy', u'Year': u'2010', u'Genre': u'Action, Adventure, Crime', u'Awards': u'Won 4 Oscars. Another 143 wins & 198 nominations.', u'Runtime': u'148 min', u'Type': u'movie', u'Poster': u'http://ia.media-imdb.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg', u'imdbVotes': u'1,446,708', u'imdbID': u'tt1375666'}
+
+Searching for movie: a few good men
+Movie a few good men found!
+The key=value pairs for a few good men are:
+	Plot=In this dramatic courtroom thriller, LT Daniel Kaffee, a Navy lawyer who has never seen the inside of the courtroom, defends two stubborn Marines who have been accused of murdering a colleague. Kaffee is known as being lazy and had arranged for a plea bargain. Downey's Aunt Ginny appoints Cmdr. Galloway to represent him. Also on the legal staff is LTJG Sam Weinberg. The team rounds up many facts and Kaffee is discovering that he is really cut out for trial work. The defense is originally based upon the fact that PFC Santiago, the victim, was given a "CODE RED". Santiago was basically a screw-up. At Gitmo, screw-ups aren't tolerated. Especially by Col. Nathan Jessup. In Cuba, Jessup and two senior officers try to give all the help they can, but Kaffee knows something's fishy. In the conclusion of the film, the fireworks are set off by a confrontation between Jessup and Kaffee.
+	Rated=R
+	Response=True
+	Language=English
+	Title=A Few Good Men
+	Country=USA
+	Writer=Aaron Sorkin (play), Aaron Sorkin (screenplay)
+	Metascore=62
+	imdbRating=7.6
+	Director=Rob Reiner
+	Released=11 Dec 1992
+	Actors=Tom Cruise, Jack Nicholson, Demi Moore, Kevin Bacon
+	Year=1992
+	Genre=Drama, Thriller
+	Awards=Nominated for 4 Oscars. Another 9 wins & 19 nominations.
+	Runtime=138 min
+	Type=movie
+	Poster=http://ia.media-imdb.com/images/M/MV5BMTkzNzE3Njg4Ml5BMl5BanBnXkFtZTYwMjA4NzM5._V1_SX300.jpg
+	imdbVotes=180,410
+	imdbID=tt0104257
+Response:
+{u'Plot': u'In this dramatic courtroom thriller, LT Daniel Kaffee, a Navy lawyer who has never seen the inside of the courtroom, defends two stubborn Marines who have been accused of murdering a colleague. Kaffee is known as being lazy and had arranged for a plea bargain. Downey\'s Aunt Ginny appoints Cmdr. Galloway to represent him. Also on the legal staff is LTJG Sam Weinberg. The team rounds up many facts and Kaffee is discovering that he is really cut out for trial work. The defense is originally based upon the fact that PFC Santiago, the victim, was given a "CODE RED". Santiago was basically a screw-up. At Gitmo, screw-ups aren\'t tolerated. Especially by Col. Nathan Jessup. In Cuba, Jessup and two senior officers try to give all the help they can, but Kaffee knows something\'s fishy. In the conclusion of the film, the fireworks are set off by a confrontation between Jessup and Kaffee.', u'Rated': u'R', u'Response': u'True', u'Language': u'English', u'Title': u'A Few Good Men', u'Country': u'USA', u'Writer': u'Aaron Sorkin (play), Aaron Sorkin (screenplay)', u'Metascore': u'62', u'imdbRating': u'7.6', u'Director': u'Rob Reiner', u'Released': u'11 Dec 1992', u'Actors': u'Tom Cruise, Jack Nicholson, Demi Moore, Kevin Bacon', u'Year': u'1992', u'Genre': u'Drama, Thriller', u'Awards': u'Nominated for 4 Oscars. Another 9 wins & 19 nominations.', u'Runtime': u'138 min', u'Type': u'movie', u'Poster': u'http://ia.media-imdb.com/images/M/MV5BMTkzNzE3Njg4Ml5BMl5BanBnXkFtZTYwMjA4NzM5._V1_SX300.jpg', u'imdbVotes': u'180,410', u'imdbID': u'tt0104257'}
+
+Searching for movie: willywonka
+Movie willywonka not found!
+Response:
+{u'Response': u'False', u'Error': u'Movie not found!'}
+
