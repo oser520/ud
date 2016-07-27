@@ -56,6 +56,7 @@
         $(document).on('click', '.hanging-close, .modal-backdrop, .modal', function (event) {
             // Remove the src so the player itself gets removed, as this is the only
             // reliable way to ensure the video stops playing in IE
+            console.log('hello console');
             $("#trailer-video-container").empty();
         });
         // Start playing the video whenever the trailer modal is opened
@@ -69,11 +70,21 @@
               'frameborder': 0
             }));
         });
+        $(document).on('click', '.nomodal', function (e) {
+            console.log('hello from nomodal in document');
+            e.stopPropagation();
+        });
         // Animate in the movies when the page loads
         $(document).ready(function () {
           $('.movie-tile').hide().first().show("fast", function showNext() {
             $(this).next("div").show("fast", showNext);
+            $('[data-toggle="popover"]').popover()
           });
+        });
+        // Stop propagation of modal if nomodal button is clicked
+        $('.nomodal').on('click', function (e) {
+            console.log('hello console');
+            e.stopPropagation();
         });
     </script>
 </head>
@@ -107,31 +118,121 @@
 <div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="5PSNL1qE6VY" data-toggle="modal" data-target="#trailer">
     <img src="http://upload.wikimedia.org/wikipedia/id/b/b0/Avatar-Teaser-Poster.jpg" width="220" height="342">
     <h2>Avatar</h2>
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Movie Details
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li><a href="#" class="nomodal" data-toggle="popover" data-content="The plot for the movie is ver long and I don't feel like telling you every thing">Plot</a></li>
+            <li><a href="#">Rated</a></li>
+            <li><a href="#">Writer</a></li>
+            <li><a href="#">imdbRating</a></li>
+            <li><a href="#">Director</a></li>
+            <li><a href="#">Release Year</a></li>
+            <li><a href="#">Genre</a></li>
+            <li><a href="#">Awards</a></li>
+            <li><a href="#">Runtime</a></li>
+        </ul>
+    </div>
 </div>
 
 <div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="wE8nNUASSCo" data-toggle="modal" data-target="#trailer">
     <img src="http://upload.wikimedia.org/wikipedia/en/b/b1/Groundhog_Day_(movie_poster).jpg" width="220" height="342">
     <h2>Groundhog Day</h2>
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Movie Details
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li><a href="#" class="nomodal" data-toggle="popover" data-content="The plot for the movie is ver long and I don't feel like telling you every thing">Plot</a></li>
+            <li><a href="#">Rated</a></li>
+            <li><a href="#">Writer</a></li>
+            <li><a href="#">imdbRating</a></li>
+            <li><a href="#">Director</a></li>
+            <li><a href="#">Release Year</a></li>
+            <li><a href="#">Genre</a></li>
+            <li><a href="#">Awards</a></li>
+            <li><a href="#">Runtime</a></li>
+        </ul>
+    </div>
 </div>
 
 <div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="S5CjKEFb-sM" data-toggle="modal" data-target="#trailer">
     <img src="http://upload.wikimedia.org/wikipedia/fi/a/a1/The_Imitation_Game.jpg" width="220" height="342">
     <h2>The Imitation Game</h2>
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Movie Details
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li><a href="#" class="nomodal" data-toggle="popover" data-content="The plot for the movie is ver long and I don't feel like telling you every thing">Plot</a></li>
+            <li><a href="#">Rated</a></li>
+            <li><a href="#">Writer</a></li>
+            <li><a href="#">imdbRating</a></li>
+            <li><a href="#">Director</a></li>
+            <li><a href="#">Release Year</a></li>
+            <li><a href="#">Genre</a></li>
+            <li><a href="#">Awards</a></li>
+            <li><a href="#">Runtime</a></li>
+        </ul>
+    </div>
 </div>
 
 <div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="m8e-FF8MsqU" data-toggle="modal" data-target="#trailer">
     <img src="http://upload.wikimedia.org/wikipedia/en/c/c1/The_Matrix_Poster.jpg" width="220" height="342">
     <h2>The Matrix</h2>
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Movie Details
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li><a href="#" class="nomodal" data-toggle="popover" data-content="The plot for the movie is ver long and I don't feel like telling you every thing">Plot</a></li>
+            <li><a href="#">Rated</a></li>
+            <li><a href="#">Writer</a></li>
+            <li><a href="#">imdbRating</a></li>
+            <li><a href="#">Director</a></li>
+            <li><a href="#">Release Year</a></li>
+            <li><a href="#">Genre</a></li>
+            <li><a href="#">Awards</a></li>
+            <li><a href="#">Runtime</a></li>
+        </ul>
+    </div>
 </div>
 
 <div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="8vXCajxxPcY" data-toggle="modal" data-target="#trailer">
     <img src="http://upload.wikimedia.org/wikipedia/en/5/53/Live_nude_girls.jpg" width="220" height="342">
     <h2>Live Nude Girls</h2>
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Movie Details
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li><a href="#" class="nomodal" data-toggle="popover" data-content="The plot for the movie is ver long and I don't feel like telling you every thing">Plot</a></li>
+            <li><a href="#">Rated</a></li>
+            <li><a href="#">Writer</a></li>
+            <li><a href="#">imdbRating</a></li>
+            <li><a href="#">Director</a></li>
+            <li><a href="#">Release Year</a></li>
+            <li><a href="#">Genre</a></li>
+            <li><a href="#">Awards</a></li>
+            <li><a href="#">Runtime</a></li>
+        </ul>
+    </div>
 </div>
 
 <div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="VNugTWHnSfw" data-toggle="modal" data-target="#trailer">
     <img src="http://ia.media-imdb.com/images/M/MV5BMTU0MTA2OTIwNF5BMl5BanBnXkFtZTcwMzA0Njk3OA@@._V1_SX640_SY720_.jpg" width="220" height="342">
     <h2>The Wizard of Oz</h2>
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Movie Details
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li><a href="#" class="nomodal" data-toggle="popover" data-content="The plot for the movie is ver long and I don't feel like telling you every thing">Plot</a></li>
+            <li><a href="#">Rated</a></li>
+            <li><a href="#">Writer</a></li>
+            <li><a href="#">imdbRating</a></li>
+            <li><a href="#">Director</a></li>
+            <li><a href="#">Release Year</a></li>
+            <li><a href="#">Genre</a></li>
+            <li><a href="#">Awards</a></li>
+            <li><a href="#">Runtime</a></li>
+        </ul>
+    </div>
 </div>
 
     </div>

@@ -62,6 +62,7 @@ main_page_head = '''
         $(document).on('click', '.hanging-close, .modal-backdrop, .modal', function (event) {
             // Remove the src so the player itself gets removed, as this is the only
             // reliable way to ensure the video stops playing in IE
+            console.log('hello console');
             $("#trailer-video-container").empty();
         });
         // Start playing the video whenever the trailer modal is opened
@@ -75,10 +76,16 @@ main_page_head = '''
               'frameborder': 0
             }));
         });
+        // Stop propagation of modal if nomodal button is clicked
+        $(document).on('click', '.nomodal', function (e) {
+            console.log('hello from nomodal in document');
+            e.stopPropagation();
+        });
         // Animate in the movies when the page loads
         $(document).ready(function () {
           $('.movie-tile').hide().first().show("fast", function showNext() {
             $(this).next("div").show("fast", showNext);
+            $('[data-toggle="popover"]').popover()
           });
         });
     </script>
@@ -125,6 +132,21 @@ movie_tile_content = '''
 <div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
     <img src="{poster_image_url}" width="220" height="342">
     <h2>{movie_title}</h2>
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Movie Details
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li><a href="#" class="nomodal" data-toggle="popover" data-content="The plot for the movie is ver long and I don't feel like telling you every thing">Plot</a></li>
+            <li><a href="#">Rated</a></li>
+            <li><a href="#">Writer</a></li>
+            <li><a href="#">imdbRating</a></li>
+            <li><a href="#">Director</a></li>
+            <li><a href="#">Release Year</a></li>
+            <li><a href="#">Genre</a></li>
+            <li><a href="#">Awards</a></li>
+            <li><a href="#">Runtime</a></li>
+        </ul>
+    </div>
 </div>
 '''
 
