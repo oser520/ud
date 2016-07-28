@@ -8,7 +8,7 @@ class Movie():
 	self.title = fields.get('Title', INFO_NA)
 	self.plot = fields.get('Plot', INFO_NA)
 	self.url_poster = fields.get('Poster', INFO_NA)
-	self.url_trailer = fields.get('Trailer', INFO_NA)
+	self.url_trailer = None
 	self.rating = fields.get('Rated', INFO_NA)
 	self.writer = fields.get('Writer', INFO_NA)
 	self.imdb_rating = fields.get('imdbRating', INFO_NA)
@@ -16,5 +16,6 @@ class Movie():
 	self.release_year = fields.get('Year', INFO_NA)
 	self.genre = fields.get('Genre', INFO_NA)
 	self.awards = fields.get('Awards', INFO_NA)
+	self.runtime = fields.get('Runtime', INFO_NA)
     def show_trailer(self):
 	webbrowser.open(self.url_trailer)

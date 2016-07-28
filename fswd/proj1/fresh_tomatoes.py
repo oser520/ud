@@ -137,7 +137,7 @@ movie_tile_content = '''
             <li><a href="#" class="nomodal" data-toggle="popover" data-trigger="hover" data-content="{movie_plot}">Plot</a></li>
             <li><a href="#" class="nomodal" data-toggle="popover" data-trigger="hover" data-content="{movie_rating}">Rated</a></li>
             <li><a href="#" class="nomodal" data-toggle="popover" data-trigger="hover" data-content="{movie_writer}">Writer</a></li>
-            <li><a href="#" class="nomodal" data-toggle="popover" data-trigger="hover" data-content="{movie_imbdRating}">imdbRating</a></li>
+            <li><a href="#" class="nomodal" data-toggle="popover" data-trigger="hover" data-content="{movie_imdbRating}">imdbRating</a></li>
             <li><a href="#" class="nomodal" data-toggle="popover" data-trigger="hover" data-content="{movie_director}">Director</a></li>
             <li><a href="#" class="nomodal" data-toggle="popover" data-trigger="hover" data-content="{movie_releaseYear}">Release Year</a></li>
             <li><a href="#" class="nomodal" data-toggle="popover" data-trigger="hover" data-content="{movie_genre}">Genre</a></li>
@@ -165,7 +165,16 @@ def create_movie_tiles_content(movies):
         content += movie_tile_content.format(
             movie_title=movie.title,
             poster_image_url=movie.url_poster,
-            trailer_youtube_id=trailer_youtube_id
+            trailer_youtube_id=trailer_youtube_id,
+            movie_plot=movie.plot,
+            movie_rating=movie.rating,
+            movie_writer=movie.writer,
+            movie_imdbRating=movie.imdb_rating,
+            movie_director=movie.director,
+            movie_releaseYear=movie.release_year,
+            movie_genre=movie.genre,
+            movie_awards=movie.awards,
+            movie_runtime=movie.runtime
         )
     return content
 
