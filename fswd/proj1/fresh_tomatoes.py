@@ -85,7 +85,7 @@ main_page_head = '''
         $(document).ready(function () {
           $('.movie-tile').hide().first().show("fast", function showNext() {
             $(this).next("div").show("fast", showNext);
-            $('[data-toggle="popover"]').popover()
+            $('[data-toggle="popover"]').popover({container: 'body'});
           });
         });
     </script>
@@ -136,15 +136,15 @@ movie_tile_content = '''
         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Movie Details
         <span class="caret"></span></button>
         <ul class="dropdown-menu">
-            <li><a href="#" class="nomodal" data-toggle="popover" data-content="The plot for the movie is ver long and I don't feel like telling you every thing">Plot</a></li>
-            <li><a href="#">Rated</a></li>
-            <li><a href="#">Writer</a></li>
-            <li><a href="#">imdbRating</a></li>
-            <li><a href="#">Director</a></li>
-            <li><a href="#">Release Year</a></li>
-            <li><a href="#">Genre</a></li>
-            <li><a href="#">Awards</a></li>
-            <li><a href="#">Runtime</a></li>
+            <li><a href="#" class="nomodal" data-toggle="popover" data-trigger="hover" data-content="{movie_plot}">Plot</a></li>
+            <li><a href="#" class="nomodal" data-toggle="popover" data-trigger="hover" data-content="{movie_rating}">Rated</a></li>
+            <li><a href="#" class="nomodal" data-toggle="popover" data-trigger="hover" data-content="{movie_writer}">Writer</a></li>
+            <li><a href="#" class="nomodal" data-toggle="popover" data-trigger="hover" data-content="{movie_imbdRating}">imdbRating</a></li>
+            <li><a href="#" class="nomodal" data-toggle="popover" data-trigger="hover" data-content="{movie_director}">Director</a></li>
+            <li><a href="#" class="nomodal" data-toggle="popover" data-trigger="hover" data-content="{movie_releaseYear}">Release Year</a></li>
+            <li><a href="#" class="nomodal" data-toggle="popover" data-trigger="hover" data-content="{movie_genre}">Genre</a></li>
+            <li><a href="#" class="nomodal" data-toggle="popover" data-trigger="hover" data-content="{movie_awards}">Awards</a></li>
+            <li><a href="#" class="nomodal" data-toggle="popover" data-trigger="hover" data-content="{movie_runtime}">Runtime</a></li>
         </ul>
     </div>
 </div>
