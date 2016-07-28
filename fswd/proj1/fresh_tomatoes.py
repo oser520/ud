@@ -62,7 +62,6 @@ main_page_head = '''
         $(document).on('click', '.hanging-close, .modal-backdrop, .modal', function (event) {
             // Remove the src so the player itself gets removed, as this is the only
             // reliable way to ensure the video stops playing in IE
-            console.log('hello console');
             $("#trailer-video-container").empty();
         });
         // Start playing the video whenever the trailer modal is opened
@@ -78,7 +77,6 @@ main_page_head = '''
         });
         // Stop propagation of modal if nomodal button is clicked
         $(document).on('click', '.nomodal', function (e) {
-            console.log('hello from nomodal in document');
             e.stopPropagation();
         });
         // Animate in the movies when the page loads
