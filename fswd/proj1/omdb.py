@@ -20,8 +20,7 @@ def get_movie_info(title):
         be a good idea to sleep before invoking the function, otherwise the OMDB
         server may not respond.
     '''
-    if not title:
-        raise ValueError('title cannot be empty')
+    if not title: raise ValueError('title cannot be empty')
     title = urllib.quote(title)
     urlfmt = 'http://www.omdbapi.com/?t=%s&plot=full&r=json'
     response = urllib.urlopen(urlfmt % title).read()
@@ -36,16 +35,15 @@ if __name__ == '__main__':
     'a few good men', 'willywonka']
     test_out = open('test_get_movie_info.txt', 'w')
     for m in movies:
+        test_out.write('Searching for movie: %s\n' % m)
         response = get_movie_info(m)
         movie_found = response.get('Response', 'False') == 'True'
-        test_out.write('Searching for movie: %s\n' % m)
         if movie_found:
             test_out.write('Movie %s found!\n' % m)
             test_out.write('The key=value pairs for %s are:\n' % m)
             for k,v in response.iteritems():
                 test_out.write('\t%s=%s\n' % (k, v))
-        else:
-            test_out.write('Movie %s not found!\n' % m)
+        else: test_out.write('Movie %s not found!\n' % m)
         test_out.write('Response:\n%s\n\n' % response)
         # sleep for one second to avoid hitting the omdb quickly
         time.sleep(1)

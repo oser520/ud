@@ -19,11 +19,9 @@ def get_trailer_url(movie):
     Return:
         A URL for the movie trailer. 
     '''
-    if not movie:
-        raise ValueError("Movie title cannot be empty")
+    if not movie: raise ValueError("Movie title cannot be empty")
     search = urllib.quote(movie.strip() + ' movie trailer')
     content = urllib.urlopen(SEARCH_FMT % search)
     search_results = re.search(RE_STR, content.read())
-    if not search_results:
-        raise ValueError("Could not find URL")
+    if not search_results: raise ValueError("Could not find URL")
     return VIDEO_FMT % search_results.group(0)
