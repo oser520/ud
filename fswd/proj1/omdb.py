@@ -4,6 +4,8 @@ import time
 import json
 import sys
 
+URLFMT = 'http://www.omdbapi.com/?t=%s&plot=full&r=json'
+
 def get_movie_info(title):
     '''
     Searches the Open Movie Database for basic movie information for a given
@@ -22,8 +24,7 @@ def get_movie_info(title):
     '''
     if not title: raise ValueError('title cannot be empty')
     title = urllib.quote(title)
-    urlfmt = 'http://www.omdbapi.com/?t=%s&plot=full&r=json'
-    response = urllib.urlopen(urlfmt % title).read()
+    response = urllib.urlopen(URLFMT % title).read()
     return json.loads(response)
 
 # Test get_movie_info() by sending requests for a few valid titles, one
