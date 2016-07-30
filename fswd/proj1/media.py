@@ -3,6 +3,8 @@ import webbrowser
 
 class Movie():
     def __init__(self, fields):
+        fields = {k.encode('ascii','ignore'):v.encode('ascii','ignore')
+                    for k,v in fields.iteritems()}
         self.found = fields.get('Response', 'False') == 'True'
         self.search_title = None
 	self.title = fields.get('Title', None)

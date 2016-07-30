@@ -44,10 +44,9 @@ for title in movie_titles:
             else:
                 movie.search_title = title
                 movie.url_trailer = get_trailer_url(movie.title)
-                print 'Found trailer URL for movie %s' % movie.title
                 db[movie.title] = movie
                 db[movie.search_title] = movie
-                movies.append(movie)
+            movies.append(movie)
         time.sleep(1)
 
 db.close()
