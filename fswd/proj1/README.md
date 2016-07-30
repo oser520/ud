@@ -14,9 +14,7 @@ stored in a database to avoid having to search for the information again.
 ## How to use it
 
 The driver of the program is *ecenter.py*, and it is designed to be used via the
-command line. Below are a few examples of how the program can be used. If you
-are searching for movies, then a higher degree of specificity is likely to lead
-to a higher rate of success. For example, instead of searching for 
+command line. Below are a few examples of how the program can be used.
 
 #### Getting a help message
 
@@ -89,11 +87,6 @@ $ ./ecenter.py -l "braveheart, inception" -x
 This will only include a search for the two movies in the list, and default
 movies will be ignored. Excluding default movies requires that some movies
 be specified via at least a list or file.
-
-## Tip
-If you are searching for movies, then a higher degree of specificity is likely
-to lead to a higher rate of success. For example, instead of searching for 
-__Avengers__, search for __Marvel's Avengers__.
 
 ## Details
 
