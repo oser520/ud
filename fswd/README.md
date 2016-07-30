@@ -1,7 +1,6 @@
 # Full Stack Web Developer
 
-This directory contains my work for the __Full Stack Web Developer__
-Nanondegree.
+My work for the __Full Stack Web Developer__ Nanondegree.
 
 * [Project 1: Movie Trailer Website][1]
 
