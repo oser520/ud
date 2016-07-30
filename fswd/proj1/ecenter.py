@@ -10,7 +10,7 @@ from omdb import get_movie_info
 from youtube_trailer import get_trailer_url
 
 # default movies to search for and add to the movie trailer page
-movie_titles = [
+default_titles = [
     'inception', 'braveheart', 'jason bourne', 'iron man',
     'g.i. jane', 'good will hunting', 'ray', 'furious 7',
     'san andreas', 'get shorty', 'lost in translation',
@@ -28,29 +28,39 @@ parser.add_argument('-l', '--list',
     help='List of movies separated by separator')
 parser.add_argument('-s', '--separator', default=',',
     help='The separator used if a list of movies is provided')
+parser.add_argument('-x', '--exclude', action='store_true',
+    help='Exclude the default titles. List or file must be specified.')
 args = parser.parse_args()
+
+# shortcut
+err = sys.stderr.write
+
+movie_titles = set()
+
+if not args.exclude:
+    movie_titles.update(default_titles)
+elif not args.file and not args.list:
+    err("Error: Must specify at least one of file or list\n")
+    parser.print_help()
 
 # read titles from a file
 if args.file:
     for title in open(args.file).readlines():
         title = title.strip().lower()
-        if title: movie_titles.append(title)
+        if title: movie_titles.add(title)
 
 # process titles in list
 if args.list:
     titles = args.list.split(args.separator)
     for title in titles:
         title = title.strip().lower()
-        if title: movie_titles.append(title)
+        if title: movie_titles.add(title)
 
 # open the database
 db = shelve.open(args.dbfile, writeback=True)
 
 # list of movies to include in trailer web page
 movies = []
-
-# shortcut
-err = sys.stderr.write
 
 # process each movie title
 for title in movie_titles:
@@ -79,7 +89,6 @@ for title in movie_titles:
             db[movie.title] = movie
             db[movie.search_title] = movie
         movies.append(movie)
-
 
 db.close()
 if not movies: sys.exit(1)

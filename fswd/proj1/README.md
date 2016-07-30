@@ -14,13 +14,16 @@ stored in a database to avoid having to search for the information again.
 ## How to use it
 
 The driver of the program is *ecenter.py*, and it is designed to be used via the
-command line. Below are a few examples of how the program can be used.
+command line. Below are a few examples of how the program can be used. If you
+are searching for movies, then a higher degree of specificity is likely to lead
+to a higher rate of success. For example, instead of searching for 
 
 #### Getting a help message
 
 ```
 $ ./ecenter.py --help
 usage: ecenter.py [-h] [--dbfile DBFILE] [-f FILE] [-l LIST] [-s SEPARATOR]
+                  [-x]
 
 Create Fresh Tomatoes Web Page
 
@@ -34,7 +37,17 @@ optional arguments:
   -s SEPARATOR, --separator SEPARATOR
                         The separator used if a list of movies is provided
                         (default: ,)
+  -x, --exclude         Exclude the default titles. List or file must be
+                        specified. (default: False)
 ```
+
+#### Simplest use case
+
+```{bash}
+$ ./ecenter.py
+```
+
+Searches for default movies, which are hard coded.
 
 #### A list of movies
 
@@ -67,13 +80,23 @@ then the titles can be processed by specifying the name of the file
 $ ./ecenter.py -f movies.txt
 ```
 
-None of the options are mutually exclusive, so they can be used together.
+#### Exclude default titles
+
+```
+$ ./ecenter.py -l "braveheart, inception" -x
+```
+
+This will only include a search for the two movies in the list, and default
+movies will be ignored. Excluding default movies requires that some movies
+be specified via at least a list or file.
+
+## Tip
+If you are searching for movies, then a higher degree of specificity is likely
+to lead to a higher rate of success. For example, instead of searching for 
+__Avengers__, search for __Marvel's Avengers__.
 
 ## Details
 
-* It is not necessary to specify any movies because some are used by default,
-  so the program can be executed without arguments. Movies specified via a list
-  or file are treated as additional movies.
 * If the movie is not found in the database, which will always be the case
   the first time the program is run, then it is necessary to query the OMDB
   and YouTube. OMDB is not big and cannot handle many request at a time, and
@@ -82,6 +105,9 @@ None of the options are mutually exclusive, so they can be used together.
   searches should be faster, assuming the same database file is used.
 * Error messages are directed to standard error, and logging is directed to
   standard output.
+* There is one default movie which is found, but does not have a URL for a
+  poster and results in an error message. The movie is there as an example
+  of how an error is treated. 
 
 [1]: http://www.omdbapi.com/
 [2]: https://www.youtube.com/
