@@ -1,3 +1,8 @@
+# ignore movie trailer database
 movie_trailer_db
-fresh_tomatoes.html
-movies.txt
+
+# ignore html
+*.html
+
+# ignore text files
+*.txt
