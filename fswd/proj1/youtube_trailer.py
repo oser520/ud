@@ -3,9 +3,6 @@
 import urllib
 import re
 
-# Idea is taken from the following article:
-# http://www.codeproject.com/Articles/873060/Python-Search-Youtube-for-Video
-
 RE_STR = r'href=\"\/watch\?v=(.{11})'
 SEARCH_FMT = 'http://www.youtube.com/results?search_query=%s'
 VIDEO_FMT = 'http://www.youtube.com/watch?v=%s'
