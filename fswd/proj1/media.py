@@ -1,21 +1,22 @@
 #!/usr/bin/env python
 import webbrowser
 
-INFO_NA = 'Information Not Available'
-
 class Movie():
     def __init__(self, fields):
-	self.title = fields.get('Title', INFO_NA)
-	self.plot = fields.get('Plot', INFO_NA)
-	self.url_poster = fields.get('Poster', INFO_NA)
+        self.found = fields.get('Response', 'False') == 'True'
+        self.search_title = None
+	self.title = fields.get('Title', None)
+	self.plot = fields.get('Plot', None)
+	self.url_poster = fields.get('Poster', None)
+        if self.url_poster == 'N/A': self.url_poster = None
 	self.url_trailer = None
-	self.rating = fields.get('Rated', INFO_NA)
-	self.writer = fields.get('Writer', INFO_NA)
-	self.imdb_rating = fields.get('imdbRating', INFO_NA)
-	self.director = fields.get('Director', INFO_NA)
-	self.release_year = fields.get('Year', INFO_NA)
-	self.genre = fields.get('Genre', INFO_NA)
-	self.awards = fields.get('Awards', INFO_NA)
-	self.runtime = fields.get('Runtime', INFO_NA)
+	self.rating = fields.get('Rated', None)
+	self.writer = fields.get('Writer', None)
+	self.imdb_rating = fields.get('imdbRating', None)
+	self.director = fields.get('Director', None)
+	self.release_year = fields.get('Year', None)
+	self.genre = fields.get('Genre', None)
+	self.awards = fields.get('Awards', None)
+	self.runtime = fields.get('Runtime', None)
     def show_trailer(self):
 	webbrowser.open(self.url_trailer)
