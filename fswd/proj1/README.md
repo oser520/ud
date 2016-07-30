@@ -1,13 +1,13 @@
 # Project 1: Movie Trailer Website
 
 Create a static web page with box art imagery and trailer URLs to allow visitors
-to browse movies and watch their trailers.
+to browse movies and watch the trailers.
 
-## How does it do it
+## How it does it
 
-It searches the [Open Movie Database][1] for the title of a movie. If the movie
-is found, the response may include other details of the movie, including a URL
-to a movie poster. If the response contains the poster URL, then it searches
+It searches the [Open Movie Database][1] (OMDB) for the title of a movie. If the
+movie is found, the response may include other details of the movie, including a
+URL to a movie poster. If the response contains the poster URL, then it searches
 [YouTube][2] for the URL of the movie trailer, and all of the information is
 stored in a database to avoid having to search for the information again.
 
@@ -16,7 +16,7 @@ stored in a database to avoid having to search for the information again.
 The driver of the program is *ecenter.py*, and it is designed to be used via the
 command line. Below are a few examples of how the program can be used.
 
-### Getting a help message
+#### Getting a help message
 
 ```
 $ ./ecenter.py --help
@@ -36,22 +36,22 @@ optional arguments:
                         (default: ,)
 ```
 
-### A list of movies
+#### A list of movies
 
 ```
 $ ./ecenter.py -l "braveheart, inception"
 ```
 
-If including a movie title with a comma, then specify the separator to avoid
-splitting the title.
+Specify the separator to avoid splitting the title, if including one with an
+embedded comma.
 
 ```
 $ ./ecenter.py -l "the good, the bad and the ugly" -s "|"
 ```
 
-### A file with a list of movies
+#### A file with a list of movies
 
-Assuming *movies.txt* contains the following content:
+Assuming *movies.txt* contains the following content
 
 ```
 ocean's eleven
@@ -80,6 +80,8 @@ None of the options are mutually exclusive, so they can be used together.
   YouTube is not accessed via an API meant for bots; therefore, there is a delay
   of 1 second added after such a search in order to avoid a hangup. Subsequent
   searches should be faster, assuming the same database file is used.
+* Error messages are directed to standard error, and logging is directed to
+  standard output.
 
 [1]: http://www.omdbapi.com/
 [2]: https://www.youtube.com/
