@@ -18,6 +18,7 @@
       integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
       crossorigin="anonymous">
     <!-- Latest compiled and minified JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
       integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
       crossorigin="anonymous"></script>
@@ -38,10 +39,10 @@
       }
 
       hr {
-        display: block;
+        border: none;
+        height: 4px;
         width: 100%;
-        font-size: 5px;
-        border-style: inset;
+        background-color: lightgray;
       }
     </style>
   </head>
@@ -60,18 +61,25 @@
         <hr>
       </div>
       <div class="row">
-        <div class="btn-group btn-group-justified" role="group" aria-label="Buttons for sorting projects">
-          <div class="btn-group" role="group">
-            <button type="button" class="btn btn-default">Sort By</button>
-          </div>
-          <div class="btn-group" role="group">
-            <button type="button" class="btn btn-info">Most Recent</button>
-          </div>
-          <div class="btn-group" role="group">
-            <button type="button" class="btn btn-warning">Most Complex</button>
-          </div>
-          <div class="btn-group" role="group">
-            <button type="button" class="btn btn-warning">Favorite</button>
+        <div class="col-md-12">
+          <img class="blackhole" src="img/black-hole.png" alt="zen peace">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="btn-group btn-group-justified" role="group" aria-label="Buttons for sorting projects">
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-default">Sort By</button>
+            </div>
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-info">Most Recent</button>
+            </div>
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-warning">Most Complex</button>
+            </div>
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-warning">Favorite</button>
+            </div>
           </div>
         </div>
       </div>
