@@ -25,9 +25,6 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
       rel="stylesheet" type="text/css">
     <style type="text/css" media="screen">
-      * {
-      }
-
       img {
         max-width: 100%;
         height: auto;
@@ -89,17 +86,17 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4 project" data-toggle="modal" data-target="#zoor">
           <img src="img/chess.jpg" alt="chess">
           <h2 class="text-center">Zoor</h2>
           <h5 class="text-center">A Chess Engine</h5>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 project">
           <img src="img/movie-studio.jpg" alt="movie studio">
           <h2 class="text-center">Fresh Onions</h2>
           <h5 class="text-center">A Move Trailer Website</h5>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 project">
           <img src="img/hf-trading.jpg" alt="computer screen with a trading graph">
           <h2 class="text-center">HyperTrade</h2>
           <h5 class="text-center">A High Frequency Trading Engine</h5>
@@ -123,6 +120,50 @@
             </a>
           </li>
         </ul>
+      </div>
+    </div>
+    <!-- Modal for Zoor -->
+    <div class="modal fade" id="zoor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h3 class="modal-title" id="myModalLabel">A Chess Engine</h3>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12">
+                <h3>Summary</h3>
+                <p>
+                  Designed a chess engine from scratch for <i>fun</i>! The engine can play
+                  thousands of simultaneous games against bots or <i>homo sapiens</i>, and
+                  uses modern AI search algorithms to analyse millions of moves per second
+                  efficiently, in terms of both speed and space. The engine is designed to
+                  be flexiable, and thus it is easy to plug in components that use different
+                  strategies, such as for evaluating board positions, or searching the space
+                  of moves. The engine is compliant with well known chess standards, such as
+                  the Chess Engine Communication Protocol and the Universal Chess Interface,
+                  effectively making it plug-and-play with chess GUIs.
+                </p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <h3>Technology</h3>
+                <p>
+                  <span class="label label-default">C++</span>
+                  <span class="label label-default">Artificial Intelligence</span>
+                  <span class="label label-default">Search Algorithms</span>
+                  <span class="label label-default">Evaluation Functions</span>
+                  <span class="label label-default">Multi-threading</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
       </div>
     </div>
   </body>
