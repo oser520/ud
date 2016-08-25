@@ -44,6 +44,7 @@
     </style>
   </head>
   <body>
+
     <div class="container">
       <div class="row">
         <div class="col-md-3">
@@ -91,7 +92,7 @@
           <h2 class="text-center">Zoor</h2>
           <h5 class="text-center">A Chess Engine</h5>
         </div>
-        <div class="col-md-4 project">
+        <div class="col-md-4 project" data-toggle="modal" data-target="#movieTrailerModal">
           <img src="img/movie-studio.jpg" alt="movie studio">
           <h2 class="text-center">Fresh Onions</h2>
           <h5 class="text-center">A Move Trailer Website</h5>
@@ -121,7 +122,8 @@
           </li>
         </ul>
       </div>
-    </div>
+    </div> <!-- container -->
+
     <!-- Modal for Zoor -->
     <div class="modal fade" id="zoorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
@@ -151,6 +153,7 @@
               <div class="col-md-12">
                 <h3>Technology</h3>
                 <p>
+                  <!-- TODO: create links to wikis -->
                   <span class="label label-default">C++</span>
                   <span class="label label-default">Artificial Intelligence</span>
                   <span class="label label-default">Search Algorithms</span>
@@ -165,6 +168,58 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> <!-- Zoor modal -->
+
+    <!-- Modal for Movie Trailer -->
+    <div class="modal fade" id="movieTrailerModal" tabindex="-1" role="dialog" aria-labelledby="myMovieTrailerModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h3 class="modal-title" id="myMovieTrailerModal">A Movie Trailer Website</h3>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12">
+                <h3>Summary</h3>
+                <p>
+                  Created a python script to generate a website of movie trailers and
+                  movie data. The movies that should be displayed in the website can be
+                  specified by the user of the program, and all of the data for the
+                  website is fetched from the Web upon initial request, and thereafter
+                  fetched from a database if it is fetching data for the same movie for a
+                  second time.
+                </p>
+                <h4>Sources used for Data</h4>
+                <ul>
+                  <!-- TODO: create links to respective websites -->
+                  <li>Youtube</li>
+                  <li>OMDb (Open Movie Database)</li>
+                  <li>IMDb (Internet Movie Database)</li>
+                </ul>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <h3>Technology</h3>
+                <p>
+                  <span class="label label-default">Python</span>
+                  <span class="label label-default">HTML</span>
+                  <span class="label label-default">Javascript</span>
+                  <span class="label label-default">Bootstrap</span>
+                  <span class="label label-default">JQuery</span>
+                  <span class="label label-default">Regular Expressions</span>
+                  <span class="label label-default">Web APIs</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div> <!-- MovieTrailer modal -->
+
   </body>
 </html>
