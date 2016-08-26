@@ -97,7 +97,7 @@
           <h2 class="text-center">Fresh Onions</h2>
           <h5 class="text-center">A Move Trailer Website</h5>
         </div>
-        <div class="col-md-4 project">
+        <div class="col-md-4 project" data-toggle="modal" data-target="#hyperTradeModal">
           <img src="img/hf-trading.jpg" alt="computer screen with a trading graph">
           <h2 class="text-center">HyperTrade</h2>
           <h5 class="text-center">A High Frequency Trading Engine</h5>
@@ -190,7 +190,7 @@
                   fetched from a database if it is fetching data for the same movie for a
                   second time.
                 </p>
-                <h4>Sources used for Data</h4>
+                <h4>Data Sources</h4>
                 <ul>
                   <!-- TODO: create links to respective websites -->
                   <li>Youtube</li>
@@ -210,6 +210,65 @@
                   <span class="label label-default">JQuery</span>
                   <span class="label label-default">Regular Expressions</span>
                   <span class="label label-default">Web APIs</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div> <!-- MovieTrailer modal -->
+
+    <!-- Modal for HyperTrade -->
+    <div class="modal fade" id="hyperTradeModal" tabindex="-1" role="dialog" aria-labelledby="myHyperTradeModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h3 class="modal-title" id="myHyperTradeModal">A High Frequency Trading Engine</h3>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12">
+                <h3>Summary</h3>
+                <p>
+                  Created a distributed high frequency trading engine capable of making
+                  thousands of trades per second across the major trading venues, with
+                  virtually any trading asset. The spectrum of trading strategies ranges
+                  from the most basic to highly sophisticated strategies employing modern
+                  AI and machine learning algorithms that search for hidden patterns.
+                </p>
+                <h4>Trading Venues</h4>
+                <ul>
+                  <!-- TODO: create links to respective websites -->
+                  <li>NASDAQ</li>
+                  <li>NYSE</li>
+                  <li>Bats Global Markets</li>
+                </ul>
+                <h4>Trading Instruments</h4>
+                <ul>
+                  <!-- TODO: create links to respective websites -->
+                  <li>Equities</li>
+                  <li>Bonds</li>
+                  <li>Options</li>
+                  <li>Currencies</li>
+                  <li>Credit Derivatives</li>
+                </ul>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <h3>Technology</h3>
+                <p>
+                  <span class="label label-default">C++</span>
+                  <span class="label label-default">C</span>
+                  <span class="label label-default">Distributed Systems</span>
+                  <span class="label label-default">Parallel Programming</span>
+                  <span class="label label-default">AI</span>
+                  <span class="label label-default">Machine Learning</span>
+                  <span class="label label-default">Networking</span>
                 </p>
               </div>
             </div>
