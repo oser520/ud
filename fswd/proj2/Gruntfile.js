@@ -2,7 +2,6 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 	  imagemin: {
 	    png: {
-	      options: { optimizationLevel: 7 },
 	      files: [
 	        {
 	          expand: true,
