@@ -18,9 +18,10 @@
   "author": "Omar Serrano",
   "license": "MIT",
   "devDependencies": {
-    "grunt": "^1.0.1",
+    "grunt": "^0.4.5",
     "grunt-contrib-cssmin": "^1.0.1",
     "grunt-contrib-imagemin": "^1.0.1",
-    "grunt-contrib-uglify": "^2.0.0"
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-image-resize": "^1.0.0"
   }
 }
