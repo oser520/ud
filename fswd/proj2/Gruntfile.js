@@ -24,9 +24,25 @@ module.exports = function(grunt) {
 	        }
 	      ]
 	    }
-	  }
+	  },
+    responsive_images: {
+      ostask: {
+	      options: {
+	        engine: 'im',
+	        concurrency: 3,
+	        newFilesOnly: true
+	      },
+	      files: [{
+	        expand: true,
+	        src: ['img/**.{jpg,png}'],
+	        dest: 'img/responsive'
+	      }]
+      }
+    }
 	});
 	
 	grunt.loadNpmTasks('grunt-contrib-imagemin');
+	grunt.loadNpmTasks('grunt-responsive-images');
 	grunt.registerTask('imgopt', ['imagemin']);
+	grunt.registerTask('optsize', ['responsive_images']);
 };
