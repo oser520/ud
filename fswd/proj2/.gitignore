@@ -3,3 +3,6 @@ node_modules/*
 
 # Ignore compressed images
 img/compressed/*
+
+# Ignore resized images
+img/responsive/*
