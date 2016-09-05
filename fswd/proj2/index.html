@@ -30,11 +30,6 @@
         height: auto;
       }
 
-      .row {
-        display: -webkit-flex;
-        display: flex;
-      }
-
       .project {
         margin-bottom: 20px;
         padding-top:20px;
@@ -59,44 +54,45 @@
       .fa {
         margin-right: 25px;
       }
+
+      .img-responsive {
+        margin: 0 auto;
+      }
     </style>
   </head>
   <body>
 
     <div class="container">
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
           <h1><i id="lettero" class="fa fa-circle-o fa-2x"></i><h1>
         </div>
-        <div class="col-md-9 text-right">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-9 text-right">
           <h1>Omar Serrano</h1>
           <h3><small>Programmer Wizard</small></h3>
         </div>
       </div>
       <div class="row">
-        <hr>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <img class="blackhole" src="img/black-hole.png" alt="zen peace">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <hr>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
           <h3>Featured Work</h3>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4 project" data-toggle="modal" data-target="#zoorModal">
-          <img src="img/chess.jpg" alt="chess">
+        <div class="col-xm-12 col-sm-4 col-md-4 col-lg-4 project" data-toggle="modal" data-target="#zoorModal">
+          <img src="img/responsive/img/chess-small.jpg" class="img-responsive" alt="chess">
           <h2 class="text-center">ZOOR</h2>
         </div>
-        <div class="col-md-4 project" data-toggle="modal" data-target="#movieTrailerModal">
-          <img src="img/movie-studio.jpg" alt="movie studio">
+        <div class="col-xm-12 col-sm-4 col-md-4 col-lg-4 project" data-toggle="modal" data-target="#movieTrailerModal">
+          <img src="img/responsive/img/movie-studio-small.jpg" class="img-responsive" alt="movie studio">
           <h2 class="text-center">MOVIETRAILER</h2>
         </div>
-        <div class="col-md-4 project" data-toggle="modal" data-target="#hyperTradeModal">
-          <img src="img/hf-trading.jpg" alt="computer screen with a trading graph">
+        <div class="col-xm-12 col-sm-4 col-md-4 col-lg-4 project" data-toggle="modal" data-target="#hyperTradeModal">
+          <img src="img/responsive/img/hf-trading-small.jpg" class="img-responsive" alt="computer screen with a trading graph">
           <h2 class="text-center">HYPERTRADE</h2>
         </div>
       </div>
