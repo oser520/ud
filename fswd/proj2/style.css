@@ -1,0 +1,66 @@
+body {
+  font-family: Roboto, sans-serif;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.project {
+  margin-bottom: 20px;
+  padding-top:20px;
+}
+
+.project:hover {
+  background-color: #d9d9d9;
+  cursor: pointer;
+}
+
+hr {
+  border: none;
+  height: 4px;
+  width: 100%;
+  background-color: lightgray;
+}
+
+#lettero {
+  color: #8c8c8c;
+}
+
+@media screen and (min-width: 768px) {
+  #first-name-initial {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #first-name-initial {
+    display: none;
+  }
+}
+
+.fa {
+  margin-right: 25px;
+}
+
+/* Center the images when they get their own row */
+.img-responsive {
+  margin: 0 auto;
+}
+
+#fw {
+  font-family: 'Gloria Hallelujah', sans-serif;
+}
+
+#me {
+  font-family: Cinzel, sans-serif;
+}
+
+#mylinks {
+  margin-bottom: 25px;
+}
+
+#proprietary {
+  color: red;
+}
