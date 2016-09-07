@@ -1,47 +1,12 @@
+/* General font */
 body {
   font-family: Roboto, sans-serif;
 }
 
+/* Don't allow images to overflow */
 img {
   max-width: 100%;
   height: auto;
-}
-
-.project {
-  margin-bottom: 20px;
-  padding-top:20px;
-}
-
-.project:hover {
-  background-color: #d9d9d9;
-  cursor: pointer;
-}
-
-hr {
-  border: none;
-  height: 4px;
-  width: 100%;
-  background-color: lightgray;
-}
-
-#lettero {
-  color: #8c8c8c;
-}
-
-@media screen and (min-width: 768px) {
-  #first-name-initial {
-    display: block;
-  }
-}
-
-@media screen and (max-width: 767px) {
-  #first-name-initial {
-    display: none;
-  }
-}
-
-.fa {
-  margin-right: 25px;
 }
 
 /* Center the images when they get their own row */
@@ -49,10 +14,56 @@ hr {
   margin: 0 auto;
 }
 
+/* Allow the background to wrap the project columns better */
+.project {
+  margin-bottom: 20px;
+  padding-top:20px;
+}
+
+/* Change color of project columns to emphasize that they can be clicked */
+.project:hover {
+  background-color: #d9d9d9;
+  cursor: pointer;
+}
+
+/* Style for horizontal line */
+hr {
+  border: none;
+  height: 4px;
+  width: 100%;
+  background-color: lightgray;
+}
+
+/* Color for big letter O */
+#lettero {
+  color: #8c8c8c;
+}
+
+/* Display big letter O when letter O does not get its own row */
+@media screen and (min-width: 768px) {
+  #first-name-initial {
+    display: block;
+  }
+}
+
+/* Don't display big letter O when letter O gets its own row */
+@media screen and (max-width: 767px) {
+  #first-name-initial {
+    display: none;
+  }
+}
+
+/* Add spacing between glyhp icons for personal links */
+.fa {
+  margin-right: 25px;
+}
+
+/* Font for featured work to present projects */
 #fw {
   font-family: 'Gloria Hallelujah', sans-serif;
 }
 
+/* Font for my name */
 #me {
   font-family: Cinzel, sans-serif;
 }
@@ -61,6 +72,7 @@ hr {
   margin-bottom: 25px;
 }
 
+/* Make the word proprietary stand out */
 #proprietary {
   color: red;
 }
