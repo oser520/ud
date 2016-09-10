@@ -53,7 +53,8 @@ module.exports = function(grunt) {
     validation: {
       options: {
         doctype: 'HTML5',
-        stoponerror: true
+        stoponerror: true,
+        relaxerror: ['Empty heading.']
       },
       files: {
 	       src: ['index.html']
