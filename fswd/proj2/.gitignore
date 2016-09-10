@@ -6,3 +6,6 @@ img/compressed/*
 
 # Ignore resized images
 img/responsive/*
+
+# Ignore minified CSS
+css/style.min.css

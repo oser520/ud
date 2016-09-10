@@ -38,11 +38,20 @@ module.exports = function(grunt) {
 	        dest: 'img/responsive'
 	      }]
       }
+    },
+    cssmin: {
+      target: {
+	      files: {
+	        'css/style.min.css' : 'css/style.css'
+	      }
+      }
     }
 	});
 	
 	grunt.loadNpmTasks('grunt-contrib-imagemin');
 	grunt.loadNpmTasks('grunt-responsive-images');
+	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.registerTask('imgopt', ['imagemin']);
-	grunt.registerTask('optsize', ['responsive_images']);
+	grunt.registerTask('sizeopt', ['responsive_images']);
+	grunt.registerTask('cssopt', ['cssmin']);
 };
