@@ -49,6 +49,15 @@ module.exports = function(grunt) {
       target: {
 	      files: { 'production/index.html': 'index.html' }
       }
+    },
+    validation: {
+      options: {
+        doctype: 'html5',
+        stoponerror: true
+      },
+      files: {
+	       src: ['index.html']
+      }
     }
 	});
 	
@@ -56,8 +65,11 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-responsive-images');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-htmlmin');
+	grunt.loadNpmTasks('grunt-html-validation');
+
 	grunt.registerTask('imgopt', ['imagemin']);
 	grunt.registerTask('sizeopt', ['responsive_images']);
 	grunt.registerTask('cssopt', ['cssmin']);
 	grunt.registerTask('htmlopt', ['htmlmin']);
+	grunt.registerTask('valid', ['validation']);
 };
