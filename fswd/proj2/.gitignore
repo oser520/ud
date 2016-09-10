@@ -12,3 +12,7 @@ css/style.min.css
 
 # Ignore production folder
 production/*
+
+# Ignore w3cErrors folder
+w3cErrors/*
+validation-status.json

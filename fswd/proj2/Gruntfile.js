@@ -52,7 +52,7 @@ module.exports = function(grunt) {
     },
     validation: {
       options: {
-        doctype: 'html5',
+        doctype: 'HTML5',
         stoponerror: true
       },
       files: {
@@ -65,7 +65,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-responsive-images');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-htmlmin');
-	grunt.loadNpmTasks('grunt-html-validation');
+	grunt.loadNpmTasks('grunt-w3c-html-validation');
 
 	grunt.registerTask('imgopt', ['imagemin']);
 	grunt.registerTask('sizeopt', ['responsive_images']);
