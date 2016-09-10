@@ -9,3 +9,6 @@ img/responsive/*
 
 # Ignore minified CSS
 css/style.min.css
+
+# Ignore production folder
+production/*

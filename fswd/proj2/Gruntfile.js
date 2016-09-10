@@ -41,9 +41,13 @@ module.exports = function(grunt) {
     },
     cssmin: {
       target: {
-	      files: {
-	        'css/style.min.css' : 'css/style.css'
-	      }
+	      files: { 'css/style.min.css': 'css/style.css' }
+      }
+    },
+    htmlmin: {
+      options: { collapseWhitespace: true },
+      target: {
+	      files: { 'production/index.html': 'index.html' }
       }
     }
 	});
@@ -51,7 +55,9 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-imagemin');
 	grunt.loadNpmTasks('grunt-responsive-images');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
+	grunt.loadNpmTasks('grunt-contrib-htmlmin');
 	grunt.registerTask('imgopt', ['imagemin']);
 	grunt.registerTask('sizeopt', ['responsive_images']);
 	grunt.registerTask('cssopt', ['cssmin']);
+	grunt.registerTask('htmlopt', ['htmlmin']);
 };
