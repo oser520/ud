@@ -1,3 +1,5 @@
+var fs = require('fs');
+
 module.exports = function(grunt) {
   grunt.initConfig({
     imagemin: {
@@ -69,6 +71,11 @@ module.exports = function(grunt) {
   grunt.registerTask('htmlopt', ['htmlmin']);
   grunt.registerTask('valid', ['validation']);
   grunt.registerTask('css', ['csslint']);
+  grunt.registerTask('clean', 'Remove temporary files', function() {
+    fs.unlink('production/img/chess-small.jpg');
+    fs.unlink('production/img/hf-trading-small.jpg');
+    fs.unlink('production/img/movie-studio-small.jpg');
+  });
   grunt.registerTask('default',
     [
       'validation',
@@ -76,7 +83,8 @@ module.exports = function(grunt) {
       'htmlmin',
       'cssmin',
       'responsive_images',
-      'imagemin'
+      'imagemin',
+      'clean'
     ]
   );
 };
