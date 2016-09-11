@@ -24,16 +24,5 @@ contains the following optimizations:
 In addition to optimizing the website, running `grunt` validates the
 correctness of the HTML and CSS, and any errors found are reported. If there is
 a desire to validate the HTML and CSS without optimizing the website, then it
-can be achieved by running
-
-```bash
-grunt valid
-```
-
-to validate the HTML, and
-
-```bash
-grunt css
-```
-
+can be achieved by running `grunt valid` to validate the HTML, and `grunt css`
 to validate the CSS.
