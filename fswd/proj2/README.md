@@ -26,3 +26,7 @@ correctness of the HTML and CSS, and any errors found are reported. If there is
 a desire to validate the HTML and CSS without optimizing the website, then it
 can be achieved by running `grunt valid` to validate the HTML, and `grunt css`
 to validate the CSS.
+
+To learn more about **GRUNT**, see their [getting started][1] guide.
+
+[1] http://gruntjs.com/getting-started
