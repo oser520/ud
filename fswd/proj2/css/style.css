@@ -35,20 +35,20 @@ hr {
 }
 
 /* Color for big letter O */
-#lettero {
+.greyletters {
   color: #8c8c8c;
 }
 
 /* Display big letter O when letter O does not get its own row */
 @media screen and (min-width: 768px) {
-  #first-name-initial {
+  .small-display-hide {
     display: block;
   }
 }
 
 /* Don't display big letter O when letter O gets its own row */
 @media screen and (max-width: 767px) {
-  #first-name-initial {
+  .small-display-hide {
     display: none;
   }
 }
@@ -59,20 +59,16 @@ hr {
 }
 
 /* Font for featured work to present projects */
-#fw {
+.gloria-font {
   font-family: 'Gloria Hallelujah', sans-serif;
 }
 
 /* Font for my name */
-#me {
+.cinzel-font {
   font-family: Cinzel, sans-serif;
 }
 
-#mylinks {
-  margin-bottom: 25px;
-}
-
 /* Make the word proprietary stand out */
-#proprietary {
+.red-font {
   color: red;
 }
