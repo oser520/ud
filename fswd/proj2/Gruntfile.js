@@ -29,7 +29,7 @@ module.exports = function(grunt) {
     /* Remove whitespace from the CSS */
     cssmin: {
       target: {
-        files: { 'production/css/style.min.css': 'css/style.css' }
+        files: { 'production/css/style.css': 'css/style.css' }
       }
     },
     /* Make the images smaller */
@@ -56,9 +56,9 @@ module.exports = function(grunt) {
       jpg: {
         options: { progressive: true },
         files: {
-          'production/img/chess.jgp': 'production/img/chess-small.jpg',
-          'production/img/hf-trading.jgp': 'production/img/hf-trading-small.jpg',
-          'production/img/movie-studio.jgp': 'production/img/movie-studio-small.jpg'
+          'production/img/chess.jpg': 'production/img/chess-small.jpg',
+          'production/img/hf-trading.jpg': 'production/img/hf-trading-small.jpg',
+          'production/img/movie-studio.jpg': 'production/img/movie-studio-small.jpg'
         }
       }
     }
