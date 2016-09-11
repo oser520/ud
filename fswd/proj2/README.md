@@ -29,4 +29,4 @@ to validate the CSS.
 
 To learn more about **GRUNT**, see their [getting started][1] guide.
 
-[1] http://gruntjs.com/getting-started
+[1]: http://gruntjs.com/getting-started
