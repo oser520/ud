@@ -59,6 +59,11 @@ module.exports = function(grunt) {
       files: {
 	       src: ['index.html']
       }
+    },
+    csslint: {
+      strict: {
+        src: ['css/style.css']
+      }
     }
 	});
 	
@@ -67,10 +72,12 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-htmlmin');
 	grunt.loadNpmTasks('grunt-w3c-html-validation');
+	grunt.loadNpmTasks('grunt-contrib-csslint');
 
 	grunt.registerTask('imgopt', ['imagemin']);
 	grunt.registerTask('sizeopt', ['responsive_images']);
 	grunt.registerTask('cssopt', ['cssmin']);
 	grunt.registerTask('htmlopt', ['htmlmin']);
 	grunt.registerTask('valid', ['validation']);
+	grunt.registerTask('css', ['csslint']);
 };
