@@ -16,9 +16,11 @@ ready.
 To generate the optimized version of the website, you can run **grunt**, which
 will generate a directory named production, which mirrors proj2, and contains
 the following optimizations:
+
 * minimized HTML
 * minimized CSS
 * smaller and compressed pictures
+
 In addition to optimizing the website, running **grunt** validates the
 correctness of the HTML and CSS, and if any errors are found they are reported.
 If thers is a desire to validate the HTML and CSS without optimizing the
