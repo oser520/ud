@@ -1,5 +1,5 @@
 {
-  "name": "Portfolio",
+  "name": "PortfolioWebsite",
   "version": "0.1.0",
   "description": "Omar Serrano's portofolio website of programming projects",
   "scripts": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/oser520/ud"
+    "url": "https://github.com/oserr/ud"
   },
   "keywords": [
     "programming",
