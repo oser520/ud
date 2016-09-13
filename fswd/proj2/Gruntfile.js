@@ -34,7 +34,7 @@ module.exports = function(grunt) {
     },
     /* Make the images smaller */
     responsive_images: {
-      ostask: {
+      projects: {
         options: {
           engine: 'im',
           concurrency: 3,
@@ -46,7 +46,27 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: '.',
-          src: ['img/**.{jpg,png}'],
+          src: [
+            'img/movie-studio.jpg',
+            'img/hf-trading.jpg',
+            'img/chess.jpg'
+          ],
+          dest: 'production/'
+        }]
+      },
+      omar_pic: {
+        options: {
+          engine: 'im',
+          concurrency: 3,
+          newFilesOnly: true,
+          sizes: [
+            {name: 'small', height: 110}
+          ]
+        },
+        files: [{
+          expand: true,
+          cwd: '.',
+          src: ['img/omar.jpg'],
           dest: 'production/'
         }]
       }
@@ -58,7 +78,8 @@ module.exports = function(grunt) {
         files: {
           'production/img/chess.jpg': 'production/img/chess-small.jpg',
           'production/img/hf-trading.jpg': 'production/img/hf-trading-small.jpg',
-          'production/img/movie-studio.jpg': 'production/img/movie-studio-small.jpg'
+          'production/img/movie-studio.jpg': 'production/img/movie-studio-small.jpg',
+          'production/img/omar.jpg': 'production/img/omar-small.jpg'
         }
       }
     }
@@ -84,6 +105,7 @@ module.exports = function(grunt) {
     fs.unlink('production/img/chess-small.jpg');
     fs.unlink('production/img/hf-trading-small.jpg');
     fs.unlink('production/img/movie-studio-small.jpg');
+    fs.unlink('production/img/omar-small.jpg');
   });
   grunt.registerTask('default',
     [
