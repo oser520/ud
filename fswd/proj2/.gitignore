@@ -16,3 +16,4 @@ production/*
 # Ignore w3cErrors folder
 w3cErrors/*
 validation-status.json
+validation-report.json
