@@ -39,17 +39,24 @@ hr {
   color: #8c8c8c;
 }
 
-/* Display big letter O when letter O does not get its own row */
+/* When the screen is large enough */
 @media screen and (min-width: 768px) {
+/* Align text to the right */
   .header-col3 {
     text-align: right;
   }
 }
 
-/* Don't display big letter O when letter O gets its own row */
+/* When the screen is small enough */
 @media screen and (max-width: 767px) {
+  /* Align text to the center */
   header {
     text-align: center;
+  }
+
+  /* Increase the padding to make the logo look more centered */
+  .adjustable-padding {
+    padding-left: 30px;
   }
 }
 
@@ -71,4 +78,9 @@ hr {
 /* Make the word proprietary stand out */
 .red-font {
   color: red;
+}
+
+/* Round corners */
+.round-corners {
+  border-radius: 40px;
 }
