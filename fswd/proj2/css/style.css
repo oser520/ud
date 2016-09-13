@@ -17,7 +17,7 @@ img {
 /* Allow the background to wrap the project columns better */
 .project {
   margin-bottom: 20px;
-  padding-top:20px;
+  padding-top: 20px;
 }
 
 /* Change color of project columns to emphasize that they can be clicked */
@@ -35,7 +35,7 @@ hr {
 }
 
 /* Color for big letter O */
-.greyletters {
+.grey-font {
   color: #8c8c8c;
 }
 
