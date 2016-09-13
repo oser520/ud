@@ -84,3 +84,8 @@ hr {
 .round-corners {
   border-radius: 40px;
 }
+
+/* Round corners */
+.top-margin {
+  margin-top: 10px;
+}
