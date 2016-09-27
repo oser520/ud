@@ -4,8 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>om-blog</title>
+    <title>{% block title %}{% endblock}</title>
+    {% block head %}
+    {% endblock %}
   </head>
   <body>
+    {% block main %}
+      {% block header %}{% endblock %}
+      {% block content %}{% endblock %}
+      {% block footer %}{% endblock %}
+    {% endblock %}
   </body>
 </html>
