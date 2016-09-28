@@ -5,8 +5,17 @@ import webapp2
 
 from google.appengine.api import users
 
+template_env = jinja2.Environment(loader=jinja2.FileSystemLoader(os.getcwd()))
+
 class MainPage(webapp2.RequestHandler):
     def get(self):
-        self.response.out.write('hello from om-blog')
+        template = template_env.get_template('content.html')
+        blog_titles = []
+        for i in range(100):
+            blog_titles += 'test' + str(i)
+        context = {
+            'blog_titles': blog_titles
+        }
+        self.response.out.write(template.render(context))
 
 application = webapp2.WSGIApplication([('/', MainPage)], debug=True)
