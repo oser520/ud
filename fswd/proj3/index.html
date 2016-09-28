@@ -5,14 +5,11 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{% block title %}{% endblock}</title>
-    {% block head %}
-    {% endblock %}
+    {% block head %}{% endblock %}
   </head>
   <body>
-    {% block main %}
-      {% block header %}{% endblock %}
+    <div class="content">
       {% block content %}{% endblock %}
-      {% block footer %}{% endblock %}
-    {% endblock %}
+    </div>
   </body>
 </html>
