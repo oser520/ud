@@ -12,7 +12,7 @@ class MainPage(webapp2.RequestHandler):
         template = template_env.get_template('content.html')
         blog_titles = []
         for i in range(100):
-            blog_titles += 'test' + str(i)
+            blog_titles.append('test' + str(i))
         context = {
             'blog_titles': blog_titles
         }
