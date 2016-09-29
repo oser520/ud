@@ -3,8 +3,6 @@ import jinja2
 import os
 import webapp2
 
-from google.appengine.api import users
-
 template_env = jinja2.Environment(loader=jinja2.FileSystemLoader(os.getcwd()))
 
 class MainPage(webapp2.RequestHandler):
