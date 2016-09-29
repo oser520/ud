@@ -6,7 +6,7 @@ class Account(ndb.Model):
 
 class Blog(ndb.Model):
     user = ndb.StringProperty()
-    date = ndb.StringProperty()
+    date = ndb.DateTimeProperty()
     blog = ndb.TextProperty()
     likes = ndb.IntegerProperty()
 
