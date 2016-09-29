@@ -11,5 +11,5 @@ class Blog(ndb.Model):
     likes = ndb.IntegerProperty()
 
 class LikesTable(ndb.Model):
-    blogkey = ndb.StringProperty()
+    blogkey = ndb.KeyProperty(kind=Blog)
     user = ndb.StringProperty()
