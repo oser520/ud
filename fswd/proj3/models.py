@@ -12,6 +12,15 @@ class Account(ndb.Model):
     password = ndb.StringProperty()
 
 class Blog(ndb.Model):
+    '''
+    Represents a blog entry.
+
+    Fields:
+        user: The blog author.
+        date: The date created.
+        blog: The blog content.
+        likes: The number of like votes.
+    '''
     user = ndb.StringProperty()
     date = ndb.DateTimeProperty()
     blog = ndb.TextProperty()
