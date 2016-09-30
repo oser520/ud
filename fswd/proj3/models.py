@@ -27,5 +27,12 @@ class Blog(ndb.Model):
     likes = ndb.IntegerProperty()
 
 class LikesTable(ndb.Model):
+    '''
+    Represents a mapping between blogs and people who've liked them.
+
+    Fields:
+        blogkey: The datastore key for a given blog.
+        user: A user who liked the blog.
+    '''
     blogkey = ndb.KeyProperty(kind=Blog)
     user = ndb.StringProperty()
