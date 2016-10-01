@@ -1,7 +1,9 @@
 {% extends "index.html" %}
 {% block title %}om-blog{% endblock %}
 {% block content %}
-  {% for item in blog_titles %}
-    <div class="item">{{ item }}</div>
-  {% endfor %}
+  <div class="container">
+    {% for item in blog_titles %}
+      <div class="item">{{ item }}</div>
+    {% endfor %}
+  </div>
 {% endblock %}
