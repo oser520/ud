@@ -12,7 +12,8 @@ class MainPage(webapp2.RequestHandler):
         for i in range(100):
             blog_titles.append('test' + str(i))
         context = {
-            'blog_titles': blog_titles
+            'blog_titles': blog_titles,
+            'loggedin': 'Login'
         }
         self.response.out.write(template.render(context))
 
