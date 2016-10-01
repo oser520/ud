@@ -2,6 +2,14 @@
 {% block title %}om-blog{% endblock %}
 {% block content %}
   <div class="container">
+    <header class="row">
+      <div class="col-md-9 col-xs-12">
+        <h1>om-blog</h1>
+      </div>
+      <div class="col-md-3 col-xs-12">
+        <a hrelf="/login">{{ loggedin }}</a>
+      </div>
+    </header>
     {% for item in blog_titles %}
       <div class="item">{{ item }}</div>
     {% endfor %}
