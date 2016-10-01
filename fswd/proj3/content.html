@@ -14,7 +14,7 @@
 {% endblock %}
 {% block content %}
   <div class="container">
-    <header class="row">
+    <header class="row header-background">
       <div class="col-md-9 col-xs-12">
         <h1 class="text-center">om-blog</h1>
       </div>
@@ -22,9 +22,21 @@
         <p><a class="btn btn-primary btn-lg h1 pull-right" href="/login" role="button">{{ loggedin }}</a></p>
       </div>
     </header>
+    <article class="blog-titles">
     {% for item in blog_titles %}
-      <div class="item">{{ item }}</div>
+      <section class="row item">{{ item }}
+        <header class="col-sm-12">
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.user }}</p>
+          <p>{{ item.date }}</p>
+          <p>{{ item.likes }}</p>
+        </header>
+        <div class="col-sm-12">
+          <p>{{ item.intro }}</p>
+        </div>
+      </section>
     {% endfor %}
+    </article>
   </div>
 {% endblock %}
 {% block js %}
