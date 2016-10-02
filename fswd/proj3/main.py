@@ -51,13 +51,17 @@ class MainPage(webapp2.RequestHandler):
         self.response.out.write(template.render(context))
 
 class LoginPage(webapp2.RequestHandler):
-    """Handles requests to login as a user of the blog site. """
+    """Handles requests to login as a user of the blog site and renders the
+    login page.
+    """
     def get(self):
         template = template_env.get_template('login.html')
         self.response.out.write(template.render())
 
 class RegisterPage(webapp2.RequestHandler):
-    """Handles requests to register as a user of the blog site. """
+    """Handles requests to register as a user of the blog site and renders the
+    registration page.
+    """
     def get(self):
         template = template_env.get_template('register.html')
         self.response.out.write(template.render())
