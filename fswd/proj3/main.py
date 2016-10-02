@@ -51,10 +51,9 @@ class MainPage(webapp2.RequestHandler):
         self.response.out.write(template.render(context))
 
 class LoginPage(webapp2.RequestHandler):
-    """Handles requests to login as a user of the blog site and renders the
-    login page.
-    """
+    """Handle requests to login as a user of the blog site."""
     def get(self):
+        """Render the login page."""
         template = template_env.get_template('login.html')
         self.response.out.write(template.render())
 
