@@ -1,6 +1,8 @@
 {% extends "index.html" %}
 {% block title %}om-blog{% endblock %}
-{% block head %}{% include "bootstrap-css.html" %}{% endblock %}
+{% block head %}
+  {% include "bootstrap-css.html" %}
+{% endblock %}
 {% block content %}
   <!-- TODO: move styling to css -->
   <div class="container" style="margin-top: 40px;">
@@ -29,7 +31,6 @@
   </div>
 {% endblock %}
 {% block js %}
-  <!-- Latest compiled and minified JavaScript -->
   {% include "jquery-js.html" %}
   {% include "bootstrap-js.html" %}
 {% endblock %}
