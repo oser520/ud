@@ -32,8 +32,19 @@ class MainPage(webapp2.RequestHandler):
     def get(self):
         template = template_env.get_template('content.html')
         blog_titles = []
-        for i in range(100):
-            blog_titles.append('test' + str(i))
+        title = 'This is my blog title'
+        user = 'om'
+        date = datetime.datetime.now()
+        likes = 111
+        intro =
+            '''
+            This is the first sentence of the blog.
+            This is the second sentence of the blog.
+            This is the 3rd sentence of the blog.
+            '''
+        for _ in range(20):
+            item = BlogItem(title, user, date, likes, intro)
+            blog_titles.append(item)
         context = {
             'blog_titles': blog_titles,
             'loggedin': 'Login'
