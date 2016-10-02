@@ -29,6 +29,7 @@ class BlogItem():
 template_env = jinja2.Environment(loader=jinja2.FileSystemLoader(os.getcwd()))
 
 class MainPage(webapp2.RequestHandler):
+    """Handle requests to the main blog site."""
     def get(self):
         template = template_env.get_template('content.html')
         blog_titles = []
