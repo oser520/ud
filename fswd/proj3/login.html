@@ -14,13 +14,17 @@
 {% block content %}
   <div class="container">
     <form method="post" action="/">
-      <div class="form-group">
-        <label for="input-username">Username</label>
-        <input type="text" class="form-control" id="input-username" name="user">
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="input-username">Username</label>
+          <input type="text" class="form-control" id="input-username" name="user">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="input-password">Password</label>
-        <input type="password" class="form-control" id="input-password" name="password">
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="input-password">Password</label>
+          <input type="password" class="form-control" id="input-password" name="password">
+        </div>
       </div>
       <button type="submit" class="btn btn-default">Submit</button>
     </form>
