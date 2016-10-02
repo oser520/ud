@@ -58,10 +58,9 @@ class LoginPage(webapp2.RequestHandler):
         self.response.out.write(template.render())
 
 class RegisterPage(webapp2.RequestHandler):
-    """Handles requests to register as a user of the blog site and renders the
-    registration page.
-    """
+    """Handle requests to register as a user of the blog site."""
     def get(self):
+        """Render the registration page."""
         template = template_env.get_template('register.html')
         self.response.out.write(template.render())
 
