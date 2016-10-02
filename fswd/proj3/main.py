@@ -49,9 +49,20 @@ class MainPage(webapp2.RequestHandler):
         self.response.out.write(template.render(context))
 
 class LoginPage(webapp2.RequestHandler):
-    """Handles requests to register or login as a user of the blog site. """
+    """Handles requests to login as a user of the blog site. """
     def get(self):
         template = template_env.get_template('login.html')
         self.response.out.write(template.render())
 
-application = webapp2.WSGIApplication([('/', MainPage), ('/login', LoginPage)], debug=True)
+class RegisterPage(webapp2.RequestHandler):
+    """Handles requests to register as a user of the blog site. """
+    def get(self):
+        template = template_env.get_template('register.html')
+        self.response.out.write(template.render())
+
+handlers = [
+    ('/', MainPage),
+    ('/login', LoginPage),
+    ('/register', RegisterPage)
+]
+application = webapp2.WSGIApplication(handlers, debug=True)
