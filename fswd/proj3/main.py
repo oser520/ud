@@ -82,10 +82,31 @@ class RegisterPage(webapp2.RequestHandler):
         template = template_env.get_template('register.html')
         self.response.out.write(template.render())
 
+class DoRegisterPage(webapp2.RequestHandler):
+    """Handle requests to register as a user of the blog site."""
+    def post(self):
+        """Registers a user.
+
+        Checks the username and password are valid, and the username is not
+        taken. If the username is taken, then the user is prompted for another
+        username. The user is redirected to the main blog page after
+        registration is complete.
+
+        TODO: implement
+        """
+        user = self.request.get('user')
+        if not user:
+            self.response.out.write('Error: The username cannot be empty\n')
+        pwd = self.request.get('password')
+        if not pwd:
+            self.response.out.write('Error: The password name cannot be empty\n')
+        self.response.out.write('Hello %s\nI have your password %s\n' % (user, pwd))
+
 handlers = [
     ('/', MainPage),
     ('/login', LoginPage),
     ('/do-login', DoLoginPage),
     ('/register', RegisterPage)
+    ('/do-register', DoRegisterPage),
 ]
 application = webapp2.WSGIApplication(handlers, debug=True)
