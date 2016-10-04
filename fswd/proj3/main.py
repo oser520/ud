@@ -58,6 +58,17 @@ class LoginPage(webapp2.RequestHandler):
         template = template_env.get_template('login.html')
         self.response.out.write(template.render())
 
+class DoLoginPage(webapp2.RequestHandler):
+    """Handle requests to login as a user of the blog site."""
+    def post(self):
+        """Verifies the user is registered.
+
+        If the user is registered, then he is redirected to the main page,
+        otherwise the user gets an error message indicating either the username
+        does not exist, or the password is incorrect.
+        """
+        self.response.out.write()
+
 class RegisterPage(webapp2.RequestHandler):
     """Handle requests to register as a user of the blog site."""
     def get(self):
