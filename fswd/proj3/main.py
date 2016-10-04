@@ -67,7 +67,13 @@ class DoLoginPage(webapp2.RequestHandler):
         otherwise the user gets an error message indicating either the username
         does not exist, or the password is incorrect.
         """
-        self.response.out.write()
+        user = self.request.get('user')
+        if not user:
+            self.response.out.write('Error: The username cannot be empty\n')
+        pwd = self.request.get('password')
+        if not pwd:
+            self.response.out.write('Error: The password name cannot be empty\n')
+        self.response.out.write('Hello %s\nI have your password %s\n' % (user, pwd))
 
 class RegisterPage(webapp2.RequestHandler):
     """Handle requests to register as a user of the blog site."""
@@ -79,6 +85,7 @@ class RegisterPage(webapp2.RequestHandler):
 handlers = [
     ('/', MainPage),
     ('/login', LoginPage),
+    ('/do-login', DoLoginPage),
     ('/register', RegisterPage)
 ]
 application = webapp2.WSGIApplication(handlers, debug=True)
