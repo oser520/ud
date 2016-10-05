@@ -66,6 +66,8 @@ class DoLoginPage(webapp2.RequestHandler):
         If the user is registered, then he is redirected to the main page,
         otherwise the user gets an error message indicating either the username
         does not exist, or the password is incorrect.
+
+        TODO: implement
         """
         user = self.request.get('user')
         if not user:

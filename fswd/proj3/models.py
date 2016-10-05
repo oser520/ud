@@ -5,10 +5,9 @@ class Account(ndb.Model):
     Represents a user with an account to write blogs.
 
     Fields:
-        user: The user name for the account.
+        id: The user name for the account.
         password: The password for the account.
     '''
-    user = ndb.StringProperty()
     password = ndb.StringProperty()
 
 class Blog(ndb.Model):
