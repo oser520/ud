@@ -23,4 +23,4 @@ class Blog(ndb.Model):
     user = ndb.StringProperty()
     date = ndb.DateTimeProperty()
     blog = ndb.TextProperty()
-    likes = ndb.IntegerProperty()
+    likes = ndb.KeyProperty(repeat=True)
