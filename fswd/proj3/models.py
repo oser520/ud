@@ -22,5 +22,18 @@ class Blog(ndb.Model):
     '''
     user = ndb.StringProperty(required=True)
     date = ndb.DateTimeProperty(required=True)
-    blog = ndb.TextProperty(required=True)
+    blog = ndb.TextProperty(required=True, validator=)
     likes = ndb.KeyProperty(repeat=True)
+
+def check_blog_entry(prop, content):
+    """Verifies that the blog entry contains content.
+
+    If the blog entry contains content, the content if returned, otherwise a
+    datastore_errors.BadValueError is returned.
+
+    Args:
+        prop: The ndb property type.
+        val: The blog content.
+    """
+    if not content.strip(): raise datastore_erros.BadValueError
+    return content
