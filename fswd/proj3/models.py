@@ -21,6 +21,6 @@ class Blog(ndb.Model):
         likes: The number of like votes.
     '''
     user = ndb.StringProperty(required=True)
-    date = ndb.DateTimeProperty()
+    date = ndb.DateTimeProperty(required=True)
     blog = ndb.TextProperty()
     likes = ndb.KeyProperty(repeat=True)
