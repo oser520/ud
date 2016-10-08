@@ -8,7 +8,7 @@ class Account(ndb.Model):
         id: The user name for the account.
         password: The password for the account.
     '''
-    password = ndb.StringProperty()
+    password = ndb.StringProperty(required=True)
 
 class Blog(ndb.Model):
     '''
