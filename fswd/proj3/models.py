@@ -27,7 +27,7 @@ class Blog(ndb.Model):
     title = ndb.StringProperty(required=True)
     date = ndb.DateTimeProperty(required=True)
     blog = ndb.TextProperty(required=True, validator=check_blog_entry)
-    likes = ndb.KeyProperty(kind=Account, repeat=True)
+    likes = ndb.KeyProperty(kind=Account, repeated=True)
 
 def check_blog_entry(prop, content):
     """Verifies that the blog entry contains content.
