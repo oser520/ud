@@ -7,8 +7,10 @@ class Account(ndb.Model):
     Fields:
         id: The user name for the account.
         password: The password for the account.
+        salt: The salt for the password for login cookies.
     '''
     password = ndb.StringProperty(required=True)
+    salt = ndb.IntegerProperty(required=True)
 
 class Blog(ndb.Model):
     '''
