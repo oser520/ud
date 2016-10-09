@@ -15,6 +15,8 @@ class Blog(ndb.Model):
     Represents a blog entry.
 
     Fields:
+        id: Concatenation of Account.id, blog title, and datetime blog is
+            created, i.e., Account.id-title-datetime.
         user: The blog author.
         title: The blog title.
         date: The date-time the blog was created.
