@@ -31,6 +31,37 @@ class Blog(ndb.Model):
     blog = ndb.TextProperty(required=True, validator=check_blog_entry)
     likes = ndb.KeyProperty(kind=Account, repeated=True)
 
+    @property
+    def tease(self):
+        """Computes the first 25 to 35 words of the blog.
+
+        TODO: implement
+        """
+        MIN_TOKENS_IN_TEASE = 200
+        MAX_TOKENS_IN_TEASE = 350
+        if len(blog) < MIN_TOKENS_IN_TEASE:
+            return blog
+        index = MIN_TOKENS_IN_TEASE - 1
+        space_index = 0
+        found_dot = False
+        # Try to parse full words, but not more than contain
+        # MAX_TOKENS_IN_TEASE.
+        while index < len(blog) and index < MAX_TOKENS_IN_TEASE:
+            c = blog[index]
+            if c.isspace():
+                space_index = index
+            if c == '.':
+                found_dot = True
+                break
+            index += 1
+        if found_dot:
+            return blog[::index]
+        if space_index:
+            return blog[::space_index].rstrip()
+        if MAX_TOKENS_IN_TEASE > len(blog):
+            return blog
+        return blog[::MAX_TOKENS_IN_TEASE].rstrip()
+
 def check_blog_entry(prop, content):
     """Verifies that the blog entry contains content.
 
