@@ -16,11 +16,13 @@ class Blog(ndb.Model):
 
     Fields:
         user: The blog author.
-        date: The date created.
+        title: The blog title.
+        date: The date-time the blog was created.
         blog: The blog content.
         likes: The number of like votes.
     '''
     user = ndb.StringProperty(required=True)
+    title = ndb.StringProperty(required=True)
     date = ndb.DateTimeProperty(required=True)
     blog = ndb.TextProperty(required=True, validator=check_blog_entry)
     likes = ndb.KeyProperty(kind=Account, repeat=True)
