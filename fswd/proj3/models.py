@@ -25,7 +25,7 @@ class Blog(ndb.Model):
     '''
     user = ndb.StringProperty(required=True)
     title = ndb.StringProperty(required=True)
-    date = ndb.DateTimeProperty(required=True)
+    date = ndb.DateTimeProperty(required=True, auto_now_add=True)
     blog = ndb.TextProperty(required=True, validator=check_blog_entry)
     likes = ndb.KeyProperty(kind=Account, repeated=True)
 
