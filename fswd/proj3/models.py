@@ -33,10 +33,7 @@ class Blog(ndb.Model):
 
     @property
     def tease(self):
-        """Computes the first 25 to 35 words of the blog.
-
-        TODO: implement
-        """
+        """Computes the tease of the blog."""
         MIN_TOKENS_IN_TEASE = 200
         MAX_TOKENS_IN_TEASE = 350
         if len(blog) < MIN_TOKENS_IN_TEASE:
