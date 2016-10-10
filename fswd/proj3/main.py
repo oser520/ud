@@ -96,13 +96,31 @@ class DoRegisterPage(webapp2.RequestHandler):
 
         TODO: implement
         """
+        # Validate username
         user = self.request.get('user')
+        user = process_username(user)
         if not user:
-            self.response.out.write('Error: The username cannot be empty\n')
+            s = 'Error: The username %s is not valid\n'
+            self.response.out.write(s % user)
+        # Check that username doesn't already exist
+        account = Account.get_by_id(user)
+        if account:
+            s = 'Error: The username %s already exists\n'
+            self.response.out.write(s % user)
+        # Validate password
         pwd = self.request.get('password')
-        if not pwd:
-            self.response.out.write('Error: The password name cannot be empty\n')
-        self.response.out.write('Hello %s\nI have your password %s\n' % (user, pwd))
+        if not process_password(pwd):
+            self.response.out.write('Error: The password is not valid\n')
+        # Create account
+        salt = get_salt()
+        account = Account(id=user, password=pwd, salt=salt)
+        try:
+            account.put()
+        except TransactionFailedError:
+            s = 'Error: Unable to create account. Please try again.'
+            self.response.out.write(s)
+        # Redirect to main page with full access
+        self.redirect('/')
 
 handlers = [
     ('/', MainPage),
