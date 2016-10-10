@@ -11,4 +11,5 @@ def process_username(username):
     Args:
         username: The username to validate.
     """
-    return re.search(r'^[a-z][a-z\d._]{3,35}', username.lower())
+    username = username.strip().lower()
+    return re.match(r'[a-z][a-z\d._]{3,35}$', username)
