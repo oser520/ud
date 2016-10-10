@@ -1,5 +1,6 @@
 import re
 import string
+import random
 
 def process_username(username):
     """Converts the username to lowercase, and returns a MatchObject if the
@@ -33,3 +34,14 @@ def process_password(password):
     for c in password:
         if c in string.digits: return True
     return False
+
+def create_salt(length=16):
+    """Generate a random salt value for a password.
+
+    Args:
+        length: The lenght of the salt value, with default value of 16.
+    """
+    if not length:
+        raise ValueError('The salt length must be a positive integer')
+    ALPHABET = string.ascii_letters + string.digits
+    return ''.join(random.choice(ALPHABET) for _ in range(length))
