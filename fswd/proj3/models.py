@@ -59,19 +59,6 @@ class Blog(ndb.Model):
             return blog
         return blog[::MAX_TOKENS_IN_TEASE].rstrip()
 
-def check_blog_entry(prop, content):
-    """Verifies that the blog entry is not empty.
-
-    If the blog entry contains content, the content if returned, otherwise a
-    datastore_errors.BadValueError is returned.
-
-    Args:
-        prop: The ndb property type.
-        val: The blog content.
-    """
-    if not content.strip(): raise datastore_erros.BadValueError
-    return content
-
 class BlogComment(ndb.Model):
     '''
     A blog commment.
@@ -86,3 +73,14 @@ class BlogComment(ndb.Model):
     user = ndb.StringProperty(required=True)
     date = ndb.DateTimeProperty(required=True, auto_now_add=True)
     comment = ndb.TextProperty(required=True, validator=check_blog_entry)
+
+def check_str_not_empty(prop, content):
+    """Returns a datastore_errors.BadValueError if the string value of a Text
+    or String property is empty.
+
+    Args:
+        prop: The ndb property type.
+        val: The blog content.
+    """
+    if not content.strip(): raise datastore_erros.BadValueError
+    return content
