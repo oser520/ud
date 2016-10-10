@@ -28,7 +28,7 @@ class Blog(ndb.Model):
     user = ndb.StringProperty(required=True)
     title = ndb.StringProperty(required=True)
     date = ndb.DateTimeProperty(required=True, auto_now_add=True)
-    blog = ndb.TextProperty(required=True, validator=check_blog_entry)
+    blog = ndb.TextProperty(required=True, validator=check_str_not_empty)
     likes = ndb.KeyProperty(kind=Account, repeated=True)
 
     @property
@@ -72,7 +72,7 @@ class BlogComment(ndb.Model):
     blog = ndb.KeyProperty(required=True)
     user = ndb.StringProperty(required=True)
     date = ndb.DateTimeProperty(required=True, auto_now_add=True)
-    comment = ndb.TextProperty(required=True, validator=check_blog_entry)
+    comment = ndb.TextProperty(required=True, validator=check_str_not_empty)
 
 def check_str_not_empty(prop, content):
     """Returns a datastore_errors.BadValueError if the string value of a Text
