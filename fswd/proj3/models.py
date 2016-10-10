@@ -60,7 +60,7 @@ class Blog(ndb.Model):
         return blog[::MAX_TOKENS_IN_TEASE].rstrip()
 
 def check_blog_entry(prop, content):
-    """Verifies that the blog entry contains content.
+    """Verifies that the blog entry is not empty.
 
     If the blog entry contains content, the content if returned, otherwise a
     datastore_errors.BadValueError is returned.
