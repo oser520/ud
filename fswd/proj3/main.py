@@ -123,6 +123,10 @@ class DoRegisterPage(webapp2.RequestHandler):
         except TransactionFailedError:
             s = 'Error: Unable to create account. Please try again.'
             self.response.out.write(s)
+        # set session cookies
+        # TODO: implement correctly
+        self.response.set_cookie('user', 'willy')
+        self.response.set_cookie('pwd', 'weak')
         # Redirect to main page with full access
         self.redirect('/')
 
