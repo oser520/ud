@@ -71,3 +71,18 @@ def check_blog_entry(prop, content):
     """
     if not content.strip(): raise datastore_erros.BadValueError
     return content
+
+class BlogComment(ndb.Model):
+    '''
+    A blog commment.
+
+    Fields:
+        blog: The key property of the blog for which this is a comment.
+        user: The user who posted this comment.
+        date: The date-time the comment was posted.
+        comment: The comment.
+    '''
+    blog = ndb.KeyProperty(required=True)
+    user = ndb.StringProperty(required=True)
+    date = ndb.DateTimeProperty(required=True, auto_now_add=True)
+    comment = ndb.TextProperty(required=True, validator=check_blog_entry)
