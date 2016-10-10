@@ -112,7 +112,7 @@ class DoRegisterPage(webapp2.RequestHandler):
         if not process_password(pwd):
             self.response.out.write('Error: The password is not valid\n')
         # Create account
-        salt = get_salt()
+        salt = create_salt()
         account = Account(id=user, password=pwd, salt=salt)
         try:
             account.put()
