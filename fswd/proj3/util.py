@@ -36,7 +36,7 @@ def process_password(password):
         if c in string.digits: return True
     return False
 
-def create_salt(length=16):
+def gensalt(length=16):
     """Generate a random salt value for a password.
 
     Args:

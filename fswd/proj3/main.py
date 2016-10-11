@@ -124,7 +124,7 @@ class DoRegisterPage(webapp2.RequestHandler):
             self.response.out.write('Error: The password is not valid\n')
             return
         # Create account
-        salt = util.create_salt()
+        salt = util.gensalt()
         hsh = hmac.new(salt, pwd).hexdigest()
         account = models.Account(id=user, salt=salt, psswdhash=hsh)
         try:
