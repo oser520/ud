@@ -1,6 +1,7 @@
+import hmac
+import random
 import re
 import string
-import random
 
 def process_username(username):
     """Converts the username to lowercase, and returns a MatchObject if the
