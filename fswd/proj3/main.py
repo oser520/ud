@@ -108,15 +108,18 @@ class DoRegisterPage(webapp2.RequestHandler):
         if not user:
             s = 'Error: The username %s is not valid\n'
             self.response.out.write(s % user)
+            return
         # Check that username doesn't already exist
         account = models.Account.get_by_id(user)
         if account:
             s = 'Error: The username %s already exists\n'
             self.response.out.write(s % user)
+            return
         # Validate password
         pwd = self.request.get('password')
         if not util.process_password(pwd):
             self.response.out.write('Error: The password is not valid\n')
+            return
         # Create account
         salt = create_salt()
         account = models.Account(id=user, password=pwd, salt=salt)
@@ -125,6 +128,7 @@ class DoRegisterPage(webapp2.RequestHandler):
         except TransactionFailedError:
             s = 'Error: Unable to create account. Please try again.'
             self.response.out.write(s)
+            return
         # set session cookies
         # TODO: implement correctly
         self.response.set_cookie('user', 'willy')
