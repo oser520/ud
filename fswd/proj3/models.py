@@ -1,5 +1,16 @@
 from google.appengine.ext import ndb
 
+def check_str_not_empty(prop, content):
+    """Returns a datastore_errors.BadValueError if the string value of a Text
+    or String property is empty.
+
+    Args:
+        prop: The ndb property type.
+        val: The blog content.
+    """
+    if not content.strip(): raise datastore_erros.BadValueError
+    return content
+
 class Account(ndb.Model):
     '''
     Represents a user with an account to write blogs.
@@ -73,14 +84,3 @@ class BlogComment(ndb.Model):
     user = ndb.StringProperty(required=True)
     date = ndb.DateTimeProperty(required=True, auto_now_add=True)
     comment = ndb.TextProperty(required=True, validator=check_str_not_empty)
-
-def check_str_not_empty(prop, content):
-    """Returns a datastore_errors.BadValueError if the string value of a Text
-    or String property is empty.
-
-    Args:
-        prop: The ndb property type.
-        val: The blog content.
-    """
-    if not content.strip(): raise datastore_erros.BadValueError
-    return content
