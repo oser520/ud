@@ -103,7 +103,7 @@ class DoRegisterPage(webapp2.RequestHandler):
         """
         # Validate username
         user = self.request.get('user')
-        user = process_username(user)
+        user = util.process_username(user)
         if not user:
             s = 'Error: The username %s is not valid\n'
             self.response.out.write(s % user)
@@ -114,7 +114,7 @@ class DoRegisterPage(webapp2.RequestHandler):
             self.response.out.write(s % user)
         # Validate password
         pwd = self.request.get('password')
-        if not process_password(pwd):
+        if not util.process_password(pwd):
             self.response.out.write('Error: The password is not valid\n')
         # Create account
         salt = create_salt()
