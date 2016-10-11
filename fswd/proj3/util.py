@@ -47,7 +47,7 @@ def gensalt(length=16):
     ALPHABET = string.ascii_letters + string.digits
     return ''.join(random.choice(ALPHABET) for _ in range(length))
 
-def create_psswd_hash(salt, psswd):
+def gethsh(salt, psswd):
     """Create a hash from a salt and password.
 
     Args:
@@ -56,7 +56,7 @@ def create_psswd_hash(salt, psswd):
     """
     if not salt or not psswd:
         raise ValueError('The salt and password cannot be empty')
-    return hmac.new(salt, psswd)
+    return hmac.new(salt, psswd).hexdigest()
 
 def is_psswd_hash(salt, psswd, hsh):
     """Verify the hash equals the hash fo the salt and password.

@@ -125,7 +125,7 @@ class DoRegisterPage(webapp2.RequestHandler):
             return
         # Create account
         salt = util.gensalt()
-        hsh = hmac.new(salt, pwd).hexdigest()
+        hsh = util.gethsh(salt, pwd)
         account = models.Account(id=user, salt=salt, psswdhash=hsh)
         try:
             account.put()
