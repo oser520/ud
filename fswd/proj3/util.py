@@ -46,3 +46,14 @@ def create_salt(length=16):
         raise ValueError('The salt length must be a positive integer')
     ALPHABET = string.ascii_letters + string.digits
     return ''.join(random.choice(ALPHABET) for _ in range(length))
+
+def create_psswd_hash(salt, psswd):
+    """Create a hash from a salt and password.
+
+    Args:
+        salt: The salt value. Cannot be empty.
+        psswd: The password value. Cannot be empty.
+    """
+    if not salt or not psswd:
+        raise ValueError('The salt and password cannot be empty')
+    return hmac.new(salt, psswd)
