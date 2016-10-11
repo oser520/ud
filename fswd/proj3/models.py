@@ -6,11 +6,11 @@ class Account(ndb.Model):
 
     Fields:
         id: The user name for the account.
-        password: The password for the account.
         salt: The salt for the password for login cookies.
+        psswdhash: The hash of the salt and the password.
     '''
-    password = ndb.StringProperty(required=True)
     salt = ndb.IntegerProperty(required=True)
+    psswdhash = ndb.StringProperty(required=True)
 
 class Blog(ndb.Model):
     '''
