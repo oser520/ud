@@ -4,6 +4,7 @@ import os
 import webapp2
 import util
 import models
+from google.appengine.ext import ndb
 
 class BlogItem():
     """An item with basic info about a blog, including the title, author, date
@@ -126,7 +127,7 @@ class DoRegisterPage(webapp2.RequestHandler):
         account = models.Account(id=user, password=pwd, salt=salt)
         try:
             account.put()
-        except TransactionFailedError:
+        except ndb.TransactionFailedError:
             s = 'Error: Unable to create account. Please try again.'
             self.response.out.write(s)
             return
