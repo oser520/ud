@@ -4,6 +4,7 @@ import os
 import webapp2
 import util
 import models
+import hmac
 from google.appengine.ext import ndb
 
 class BlogItem():
@@ -124,7 +125,8 @@ class DoRegisterPage(webapp2.RequestHandler):
             return
         # Create account
         salt = util.create_salt()
-        account = models.Account(id=user, password=pwd, salt=salt)
+        hsh = hmac.new(salt, pwd).hexdigest()
+        account = models.Account(id=user, salt=salt, psswdhash=hsh)
         try:
             account.put()
         except ndb.TransactionFailedError:

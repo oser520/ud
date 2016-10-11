@@ -20,7 +20,7 @@ class Account(ndb.Model):
         salt: The salt for the password for login cookies.
         psswdhash: The hash of the salt and the password.
     '''
-    salt = ndb.IntegerProperty(required=True)
+    salt = ndb.StringProperty(required=True)
     psswdhash = ndb.StringProperty(required=True)
 
 class Blog(ndb.Model):
