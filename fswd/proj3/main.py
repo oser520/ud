@@ -2,6 +2,7 @@ import datetime
 import jinja2
 import os
 import webapp2
+import util
 
 class BlogItem():
     """An item with basic info about a blog, including the title, author, date
