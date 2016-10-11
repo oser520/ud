@@ -3,6 +3,7 @@ import jinja2
 import os
 import webapp2
 import util
+import models
 
 class BlogItem():
     """An item with basic info about a blog, including the title, author, date
@@ -108,7 +109,7 @@ class DoRegisterPage(webapp2.RequestHandler):
             s = 'Error: The username %s is not valid\n'
             self.response.out.write(s % user)
         # Check that username doesn't already exist
-        account = Account.get_by_id(user)
+        account = models.Account.get_by_id(user)
         if account:
             s = 'Error: The username %s already exists\n'
             self.response.out.write(s % user)
@@ -118,7 +119,7 @@ class DoRegisterPage(webapp2.RequestHandler):
             self.response.out.write('Error: The password is not valid\n')
         # Create account
         salt = create_salt()
-        account = Account(id=user, password=pwd, salt=salt)
+        account = models.Account(id=user, password=pwd, salt=salt)
         try:
             account.put()
         except TransactionFailedError:
