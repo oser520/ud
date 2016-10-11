@@ -108,18 +108,23 @@ class DoRegisterPage(webapp2.RequestHandler):
         user = self.request.get('user')
         user = util.process_username(user)
         if not user:
+            # TODO: redirect to register page, but highlight username input
+            # and specify requirements.
             s = 'Error: The username %s is not valid\n'
             self.response.out.write(s % user)
             return
         # Check that username doesn't already exist
         account = models.Account.get_by_id(user)
         if account:
+            # TODO: redirect to register page, but highlight username input
             s = 'Error: The username %s already exists\n'
             self.response.out.write(s % user)
             return
         # Validate password
         pwd = self.request.get('password')
         if not util.process_password(pwd):
+            # TODO: redirect to register page, but highlight password input
+            # and specify requirements.
             self.response.out.write('Error: The password is not valid\n')
             return
         # Create account
