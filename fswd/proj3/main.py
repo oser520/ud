@@ -139,8 +139,8 @@ class DoRegisterPage(webapp2.RequestHandler):
             return
         # set session cookies
         # TODO: implement correctly
-        self.response.set_cookie('user', 'willy')
-        self.response.set_cookie('pwd', 'weak')
+        self.response.set_cookie('name', user)
+        self.response.set_cookie('secret', hsh)
         # Redirect to main page with full access
         self.redirect('/')
 
