@@ -134,7 +134,7 @@ handlers = [
     ('/', MainPage),
     ('/login', LoginPage),
     ('/do-login', DoLoginPage),
-    ('/register', RegisterPage)
+    ('/register', RegisterPage),
     ('/do-register', DoRegisterPage),
 ]
 application = webapp2.WSGIApplication(handlers, debug=True)
