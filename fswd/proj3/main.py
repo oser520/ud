@@ -109,6 +109,7 @@ class DoRegisterPage(webapp2.RequestHandler):
             s = 'Error: The username %s is not valid\n'
             self.response.out.write(s % user)
             return
+        user = user.group()
         # Check that username doesn't already exist
         account = models.Account.get_by_id(user)
         if account:
