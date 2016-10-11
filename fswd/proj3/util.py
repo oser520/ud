@@ -67,3 +67,13 @@ def is_psswd_hash(salt, psswd, hsh):
         hsh: The hash value. Cannot be empty.
     """
     return hsh == hmac.new(salt, psswd)
+
+def username_exists(username):
+    """Return true if the username exists, false otherwise.
+
+    Args:
+        username: The username value.
+    """
+    account = Account.get_by_id(username)
+    if account: return True
+    return False
