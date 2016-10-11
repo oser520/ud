@@ -15,7 +15,9 @@ def process_username(username):
         username: The username to validate.
     """
     username = username.strip().lower()
-    return re.match(r'[a-z][a-z\d._]{3,35}$', username)
+    m = re.match(r'[a-z][a-z\d._]{3,35}$', username)
+    if m: return m.group()
+    return None
 
 def process_password(password):
     """Returns true if the password is valid, false otherwise.
