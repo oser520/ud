@@ -57,3 +57,13 @@ def create_psswd_hash(salt, psswd):
     if not salt or not psswd:
         raise ValueError('The salt and password cannot be empty')
     return hmac.new(salt, psswd)
+
+def is_psswd_hash(salt, psswd, hsh):
+    """Verify the hash equals the hash fo the salt and password.
+
+    Args:
+        salt: The salt value. Cannot be empty.
+        psswd: The password value. Cannot be empty.
+        hsh: The hash value. Cannot be empty.
+    """
+    return hsh == hmac.new(salt, psswd)
