@@ -74,6 +74,6 @@ def username_exists(username):
     Args:
         username: The username value.
     """
-    account = Account.get_by_id(username)
-    if account: return True
+    if Account.get_by_id(username):
+        return True
     return False
