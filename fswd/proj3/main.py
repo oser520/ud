@@ -36,8 +36,8 @@ class MainPage(webapp2.RequestHandler):
     """Handle requests to the main blog site."""
     def get(self):
         # Get session cookies
-        user = self.request.cookies.get('user')
-        pwd = self.request.cookies.get('pwd')
+        user = self.request.cookies.get('name')
+        pwd = self.request.cookies.get('secret')
         # TODO: use session cookies
         template = template_env.get_template('content.html')
         blog_titles = []
