@@ -2,6 +2,7 @@ import hmac
 import random
 import re
 import string
+from models import Account
 
 def process_username(username):
     """Converts the username to lowercase, and returns a MatchObject if the
@@ -93,7 +94,7 @@ def is_session_req(req):
     secret = req.cookies.get('secret')
     if not secret:
         return (True, False)
-    account = models.Account.get_by_id(name)
+    account = Account.get_by_id(name)
     if not account:
         return (True, False)
     if secret != account.psswdhash:
