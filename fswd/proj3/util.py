@@ -79,3 +79,23 @@ def username_exists(username):
     if Account.get_by_id(username):
         return True
     return False
+
+def is_session_req(req):
+    """Return a pair of bools indicating if the name and secret cookies are set
+    and whether they are set for a valid account.
+
+    Args:
+        req: The request object.
+    """
+    name = req.cookies.get('name')
+    if not name:
+        return (False, False)
+    secret = req.cookies.get('secret')
+    if not secret:
+        return (True, False)
+    account = models.Account.get_by_id(name)
+    if not account:
+        return (True, False)
+    if secret != account.psswdhash:
+        return (True, False)
+    return (True, True)
