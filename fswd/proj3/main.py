@@ -37,7 +37,8 @@ class MainPage(webapp2.RequestHandler):
     def get(self):
         # Get session status
         logged_status = util.is_session_req(self.request)
-        # TODO: use session cookies
+        # TODO: if logged_status[0] is true and logged_status[1] is false,
+        # then do something to clear cookies
         template = template_env.get_template('content.html')
         blog_titles = []
         title = 'This is my blog title'
