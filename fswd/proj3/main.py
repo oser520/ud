@@ -80,6 +80,7 @@ class DoLoginPage(webapp2.RequestHandler):
         user = self.request.get('user')
         if not user:
             self.response.out.write('Error: The username cannot be empty\n')
+            return
         pwd = self.request.get('password')
         if not pwd:
             self.response.out.write('Error: The password name cannot be empty\n')
