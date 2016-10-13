@@ -79,6 +79,8 @@ class DoLoginPage(webapp2.RequestHandler):
         """
         user = self.request.get('user')
         if not user:
+            # TODO: return to login page, but hightlight input box and list
+            # requirements for a valid user name
             self.response.out.write('Error: The username cannot be empty\n')
             return
         pwd = self.request.get('password')
