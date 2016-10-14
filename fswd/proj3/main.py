@@ -63,6 +63,7 @@ class LoginPage(webapp2.RequestHandler):
     """Handle requests to login as a user of the blog site."""
     def get(self):
         """Render the login page."""
+        # TODO: get username and password from form and login user to system
         template = template_env.get_template('login.html')
         self.response.out.write(template.render())
 
