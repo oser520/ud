@@ -150,6 +150,8 @@ class DoRegisterPage(webapp2.RequestHandler):
         # Redirect to main page with full access
         self.redirect('/')
 
+# TODO: create a signout handler that handles a user's request to sign out
+
 handlers = [
     ('/', MainPage),
     ('/login', LoginPage),
