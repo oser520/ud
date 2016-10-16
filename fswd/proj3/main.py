@@ -156,6 +156,8 @@ class DoRegisterPage(webapp2.RequestHandler):
 
 # TODO: create a request handler to compose a blog - only for users who are logged in
 
+# TODO: create a request handler to save a blog
+
 handlers = [
     ('/', MainPage),
     ('/login', LoginPage),
