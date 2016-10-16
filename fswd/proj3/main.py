@@ -158,6 +158,8 @@ class DoRegisterPage(webapp2.RequestHandler):
 
 # TODO: create a request handler to save a blog
 
+# TODO: create a request handler to write a comment on a blog
+
 handlers = [
     ('/', MainPage),
     ('/login', LoginPage),
