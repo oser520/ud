@@ -151,6 +151,8 @@ class DoRegisterPage(webapp2.RequestHandler):
         self.redirect('/')
 
 # TODO: create a signout handler that handles a user's request to sign out
+# This handler should clear the cookies and redirect the user to the main
+# blog page.
 
 handlers = [
     ('/', MainPage),
