@@ -154,6 +154,8 @@ class DoRegisterPage(webapp2.RequestHandler):
 # This handler should clear the cookies and redirect the user to the main
 # blog page.
 
+# TODO: create a request handler to compose a blog - only for users who are logged in
+
 handlers = [
     ('/', MainPage),
     ('/login', LoginPage),
