@@ -150,13 +150,19 @@ class DoRegisterPage(webapp2.RequestHandler):
         # Redirect to main page with full access
         self.redirect('/')
 
+class SaveBlogHandler(webapp2.RequestHandler):
+    """Handle requests to save a blog."""
+    def get(self):
+        """TODO: implement logic to save a blog after it has been edited, or
+        upon creation.
+        """
+        pass
+
 # TODO: create a signout handler that handles a user's request to sign out
 # This handler should clear the cookies and redirect the user to the main
 # blog page.
 
 # TODO: create a request handler to compose a blog - only for users who are logged in
-
-# TODO: create a request handler to save a blog
 
 # TODO: create a request handler to write a comment on a blog
 
