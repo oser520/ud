@@ -156,7 +156,7 @@ class SaveBlogHandler(webapp2.RequestHandler):
         """TODO: implement logic to save a blog after it has been edited, or
         upon creation.
         """
-        pass
+        self.response.out.write('SaveBlogHandler not implemented yet')
 
 # TODO: create a signout handler that handles a user's request to sign out
 # This handler should clear the cookies and redirect the user to the main
