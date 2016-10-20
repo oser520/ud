@@ -158,13 +158,17 @@ class SaveBlogHandler(webapp2.RequestHandler):
         """
         self.response.out.write('SaveBlogHandler not implemented yet')
 
+class CreateCommentHandler(webapp2.RequestHandler):
+    """Handle requests to create a comment on a blog."""
+    def get(self):
+        """TODO: implement"""
+        self.response.out.write('CreateCommentHandler not implemented yet')
+
 # TODO: create a signout handler that handles a user's request to sign out
 # This handler should clear the cookies and redirect the user to the main
 # blog page.
 
 # TODO: create a request handler to compose a blog - only for users who are logged in
-
-# TODO: create a request handler to write a comment on a blog
 
 # TODO: create a request handler to edit a blog
 
