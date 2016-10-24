@@ -16,9 +16,7 @@ function addEvent(el, event, callback) {
  * @return True if the username is valid, false otherwise.
  */
 function checkUsername(el) {
-  var response = {name: el.elements.user.value, good: false};
-  response.good = /^[a-z][a-z\d._]{3,35}$/.test(response.name);
-  return response;
+  return /^[a-z][a-z\d._]{3,35}$/.test(response.name);
 }
 
 /* Checks that the password is valid.
