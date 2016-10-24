@@ -29,12 +29,17 @@ function enableClass(flag, id, className) {
 /* Checks that the username is valid.
  * @detail The username is valid if it contains between 3 and 35 alphanumeric
  * characters, a dot, or an underscore, and it begins with a letter.
- * @param el The element where the user input is located.
+ * @param formEl The form element where the user input is located.
+ * @param id The id of the form element.
+ * @param className The name of the class that enables a warning on the
+ * username.
  * @return True if the username is valid, false otherwise.
  */
-function checkUsername(el) {
+function checkUsername(formEl, id, className) {
   var val = el.elements.user.value;
-  return /^[a-z][a-z\d._]{3,35}$/.test(val);
+  var valid = /^[a-z][a-z\d._]{3,35}$/.test(val);
+  enableClass(valid, id, className);
+  return valid;
 }
 
 /* Checks that the password is valid.
