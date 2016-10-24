@@ -11,6 +11,10 @@ function addEvent(el, event, callback) {
   }
 }
 
+/* Checks that the username is valid.
+ * @param el The element where the user input is located.
+ * @return True if the username is valid, false otherwise.
+ */
 function checkUsername(el) {
   var response = {name: el.elements.user.value, good: false};
   response.good = /^[a-z][a-z\d._]{3,35}$/.test(response.name);
