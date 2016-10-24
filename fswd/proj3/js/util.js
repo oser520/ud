@@ -29,22 +29,32 @@ function checkRegister(e) {
   e.preventDefault();
   var msg;
 
+  var warnUser = 'warning-username';
+  var inUserClassList = document.getElementById('input-username').classList;
   usercheck = checkUsername(this);
-  if (usercheck.good)
-    msg = 'Welcome ' + usercheck.name + '. Your username is valid. ';
-  else
-    msg = usercheck.name + ' is not a valid username. ';
+  if (usercheck.good) {
+    if (inUserClassList.contains(warnUser))
+      inUserClassList.remove(warnUser);
+  }
+  else {
+    if (!inUserClassList.contains(warnUser))
+      inUserClassList.add(warnUser);
+  }
 
+  var warnPwd = 'warning-password';
+  var inPwdClassList = document.getElementById('input-password').classList;
   pwdcheck = checkPassword(this);
-    msg += 'Your password ' + pwdcheck.name;
-  if (pwdcheck.good)
-    msg += ' is valid.';
-  else
-    msg += ' is not valid';
+  if (pwdcheck.good) {
+    if (inPwdClassList.contains(warnPwd))
+      inPwdClassList.remove(warnPwd);
+  }
+  else {
+    if (!inPwdClassList.contains(warnPwd))
+      inPwdClassList.add(warnPwd);
+  }
 
-  document.getElementById('response').textContent = msg;
   if (usercheck.good && pwdcheck.good)
-    this.submit()
+    this.submit();
 }
 
 var form = document.getElementById('register-form');
