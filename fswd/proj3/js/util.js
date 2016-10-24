@@ -12,13 +12,13 @@ function addEvent(el, event, callback) {
 }
 
 function checkUsername(el) {
-  var response = {name: el.elements.username.value, good: false};
+  var response = {name: el.elements.user.value, good: false};
   response.good = /^[a-z][a-z\d._]{3,35}$/.test(response.name);
   return response;
 }
 
 function checkPassword(el) {
-  var response = {name: el.elements.pwd.value, good: false};
+  var response = {name: el.elements.password.value, good: false};
   response.good = /^\S{6,35}$/.test(response.name)
     && /\d/.test(response.name)
     && /[a-z]/.test(response.name);
