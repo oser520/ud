@@ -11,6 +11,21 @@ function addEvent(el, event, callback) {
   }
 }
 
+/* May enable or disable behavior or style on an element by adding a class to
+ * an element.
+ * @param flag A boolean flag that determines whether a class name should be
+ * added to an element.
+ * @param id The id of the input element where the class name may be added.
+ * @param className The name of the class.
+ */
+function enableClass(flag, id, className) {
+  var cl = document.getElementById(id).classList;
+  if (flag && cl.contains(className)
+    cl.remove(className);
+  else if (!flag && !cl.contains(className)
+    cl.add(className);
+}
+
 /* Checks that the username is valid.
  * @detail The username is valid if it contains between 3 and 35 alphanumeric
  * characters, a dot, or an underscore, and it begins with a letter.
@@ -25,12 +40,16 @@ function checkUsername(el) {
 /* Checks that the password is valid.
  * @detail The password is valid if it contains between 6 and 35 non-white space
  * characters, at least one digit, and at least one letter.
- * @param el The element where the password input is located.
+ * @param formEl The element where the password input is located.
+ * @param id The id of the input element that may need a warning.
+ * @param className The name of the class that may be added as an attribute.
  * @return True if the password is valid, false otherwise.
  */
-function checkPassword(el) {
+function checkPassword(formEl, id, className) {
   var val = el.elements.password.value;
-  return /^\S{6,35}$/.test(val) && /\d/.test(val) && /[a-z]/.test(val);
+  var valid = /^\S{6,35}$/.test(val) && /\d/.test(val) && /[a-z]/.test(val);
+  enableClass(valid, id, className);
+  return valid;
 }
 
 function checkRegister(e) {
