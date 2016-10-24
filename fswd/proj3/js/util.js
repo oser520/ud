@@ -24,11 +24,9 @@ function checkUsername(el) {
  * @return True if the password is valid, false otherwise.
  */
 function checkPassword(el) {
-  var response = {name: el.elements.password.value, good: false};
-  response.good = /^\S{6,35}$/.test(response.name)
+  return /^\S{6,35}$/.test(response.name)
     && /\d/.test(response.name)
     && /[a-z]/.test(response.name);
-  return response;
 }
 
 function checkRegister(e) {
