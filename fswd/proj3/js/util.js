@@ -21,6 +21,10 @@ function checkUsername(el) {
   return response;
 }
 
+/* Checks that the password is valid.
+ * @param el The element where the password input is located.
+ * @return True if the password is valid, false otherwise.
+ */
 function checkPassword(el) {
   var response = {name: el.elements.password.value, good: false};
   response.good = /^\S{6,35}$/.test(response.name)
