@@ -47,5 +47,5 @@ function checkRegister(e) {
     this.submit()
 }
 
-var form = document.getElementById('login');
+var form = document.getElementById('register-form');
 addEvent(form, 'submit', checkRegister);
