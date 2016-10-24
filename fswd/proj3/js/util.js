@@ -12,21 +12,25 @@ function addEvent(el, event, callback) {
 }
 
 /* Checks that the username is valid.
+ * @detail The username is valid if it contains between 3 and 35 alphanumeric
+ * characters, a dot, or an underscore, and it begins with a letter.
  * @param el The element where the user input is located.
  * @return True if the username is valid, false otherwise.
  */
 function checkUsername(el) {
-  return /^[a-z][a-z\d._]{3,35}$/.test(response.name);
+  var val = el.elements.user.value;
+  return /^[a-z][a-z\d._]{3,35}$/.test(val);
 }
 
 /* Checks that the password is valid.
+ * @detail The password is valid if it contains between 6 and 35 non-white space
+ * characters, at least one digit, and at least one letter.
  * @param el The element where the password input is located.
  * @return True if the password is valid, false otherwise.
  */
 function checkPassword(el) {
-  return /^\S{6,35}$/.test(response.name)
-    && /\d/.test(response.name)
-    && /[a-z]/.test(response.name);
+  var val = el.elements.password.value;
+  return /^\S{6,35}$/.test(val) && /\d/.test(val) && /[a-z]/.test(val);
 }
 
 function checkRegister(e) {
