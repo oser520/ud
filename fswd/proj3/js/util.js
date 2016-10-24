@@ -57,34 +57,15 @@ function checkPassword(formEl, id, className) {
   return valid;
 }
 
+/* Checks the username and passwords are valid.
+ * @detail Enables warnings if the username or password are not valid, or
+ * submits the form if they are.
+ * @param e The event whose default behavior we want to stop.
+ */
 function checkRegister(e) {
   e.preventDefault();
-  var msg;
-
-  var warnUser = 'warning-username';
-  var inUserClassList = document.getElementById('input-username').classList;
-  usercheck = checkUsername(this);
-  if (usercheck.good) {
-    if (inUserClassList.contains(warnUser))
-      inUserClassList.remove(warnUser);
-  }
-  else {
-    if (!inUserClassList.contains(warnUser))
-      inUserClassList.add(warnUser);
-  }
-
-  var warnPwd = 'warning-password';
-  var inPwdClassList = document.getElementById('input-password').classList;
-  pwdcheck = checkPassword(this);
-  if (pwdcheck.good) {
-    if (inPwdClassList.contains(warnPwd))
-      inPwdClassList.remove(warnPwd);
-  }
-  else {
-    if (!inPwdClassList.contains(warnPwd))
-      inPwdClassList.add(warnPwd);
-  }
-
+  validUser = checkUsername(this, 'input-username', 'warning-username');
+  validPwd = checkPassword(this, 'input-password', 'warning-password');
   if (usercheck.good && pwdcheck.good)
     this.submit();
 }
