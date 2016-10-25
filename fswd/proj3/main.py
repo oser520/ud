@@ -91,7 +91,7 @@ class DoLoginPage(webapp2.RequestHandler):
             return
         self.response.out.write('Hello %s\nI have your password %s\n' % (user, pwd))
 
-class RegisterPage(webapp2.RequestHandler):
+class RegisterHandler(webapp2.RequestHandler):
     """Handle requests to register as a user of the blog site."""
     def get(self):
         """Render the registration page."""
@@ -186,7 +186,7 @@ handlers = [
     ('/', MainPage),
     ('/login', LoginPage),
     ('/do-login', DoLoginPage),
-    ('/register', RegisterPage),
+    ('/register', RegisterHandler),
     ('/do-register', DoRegisterPage),
 ]
 application = webapp2.WSGIApplication(handlers, debug=True)
