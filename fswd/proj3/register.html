@@ -11,14 +11,17 @@
         <!-- TODO: remove offset when screen gets small -->
         <div class="form-group col-xs-6 col-xs-offset-3">
           <label for="input-username">Username</label>
-          <input type="text" class="form-control" id="input-username" name="user">
+          <input type="text" class="form-control" id="input-username" name="user" pattern="^[a-z][a-z\d._]{3,35}"
+            title="Password must contain one digit, one letter, and at least 6 non-white space characters">
         </div>
       </div>
       <div class="row">
         <!-- TODO: remove offset when screen gets small -->
         <div class="form-group col-xs-6 col-xs-offset-3">
           <label for="input-password">Password</label>
-          <input type="password" class="form-control" id="input-password" name="password">
+          <input type="password" class="form-control" id="input-password" name="password"
+            pattern="(?=.*\d)(?=.*[a-z])\S{6,35}"
+            title="Password must contain one digit, one letter, and at least 6 non-white space characters">
         </div>
       </div>
       <div class="row">
