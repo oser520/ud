@@ -275,5 +275,6 @@ handlers = [
     ('/do-login', DoLoginHandler),
     ('/register', RegisterHandler),
     ('/do-register', DoRegisterHandler),
+    ('/signout', SignoutHandler)
 ]
 application = webapp2.WSGIApplication(handlers, debug=True)
