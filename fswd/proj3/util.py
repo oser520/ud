@@ -59,7 +59,7 @@ def get_hash(salt, psswd):
     """
     if not salt or not psswd:
         raise ValueError('The salt and password cannot be empty')
-    return hmac.new(salt, psswd).hexdigest()
+    return hmac.new(salt.encode(), psswd).hexdigest()
 
 def is_psswd_hash(salt, psswd, hsh):
     """Verify the hash equals the hash fo the salt and password.
