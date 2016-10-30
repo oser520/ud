@@ -120,7 +120,12 @@ class DoRegisterHandler(webapp2.RequestHandler):
 
         # Redirect to register page with username input warning message
         if not user:
-            context = {'badname': True, 'badpwd': False}
+            context = {
+                'badname': True,
+                'nametaken': False,
+                'badpwd': False,
+                'name': None
+            }
             template = template_env.get_template('register.html')
             self.response.out.write(template.render(context))
             return
@@ -132,6 +137,7 @@ class DoRegisterHandler(webapp2.RequestHandler):
             s = 'Error: The username %s already exists\n'
             self.response.out.write(s % user)
             return
+
         # Validate password
         pwd = self.request.get('password')
         if not util.process_password(pwd):
