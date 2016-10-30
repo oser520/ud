@@ -13,10 +13,10 @@
             <p>The username must begin with a letter, and must contain between 3 and 35 alphanumeric characters, dots, or underscores.</p>
           </div>
         </div>
-      {% elif nametaken %}
+      {% elif badaccount %}
         <div class="row nametaken">
           <div class="col-xs-6">
-            <p>The username {{ name }} is already taken.</p>
+            <p>An account does not exist for user {{ name }}. Try again with the correct username, or register to create an account.</p>
           </div>
         </div>
       {% endif %}
@@ -33,7 +33,7 @@
         {% if badpwd %}
           <div class="row badpwd">
             <div class="col-xs-6">
-              <p>Password must contain one digit, one letter, and at least 6 non-white space characters</p>
+              <p>The password is incorrect. Please try again with the correct password.</p>
             </div>
           </div>
         {% endif %}
