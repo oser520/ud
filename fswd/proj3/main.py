@@ -32,7 +32,7 @@ class BlogItem():
 
 template_env = jinja2.Environment(loader=jinja2.FileSystemLoader(os.getcwd()))
 
-class MainPage(webapp2.RequestHandler):
+class MainHandler(webapp2.RequestHandler):
     """Handle requests to the main blog site."""
     def get(self):
         # Get session status
@@ -59,7 +59,7 @@ class MainPage(webapp2.RequestHandler):
         }
         self.response.out.write(template.render(context))
 
-class LoginPage(webapp2.RequestHandler):
+class LoginHandler(webapp2.RequestHandler):
     """Handle requests to login as a user of the blog site."""
     def get(self):
         """Render the login page."""
@@ -67,7 +67,7 @@ class LoginPage(webapp2.RequestHandler):
         template = template_env.get_template('login.html')
         self.response.out.write(template.render())
 
-class DoLoginPage(webapp2.RequestHandler):
+class DoLoginHandler(webapp2.RequestHandler):
     """Handle requests to login as a user of the blog site."""
     def post(self):
         """Verifies the user is registered.
@@ -205,9 +205,9 @@ class EditBlogHandler(webapp2.RequestHandler):
 # TODO: create a request handler to compose a blog - only for users who are logged in
 
 handlers = [
-    ('/', MainPage),
-    ('/login', LoginPage),
-    ('/do-login', DoLoginPage),
+    ('/', MainHandler),
+    ('/login', LoginHandler),
+    ('/do-login', DoLoginHandler),
     ('/register', RegisterHandler),
     ('/do-register', DoRegisterHandler),
 ]
