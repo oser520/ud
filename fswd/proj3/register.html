@@ -13,6 +13,12 @@
             <p>The username must begin with a letter, and must contain between 3 and 35 alphanumeric characters, dots, or underscores.</p>
           </div>
         </div>
+      {% elif nametaken %}
+        <div class="row nametaken">
+          <div class="col-xs-6">
+            <p>The username {{ name }} is already taken.</p>
+          </div>
+        </div>
       {% endif %}
       <div class="row">
         <!-- TODO: remove offset when screen gets small -->
