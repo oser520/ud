@@ -259,9 +259,11 @@ class EditBlogHandler(webapp2.RequestHandler):
         """TODO: implement"""
         self.response.out.write('EditBlogHandler not implemented yet')
 
-# TODO: create a signout handler that handles a user's request to sign out
-# This handler should clear the cookies and redirect the user to the main
-# blog page.
+class SignoutHandler(webapp2.RequestHandler):
+    """Handle requests to signout."""
+    def get(self):
+        """TODO: implement"""
+        self.response.out.write('EditBlogHandler not implemented yet')
 
 # TODO: create a request handler to compose a blog - only for users who are logged in
 
