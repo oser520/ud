@@ -146,10 +146,16 @@ class DoRegisterHandler(webapp2.RequestHandler):
         # Validate password
         pwd = self.request.get('password')
         if not util.process_password(pwd):
-            # TODO: redirect to register page, but highlight password input
-            # and specify requirements.
-            self.response.out.write('Error: The password is not valid\n')
+            context = {
+                'badname': False,
+                'nametaken': False,
+                'badpwd': True,
+                'name': None
+            }
+            template = template_env.get_template('register.html')
+            self.response.out.write(template.render(context))
             return
+
         # Create account
         salt = util.gensalt()
         hsh = util.gethsh(salt, pwd)
