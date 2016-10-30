@@ -7,6 +7,13 @@
   <!-- TODO: move styling to css -->
   <div class="container" style="margin-top: 40px;">
     <form method="post" action="/do-register" class="login-form" id="register-form">
+      {% if badname %}
+        <div class="row badname">
+          <div class="col-xs-6">
+            <p>The username must begin with a letter, and must contain between 3 and 35 alphanumeric characters, dots, or underscores.</p>
+          </div>
+        </div>
+      {% endif %}
       <div class="row">
         <!-- TODO: remove offset when screen gets small -->
         <div class="form-group col-xs-6 col-xs-offset-3">
@@ -16,6 +23,13 @@
         </div>
       </div>
       <div class="row">
+      {% if badpwd %}
+        <div class="row badpwd">
+          <div class="col-xs-6">
+            <p>Password must contain one digit, one letter, and at least 6 non-white space characters</p>
+          </div>
+        </div>
+      {% endif %}
         <!-- TODO: remove offset when screen gets small -->
         <div class="form-group col-xs-6 col-xs-offset-3">
           <label for="input-password">Password</label>
