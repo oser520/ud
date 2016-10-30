@@ -50,7 +50,7 @@ def gensalt(length=16):
     ALPHABET = string.ascii_letters + string.digits
     return ''.join(random.choice(ALPHABET) for _ in range(length))
 
-def gethsh(salt, psswd):
+def get_hash(salt, psswd):
     """Create a hash from a salt and password.
 
     Args:

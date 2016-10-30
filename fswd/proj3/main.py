@@ -119,8 +119,8 @@ class DoLoginHandler(webapp2.RequestHandler):
             return
 
         # verify password is correct
-        hsh = util.gethsh(account.salt, pwd)
-        if hsh != account.pwdhash:
+        hsh = util.get_hash(account.salt, pwd)
+        if hsh != account.pwd_hash:
             context['badpwd'] = True
             template = template_env.get_template('login.html')
             self.response.out.write(template.render(context))
@@ -208,7 +208,7 @@ class DoRegisterHandler(webapp2.RequestHandler):
 
         # Create account
         salt = util.gensalt()
-        hsh = util.gethsh(salt, pwd)
+        hsh = util.get_hash(salt, pwd)
         account = models.Account(id=user, salt=salt, pwd_hash=hsh)
         try:
             account.put()
