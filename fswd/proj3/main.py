@@ -80,21 +80,58 @@ class DoLoginHandler(webapp2.RequestHandler):
         If the user is registered, then he is redirected to the main page,
         otherwise the user gets an error message indicating either the username
         does not exist, or the password is incorrect.
-
-        TODO: implement
         """
+        # Should not be the case if we got here, but check if this is a session
+        # request.
+        if is_session_req(self.request):
+            self.redirect('/')
+            return
+
+        context = {
+            'badname': False,
+            'badpwd': False,
+            'badaccount': False,
+            'badpwd': False,
+        }
+
+        # validate username
         user = self.request.get('user')
         if not user:
-            # TODO: return to login page, but hightlight input box and list
-            # requirements for a valid user name
-            self.response.out.write('Error: The username cannot be empty\n')
+            context['badname'] = True
+            template = template_env.get_template('login.html')
+            self.response.out.write(template.render(context))
             return
+
+        # validate password
         pwd = self.request.get('password')
         if not pwd:
-            # TODO: return to login page with error for missing password
-            self.response.out.write('Error: The password name cannot be empty\n')
+            context['badpwd'] = True
+            template = template_env.get_template('login.html')
+            self.response.out.write(template.render(context))
             return
-        self.response.out.write('Hello %s\nI have your password %s\n' % (user, pwd))
+
+        # verify account exists
+        account = models.Account.get_by_id(user)
+        if not account:
+            context['badaccount'] = True
+            template = template_env.get_template('login.html')
+            self.response.out.write(template.render(context))
+            return
+
+        # verify password is correct
+        hsh = util.gethsh(account.salt, pwd)
+        if hsh != account.pwdhash:
+            context['badpwd'] = True
+            template = template_env.get_template('login.html')
+            self.response.out.write(template.render(context))
+            return
+
+        # set session cookies
+        self.response.set_cookie('name', user)
+        self.response.set_cookie('secret', hsh)
+
+        # Redirect to main page with full access
+        self.redirect('/')
 
 class RegisterHandler(webapp2.RequestHandler):
     """Handle requests to register as a user of the blog site."""
