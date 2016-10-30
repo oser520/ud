@@ -98,7 +98,7 @@ class RegisterHandler(webapp2.RequestHandler):
         template = template_env.get_template('register.html')
         self.response.out.write(template.render())
 
-class DoRegisterPage(webapp2.RequestHandler):
+class DoRegisterHandler(webapp2.RequestHandler):
     """Handle requests to register as a user of the blog site."""
     def post(self):
         """Registers a user.
@@ -106,7 +106,7 @@ class DoRegisterPage(webapp2.RequestHandler):
         Checks the username and password are valid, and the username is not
         taken. If the username is taken, then the user is prompted for another
         username. The user is redirected to the main blog page after
-        registration is complete.
+        egistration is complete.
 
         TODO: implement
         """
@@ -187,6 +187,6 @@ handlers = [
     ('/login', LoginPage),
     ('/do-login', DoLoginPage),
     ('/register', RegisterHandler),
-    ('/do-register', DoRegisterPage),
+    ('/do-register', DoRegisterHandler),
 ]
 application = webapp2.WSGIApplication(handlers, debug=True)
