@@ -133,9 +133,14 @@ class DoRegisterHandler(webapp2.RequestHandler):
         # Check that username doesn't already exist
         account = models.Account.get_by_id(user)
         if account:
-            # TODO: redirect to register page, but highlight username input
-            s = 'Error: The username %s already exists\n'
-            self.response.out.write(s % user)
+            context = {
+                'badname': False,
+                'nametaken': True,
+                'badpwd': False,
+                'name': user
+            }
+            template = template_env.get_template('register.html')
+            self.response.out.write(template.render(context))
             return
 
         # Validate password
