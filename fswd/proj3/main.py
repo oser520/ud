@@ -100,8 +100,19 @@ class RegisterHandler(webapp2.RequestHandler):
     """Handle requests to register as a user of the blog site."""
     def get(self):
         """Render the registration page."""
+        # If the request is made as part of a session, then user has already signed in.
+        if is_session_req(self.request):
+            self.redirect('/')
+            return
+
+        context = {
+            'badname': False,
+            'nametaken': False,
+            'badpwd': False,
+            'name': None
+        }
         template = template_env.get_template('register.html')
-        self.response.out.write(template.render())
+        self.response.out.write(template.render(context))
 
 class DoRegisterHandler(webapp2.RequestHandler):
     """Handle requests to register as a user of the blog site."""
