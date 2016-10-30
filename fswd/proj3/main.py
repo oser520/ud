@@ -111,6 +111,7 @@ class DoRegisterHandler(webapp2.RequestHandler):
         # If the request is made as part of a session, then user has already signed in.
         if is_session_req(self.request):
             self.redirect('/')
+            return
 
         # Validate user name
         user = self.request.get('user')
