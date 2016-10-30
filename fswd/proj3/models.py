@@ -21,7 +21,7 @@ class Account(ndb.Model):
         psswdhash: The hash of the salt and the password.
     '''
     salt = ndb.StringProperty(required=True)
-    psswdhash = ndb.StringProperty(required=True)
+    pwd_hash = ndb.StringProperty(required=True)
 
 class Blog(ndb.Model):
     '''

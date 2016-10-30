@@ -64,7 +64,7 @@ class LoginHandler(webapp2.RequestHandler):
     def get(self):
         """Render the login page."""
         # If the request is made as part of a session, then user has already signed in.
-        if is_session_req(self.request):
+        if util.is_session_req(self.request):
             self.redirect('/')
             return
 
@@ -83,7 +83,7 @@ class DoLoginHandler(webapp2.RequestHandler):
         """
         # Should not be the case if we got here, but check if this is a session
         # request.
-        if is_session_req(self.request):
+        if util.is_session_req(self.request):
             self.redirect('/')
             return
 
@@ -140,7 +140,7 @@ class RegisterHandler(webapp2.RequestHandler):
     def get(self):
         """Render the registration page."""
         # If the request is made as part of a session, then user has already signed in.
-        if is_session_req(self.request):
+        if util.is_session_req(self.request):
             self.redirect('/')
             return
 
@@ -164,7 +164,7 @@ class DoRegisterHandler(webapp2.RequestHandler):
         registration is complete.
         """
         # If the request is made as part of a session, then user has already signed in.
-        if is_session_req(self.request):
+        if util.is_session_req(self.request):
             self.redirect('/')
             return
 
@@ -211,7 +211,7 @@ class DoRegisterHandler(webapp2.RequestHandler):
         # Create account
         salt = util.gensalt()
         hsh = util.gethsh(salt, pwd)
-        account = models.Account(id=user, salt=salt, psswdhash=hsh)
+        account = models.Account(id=user, salt=salt, pwd_hash=hsh)
         try:
             account.put()
         except ndb.TransactionFailedError:

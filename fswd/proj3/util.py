@@ -93,6 +93,6 @@ def is_session_req(req):
     if not name or not secret:
         return False
     account = Account.get_by_id(name)
-    if not account or secret != account.passdhash:
+    if not account or secret != account.pwd_hash:
         return False
     return True
