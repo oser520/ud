@@ -166,16 +166,18 @@ class DoRegisterHandler(webapp2.RequestHandler):
             self.redirect('/')
             return
 
+        context = {
+            'badname': True,
+            'nametaken': False,
+            'badpwd': False,
+            'name': None
+        }
+
         # Validate user name
         user = self.request.get('user')
         user = util.process_username(user)
         if not user:
-            context = {
-                'badname': True,
-                'nametaken': False,
-                'badpwd': False,
-                'name': None
-            }
+            context['badname'] = True
             template = template_env.get_template('register.html')
             self.response.out.write(template.render(context))
             return
@@ -183,12 +185,8 @@ class DoRegisterHandler(webapp2.RequestHandler):
         # Check that username doesn't already exist
         account = models.Account.get_by_id(user)
         if account:
-            context = {
-                'badname': False,
-                'nametaken': True,
-                'badpwd': False,
-                'name': user
-            }
+            context['nametaken'] = True
+            context['name'] = user
             template = template_env.get_template('register.html')
             self.response.out.write(template.render(context))
             return
@@ -196,12 +194,7 @@ class DoRegisterHandler(webapp2.RequestHandler):
         # Validate password
         pwd = self.request.get('password')
         if not util.process_password(pwd):
-            context = {
-                'badname': False,
-                'nametaken': False,
-                'badpwd': True,
-                'name': None
-            }
+            context['badpwd'] = True
             template = template_env.get_template('register.html')
             self.response.out.write(template.render(context))
             return
