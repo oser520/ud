@@ -29,13 +29,13 @@
         </div>
       </div>
       <div class="row">
-      {% if badpwd %}
-        <div class="row badpwd">
-          <div class="col-xs-6">
-            <p>Password must contain one digit, one letter, and at least 6 non-white space characters</p>
+        {% if badpwd %}
+          <div class="row badpwd">
+            <div class="col-xs-6">
+              <p>Password must contain one digit, one letter, and at least 6 non-white space characters</p>
+            </div>
           </div>
-        </div>
-      {% endif %}
+        {% endif %}
         <!-- TODO: remove offset when screen gets small -->
         <div class="form-group col-xs-6 col-xs-offset-3">
           <label for="input-password">Password</label>
