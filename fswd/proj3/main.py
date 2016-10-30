@@ -63,6 +63,11 @@ class LoginHandler(webapp2.RequestHandler):
     """Handle requests to login as a user of the blog site."""
     def get(self):
         """Render the login page."""
+        # If the request is made as part of a session, then user has already signed in.
+        if is_session_req(self.request):
+            self.redirect('/')
+            return
+
         # TODO: get username and password from form and login user to system
         template = template_env.get_template('login.html')
         self.response.out.write(template.render())
