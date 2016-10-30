@@ -106,9 +106,7 @@ class DoRegisterHandler(webapp2.RequestHandler):
         Checks the username and password are valid, and the username is not
         taken. If the username is taken, then the user is prompted for another
         username. The user is redirected to the main blog page after
-        egistration is complete.
-
-        TODO: implement
+        registration is complete.
         """
         # If the request is made as part of a session, then user has already signed in.
         if is_session_req(self.request):
@@ -117,8 +115,6 @@ class DoRegisterHandler(webapp2.RequestHandler):
         # Validate user name
         user = self.request.get('user')
         user = util.process_username(user)
-
-        # Redirect to register page with username input warning message
         if not user:
             context = {
                 'badname': True,
@@ -163,13 +159,15 @@ class DoRegisterHandler(webapp2.RequestHandler):
         try:
             account.put()
         except ndb.TransactionFailedError:
+            # TODO: redirect to a page with a better error message
             s = 'Error: Unable to create account. Please try again.'
             self.response.out.write(s)
             return
+
         # set session cookies
-        # TODO: implement correctly
         self.response.set_cookie('name', user)
         self.response.set_cookie('secret', hsh)
+
         # Redirect to main page with full access
         self.redirect('/')
 
