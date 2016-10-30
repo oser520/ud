@@ -89,14 +89,10 @@ def is_session_req(req):
         req: The request object.
     """
     name = req.cookies.get('name')
-    if not name:
-        return (False, False)
     secret = req.cookies.get('secret')
-    if not secret:
-        return (True, False)
+    if not name or not secret:
+        return False
     account = Account.get_by_id(name)
-    if not account:
-        return (True, False)
-    if secret != account.psswdhash:
-        return (True, False)
-    return (True, True)
+    if not account or secret != account.passdhash:
+        return False
+    return True

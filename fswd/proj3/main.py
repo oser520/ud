@@ -110,7 +110,9 @@ class DoRegisterHandler(webapp2.RequestHandler):
 
         TODO: implement
         """
+        # If user is already signed in, then redirect to main content page.
         # Validate username
+        user = self.request.cookies.get("name")
         user = self.request.get('user')
         user = util.process_username(user)
         if not user:
