@@ -113,15 +113,18 @@ class DoRegisterHandler(webapp2.RequestHandler):
         # If the request is made as part of a session, then user has already signed in.
         if is_session_req(self.request):
             self.redirect('/')
+
         # Validate user name
         user = self.request.get('user')
         user = util.process_username(user)
+
+        # Redirect to register page with username input warning message
         if not user:
-            # TODO: redirect to register page, but highlight username input
-            # and specify requirements.
-            s = 'Error: The username %s is not valid\n'
-            self.response.out.write(s % user)
+            context = {'badname': True, 'badpwd': False}
+            template = template_env.get_template('register.html')
+            self.response.out.write(template.render(context))
             return
+
         # Check that username doesn't already exist
         account = models.Account.get_by_id(user)
         if account:
