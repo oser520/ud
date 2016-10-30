@@ -92,6 +92,7 @@ class DoLoginHandler(webapp2.RequestHandler):
             'badpwd': False,
             'badaccount': False,
             'badpwd': False,
+            'name': None
         }
 
         # validate username
@@ -114,6 +115,7 @@ class DoLoginHandler(webapp2.RequestHandler):
         account = models.Account.get_by_id(user)
         if not account:
             context['badaccount'] = True
+            context['name'] = user
             template = template_env.get_template('login.html')
             self.response.out.write(template.render(context))
             return
