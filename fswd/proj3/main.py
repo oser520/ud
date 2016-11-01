@@ -258,7 +258,12 @@ class SignoutHandler(webapp2.RequestHandler):
         self.response.delete_cookie('secret')
         self.redirect('/')
 
-# TODO: create a request handler to compose a blog - only for users who are logged in
+class CreateBlogHandler(webapp2.RequestHandler):
+    """Handle requests to create a brand new blog entry."""
+    def get(self):
+        """Render the form to create a blog entry."""
+        template = template_env.get_template('blog-form.html')
+        self.response.out.write(template.render())
 
 handlers = [
     ('/', MainHandler),
@@ -266,6 +271,7 @@ handlers = [
     ('/do-login', DoLoginHandler),
     ('/register', RegisterHandler),
     ('/do-register', DoRegisterHandler),
-    ('/signout', SignoutHandler)
+    ('/signout', SignoutHandler),
+    ('/create-blog', CreateBlogHandler)
 ]
 application = webapp2.WSGIApplication(handlers, debug=True)
