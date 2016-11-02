@@ -226,7 +226,15 @@ class SaveBlogHandler(webapp2.RequestHandler):
         """
         self.response.out.write('SaveBlogHandler not implemented yet')
 
+# Blog comment handlers
+
 class CreateCommentHandler(webapp2.RequestHandler):
+    """Handle requests to create a comment on a blog."""
+    def get(self):
+        """TODO: implement"""
+        self.response.out.write('CreateCommentHandler not implemented yet')
+
+class SaveCommentHandler(webapp2.RequestHandler):
     """Handle requests to create a comment on a blog."""
     def get(self):
         """TODO: implement"""
