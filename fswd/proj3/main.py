@@ -268,10 +268,17 @@ class SignoutHandler(webapp2.RequestHandler):
 
 class CreateBlogHandler(webapp2.RequestHandler):
     """Handle requests to create a brand new blog entry."""
-    def get(self):
-        """Render the form to create a blog entry."""
-        template = template_env.get_template('blog-form.html')
-        self.response.out.write(template.render())
+    def post(self):
+        """Handles a post request to create a blog entry."""
+        action = self.request.get('action')
+        if action == 'create':
+            create()
+        self.redirect('/')
+    def create(self):
+        """Creates a blog entry."""
+        title = self.request.get('title')
+        text = self.request.get('text')
+        #Create database entries
 
 class BlogFormHandler(webapp2.RequestHandler):
     """Renders the blog form to create a blog entry."""
