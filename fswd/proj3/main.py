@@ -273,6 +273,13 @@ class CreateBlogHandler(webapp2.RequestHandler):
         template = template_env.get_template('blog-form.html')
         self.response.out.write(template.render())
 
+class BlogFormHandler(webapp2.RequestHandler):
+    """Renders the blog form to create a blog entry."""
+    def get(self):
+        """Render the form to create a blog entry."""
+        template = template_env.get_template('blog-form.html')
+        self.response.out.write(template.render())
+
 handlers = [
     ('/', MainHandler),
     ('/login', LoginHandler),
@@ -280,6 +287,7 @@ handlers = [
     ('/register', RegisterHandler),
     ('/do-register', DoRegisterHandler),
     ('/signout', SignoutHandler),
-    ('/create-blog', CreateBlogHandler)
+    ('/create-blog', CreateBlogHandler),
+    ('/blog-form', BlogFormHandler)
 ]
 application = webapp2.WSGIApplication(handlers, debug=True)
