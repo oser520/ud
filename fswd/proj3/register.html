@@ -22,7 +22,7 @@
       {% endif %}
       <div class="row">
         <!-- TODO: remove offset when screen gets small -->
-        <div class="form-group col-xs-6 col-xs-offset-3">
+        <div class="form-group col-xs-6">
           <label for="input-username">Username</label>
           <input type="text" class="form-control" id="input-username" name="user" pattern="^[a-z][a-z\d._]{3,35}"
             title="The username must begin with a letter, and must contain between 3 and 35 alphanumeric characters, dots, or underscores.">
@@ -37,7 +37,7 @@
           </div>
         {% endif %}
         <!-- TODO: remove offset when screen gets small -->
-        <div class="form-group col-xs-6 col-xs-offset-3">
+        <div class="form-group col-xs-6">
           <label for="input-password">Password</label>
           <input type="password" class="form-control" id="input-password" name="password"
             pattern="(?=.*\d)(?=.*[a-z])\S{6,35}"
@@ -46,11 +46,19 @@
       </div>
       <div class="row">
         <!-- TODO: remove offset when screen gets small -->
-        <div class="col-xs-6 col-xs-offset-3">
+        <div class="col-xs-6">
           <button type="submit" class="btn btn-primary">Register</button>
         </div>
       </div>
     </form>
+    <hr>
+    <div class="row">
+      <div class="col-xs-6">
+        <p>Have an account already?<p>
+        <a class="btn btn-primary h1" href="/login" role="button">Login</a>
+      </div>
+    </div>
+  </div>
   </div>
 {% endblock %}
 {% block js %}
