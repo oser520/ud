@@ -270,15 +270,22 @@ class CreateBlogHandler(webapp2.RequestHandler):
     """Handle requests to create a brand new blog entry."""
     def post(self):
         """Handles a post request to create a blog entry."""
+        # TODO: verify request is made in session context
         action = self.request.get('action')
         if action == 'create':
-            create()
+            self.create()
         self.redirect('/')
     def create(self):
         """Creates a blog entry."""
+        name = self.request.cookies.get('name')
         title = self.request.get('title')
         text = self.request.get('text')
-        #Create database entries
+        blog = models.Blog(user=name, title=title, text=text)
+        try:
+            blog.put()
+        except ndb.TransactionFailedError:
+            # TODO: Handle error
+            return
 
 class BlogFormHandler(webapp2.RequestHandler):
     """Renders the blog form to create a blog entry."""

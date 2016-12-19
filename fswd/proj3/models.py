@@ -28,8 +28,6 @@ class Blog(ndb.Model):
     Represents a blog entry.
 
     Fields:
-        id: Concatenation of Account.id, blog title, and datetime blog is
-            created, i.e., Account.id-title-datetime.
         user: The blog author.
         title: The blog title.
         date: The date-time the blog was created.
@@ -39,7 +37,7 @@ class Blog(ndb.Model):
     user = ndb.StringProperty(required=True)
     title = ndb.StringProperty(required=True)
     date = ndb.DateTimeProperty(required=True, auto_now_add=True)
-    blog = ndb.TextProperty(required=True, validator=check_str_not_empty)
+    text = ndb.TextProperty(required=True, validator=check_str_not_empty)
     likes = ndb.KeyProperty(kind=Account, repeated=True)
 
     @property
