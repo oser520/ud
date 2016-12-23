@@ -38,21 +38,9 @@ class MainHandler(webapp2.RequestHandler):
         # Get session status
         logged_status = util.is_session_req(self.request)
         template = template_env.get_template('content.html')
-        blog_titles = []
-        title = 'This is my blog title'
-        user = 'om'
-        date = datetime.datetime.now()
-        likes = 111
-        intro = '''
-            This is the first sentence of the blog.
-            This is the second sentence of the blog.
-            This is the 3rd sentence of the blog.
-            '''
-        for _ in range(20):
-            item = BlogItem(title, user, date, likes, intro)
-            blog_titles.append(item)
+        blogs = model.Blog.query().order(-Blog.date).fetch()
         context = {
-            'blog_titles': blog_titles,
+            'blogs': blogs,
             'loggedin': logged_status
         }
         self.response.out.write(template.render(context))
