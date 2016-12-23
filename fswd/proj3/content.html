@@ -23,16 +23,16 @@
       </div>
     </header>
     <article class="blog-titles">
-    {% for item in blog_titles %}
-      <section class="row item">{{ item }}
+    {% for blog in blog_titles %}
+      <section class="row item">
         <header class="col-sm-12">
-          <h3><a href="/blog/{{ item.id }}">{{ item.title }}</a></h3>
-          <p>{{ item.user }}</p>
-          <p>{{ item.date }}</p>
-          <p>{{ item.likes }}</p>
+          <h3><a href="/blog/{{ blog.id }}">{{ blog.title }}</a></h3>
+          <p>{{ blog.user }}</p>
+          <p>{{ blog.date }}</p>
+          <p>{{ len(blog.likes) }}</p>
         </header>
         <div class="col-sm-12">
-          <p>{{ item.intro }}</p>
+          <p>{{ blog.tease() }}</p>
         </div>
       </section>
     {% endfor %}
