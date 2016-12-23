@@ -26,7 +26,7 @@
     {% for item in blog_titles %}
       <section class="row item">{{ item }}
         <header class="col-sm-12">
-          <h3>{{ item.title }}</h3>
+          <h3><a href="/blog/{{ item.id }}">{{ item.title }}</a></h3>
           <p>{{ item.user }}</p>
           <p>{{ item.date }}</p>
           <p>{{ item.likes }}</p>
