@@ -39,7 +39,7 @@ class MainHandler(webapp2.RequestHandler):
         logged_status = util.is_session_req(self.request)
         template = template_env.get_template('content.html')
         context = {
-            'items': models.Blog.query().order(-models.Blog.date).fetch(),
+            'blog_titles': models.Blog.query().order(-models.Blog.date).fetch(),
             'loggedin': logged_status
         }
         self.response.out.write(template.render(context))

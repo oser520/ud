@@ -23,13 +23,13 @@
       </div>
     </header>
     <article class="blog-titles">
-    {% for item in items %}
+    {% for item in blog_titles %}
       <section class="row item">
         <header class="col-sm-12">
-          <h3><a href="/">{{ item.title }}</a></h3>
+          <h3><a href="/blog/{{ item.key.urlsafe() }}">{{ item.title }}</a></h3>
           <p>{{ item.user }}</p>
           <p>{{ item.date }}</p>
-          <p>{{ item.likes }}</p>
+          <p>{{ item.likes|length }}</p>
         </header>
         <div class="col-sm-12">
           <p>{{ item.tease }}</p>

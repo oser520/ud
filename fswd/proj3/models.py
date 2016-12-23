@@ -45,15 +45,15 @@ class Blog(ndb.Model):
         """Computes the tease of the blog."""
         MIN_TOKENS_IN_TEASE = 200
         MAX_TOKENS_IN_TEASE = 350
-        if len(blog) < MIN_TOKENS_IN_TEASE:
-            return blog
+        if len(self.text) < MIN_TOKENS_IN_TEASE:
+            return self.text
         index = MIN_TOKENS_IN_TEASE - 1
         space_index = 0
         found_dot = False
         # Try to parse full words, but not more than contain
         # MAX_TOKENS_IN_TEASE.
-        while index < len(blog) and index < MAX_TOKENS_IN_TEASE:
-            c = blog[index]
+        while index < len(self.text) and index < MAX_TOKENS_IN_TEASE:
+            c = self.text[index]
             if c.isspace():
                 space_index = index
             if c == '.':
@@ -61,12 +61,12 @@ class Blog(ndb.Model):
                 break
             index += 1
         if found_dot:
-            return blog[::index]
+            return self.text[:index]
         if space_index:
-            return blog[::space_index].rstrip()
-        if MAX_TOKENS_IN_TEASE > len(blog):
-            return blog
-        return blog[::MAX_TOKENS_IN_TEASE].rstrip()
+            return self.text[:space_index].rstrip()
+        if MAX_TOKENS_IN_TEASE > len(self.text):
+            return self.text
+        return self.text[:MAX_TOKENS_IN_TEASE].rstrip()
 
 class BlogComment(ndb.Model):
     '''
