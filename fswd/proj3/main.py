@@ -274,8 +274,9 @@ class BlogFormHandler(webapp2.RequestHandler):
     """Renders the blog form to create a blog entry."""
     def get(self):
         """Render the form to create a blog entry."""
+        context = { 'entry_type': 'blog', 'with_title': True }
         template = template_env.get_template('blog-form.html')
-        self.response.out.write(template.render())
+        self.response.out.write(template.render(context))
 
 class ViewBlogHandler(webapp2.RequestHandler):
     """Handlers requests to view a blog entry."""
