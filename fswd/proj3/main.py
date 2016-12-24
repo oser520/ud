@@ -285,13 +285,8 @@ class ViewBlogHandler(webapp2.RequestHandler):
         Args:
             urlkey: The blog key in URL representation.
         """
-        print 'DEBUG: urlkey=', urlkey
         key = ndb.Key(urlsafe=urlkey)
-        if not key:
-            print 'DEBUG: key is null'
         blog = key.get()
-        if not blog:
-            print 'DEBUG: blog is null'
         template = template_env.get_template('blog.html')
         context = {
             'title': blog.title,
