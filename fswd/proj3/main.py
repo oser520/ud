@@ -151,8 +151,7 @@ class DoRegisterHandler(webapp2.RequestHandler):
         """
         # If the request is made as part of a session, then user has already signed in.
         if util.is_session_req(self.request):
-            self.redirect('/')
-            return
+            return self.redirect('/')
 
         context = {
             'badname': True,
@@ -167,8 +166,7 @@ class DoRegisterHandler(webapp2.RequestHandler):
         if not user:
             context['badname'] = True
             template = template_env.get_template('register.html')
-            self.response.out.write(template.render(context))
-            return
+            return self.response.out.write(template.render(context))
 
         # Check that username doesn't already exist
         account = models.Account.get_by_id(user)
@@ -176,16 +174,14 @@ class DoRegisterHandler(webapp2.RequestHandler):
             context['nametaken'] = True
             context['name'] = user
             template = template_env.get_template('register.html')
-            self.response.out.write(template.render(context))
-            return
+            return self.response.out.write(template.render(context))
 
         # Validate password
         pwd = self.request.get('password')
         if not util.process_password(pwd):
             context['badpwd'] = True
             template = template_env.get_template('register.html')
-            self.response.out.write(template.render(context))
-            return
+            return self.response.out.write(template.render(context))
 
         # Create account
         salt = util.gensalt()
@@ -196,15 +192,14 @@ class DoRegisterHandler(webapp2.RequestHandler):
         except ndb.TransactionFailedError:
             # TODO: redirect to a page with a better error message
             s = 'Error: Unable to create account. Please try again.'
-            self.response.out.write(s)
-            return
+            return self.response.out.write(s)
 
         # set session cookies
         self.response.set_cookie('name', user)
         self.response.set_cookie('secret', hsh)
 
         # Redirect to main page with full access
-        self.redirect('/')
+        return self.redirect('/')
 
 class SaveBlogHandler(webapp2.RequestHandler):
     """Handle requests to save a blog."""
