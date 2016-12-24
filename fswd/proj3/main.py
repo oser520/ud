@@ -42,6 +42,7 @@ class MainHandler(webapp2.RequestHandler):
             'blog_titles': models.Blog.query().order(-models.Blog.date).fetch(),
             'loggedin': logged_status
         }
+        self.response.headers.add('Cache-Control', 'no-store')
         self.response.out.write(template.render(context))
 
 class LoginHandler(webapp2.RequestHandler):
@@ -281,14 +282,40 @@ class BlogFormHandler(webapp2.RequestHandler):
         template = template_env.get_template('blog-form.html')
         self.response.out.write(template.render())
 
+class ViewBlogHandler(webapp2.RequestHandler):
+    """Handlers requests to view a blog entry."""
+    def get(self, urlkey):
+        """Renders a blog entry.
+
+        Args:
+            urlkey: The blog key in URL representation.
+        """
+        print 'DEBUG: urlkey=', urlkey
+        key = ndb.Key(urlsafe=urlkey)
+        if not key:
+            print 'DEBUG: key is null'
+        blog = key.get()
+        if not blog:
+            print 'DEBUG: blog is null'
+        template = template_env.get_template('blog.html')
+        context = {
+            'title': blog.title,
+            'text': blog.text,
+            'likes': len(blog.likes),
+            'date': blog.date,
+            'user': blog.user
+        }
+        self.response.out.write(template.render(context))
+
 handlers = [
-    ('/', MainHandler),
-    ('/login', LoginHandler),
-    ('/do-login', DoLoginHandler),
-    ('/register', RegisterHandler),
-    ('/do-register', DoRegisterHandler),
-    ('/signout', SignoutHandler),
-    ('/create-blog', CreateBlogHandler),
-    ('/blog-form', BlogFormHandler)
+    (r'/', MainHandler),
+    (r'/login', LoginHandler),
+    (r'/do-login', DoLoginHandler),
+    (r'/register', RegisterHandler),
+    (r'/do-register', DoRegisterHandler),
+    (r'/signout', SignoutHandler),
+    (r'/create-blog', CreateBlogHandler),
+    (r'/blog-form', BlogFormHandler),
+    (r'/blog/(\S+)', ViewBlogHandler)
 ]
 application = webapp2.WSGIApplication(handlers, debug=True)
