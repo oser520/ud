@@ -215,7 +215,13 @@ class CreateCommentHandler(webapp2.RequestHandler):
     """Handle requests to create a comment on a blog."""
     def get(self):
         """TODO: implement"""
-        self.response.out.write('CreateCommentHandler not implemented yet')
+        action = self.request.get('action')
+        if action == 'create':
+            self.create()
+        self.redirect('/')
+    def create(self):
+        """TODO: implement."""
+        pass
 
 class SaveCommentHandler(webapp2.RequestHandler):
     """Handle requests to create a comment on a blog."""
@@ -289,7 +295,16 @@ class ViewBlogHandler(webapp2.RequestHandler):
         key = ndb.Key(urlsafe=urlkey)
         blog = key.get()
         template = template_env.get_template('blog.html')
-        context = { 'blog': blog }
+        logged_status = util.is_session_req(self.request)
+        context = { 'blog': blog , 'loggedin': logged_status }
+        self.response.out.write(template.render(context))
+
+class CommentFormHandler(webapp2.RequestHandler):
+    """Responds to a request to create a comment in a blog."""
+    def get(self):
+        """Render the form to create a comment entry."""
+        context = { 'entry_type': 'comment', 'with_title': False }
+        template = template_env.get_template('blog-form.html')
         self.response.out.write(template.render(context))
 
 handlers = [
@@ -301,6 +316,8 @@ handlers = [
     (r'/signout', SignoutHandler),
     (r'/create-blog', CreateBlogHandler),
     (r'/blog-form', BlogFormHandler),
-    (r'/blog/(\S+)', ViewBlogHandler)
+    (r'/blog/(\S+)', ViewBlogHandler),
+    (r'/comment-form', CommentFormHandler),
+    (r'/create-comment', CreateCommentHandler)
 ]
 application = webapp2.WSGIApplication(handlers, debug=True)

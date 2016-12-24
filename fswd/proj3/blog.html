@@ -13,16 +13,19 @@
         <p>{{ blog.likes|count }}</p>
       </div>
     </header>
-    <div class="row">
+    <section class="row">
       <div class="col-md-12">
         <p>{{ blog.text }}</p>
       </div>
-    </div>
-    <div class="row">
+    </section>
+    <section class="row">
       <div class="col-md-12">
         <a class="btn btn-primary btn-lg h1" href="/" role="button">Back</a>
+        {% if loggedin %}
+          <a class="btn btn-primary btn-lg h1" href="/comment-form" role="button">Respond</a>
+        {% endif %}
       </div>
-    </div>
+    </section>
   </div>
 {% endblock %}
 {% block js %}
