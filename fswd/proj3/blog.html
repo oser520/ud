@@ -7,15 +7,15 @@
   <div class="container">
     <header class="row">
       <div class="col-md-12">
-        <h1>{{ title }}</h1>
-        <p>{{ user }}</p>
-        <p>{{ date }}</p>
-        <p>{{ likes }}</p>
+        <h1>{{ blog.title }}</h1>
+        <p>{{ blog.user }}</p>
+        <p>{{ blog.date }}</p>
+        <p>{{ blog.likes|count }}</p>
       </div>
     </header>
     <div class="row">
       <div class="col-md-12">
-        <p>{{ text }}</p>
+        <p>{{ blog.text }}</p>
       </div>
     </div>
     <div class="row">

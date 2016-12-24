@@ -288,13 +288,7 @@ class ViewBlogHandler(webapp2.RequestHandler):
         key = ndb.Key(urlsafe=urlkey)
         blog = key.get()
         template = template_env.get_template('blog.html')
-        context = {
-            'title': blog.title,
-            'text': blog.text,
-            'likes': len(blog.likes),
-            'date': blog.date,
-            'user': blog.user
-        }
+        context = { 'blog': blog }
         self.response.out.write(template.render(context))
 
 handlers = [
