@@ -6,7 +6,7 @@
 {% block content %}
   <!-- TODO: move styling to css -->
   <div class="container" style="margin-top: 40px;">
-    <form method="post" action="/create-{{ entry_type }} " class="create-{{ entry_type }}-form" id="create-{{ entry_type }}-form">
+    <form method="post" action="/create-{{ entry_type }}{{ '/%s' % blog_id if blog_id }}" class="create-{{ entry_type }}-form" id="create-{{ entry_type }}-form">
       {% if with_title %}
         <div class="row">
           <!-- input for blog title -->

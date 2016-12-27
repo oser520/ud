@@ -213,15 +213,26 @@ class SaveBlogHandler(webapp2.RequestHandler):
 
 class CreateCommentHandler(webapp2.RequestHandler):
     """Handle requests to create a comment on a blog."""
-    def get(self):
-        """TODO: implement"""
+    def post(self, urlkey):
+        """Stores a comment in the datastore and redirects user to main page."""
         action = self.request.get('action')
         if action == 'create':
-            self.create()
+            self.create(urlkey)
+        """TODO: redirect to comment"""
         self.redirect('/')
-    def create(self):
-        """TODO: implement."""
-        pass
+
+    def create(self, urlkey):
+        """Stores a blog comment in the datastore."""
+        name = self.request.cookies.get('name')
+        title = self.request.get('title')
+        text = self.request.get('text')
+        blogkey = ndb.Key(urlsafe=urlkey)
+        comment = models.BlogComment(blog=blogkey, user=name, comment=text)
+        try:
+            comment.put()
+        except ndb.TransactionFailedError:
+            # TODO: Handle error
+            return
 
 class SaveCommentHandler(webapp2.RequestHandler):
     """Handle requests to create a comment on a blog."""
@@ -280,7 +291,10 @@ class BlogFormHandler(webapp2.RequestHandler):
     """Renders the blog form to create a blog entry."""
     def get(self):
         """Render the form to create a blog entry."""
-        context = { 'entry_type': 'blog', 'with_title': True }
+        context = {
+            'entry_type': 'blog',
+            'with_title': True
+        }
         template = template_env.get_template('blog-form.html')
         self.response.out.write(template.render(context))
 
@@ -296,14 +310,22 @@ class ViewBlogHandler(webapp2.RequestHandler):
         blog = key.get()
         template = template_env.get_template('blog.html')
         logged_status = util.is_session_req(self.request)
-        context = { 'blog': blog , 'loggedin': logged_status }
+        context = {
+            'blog': blog ,
+            'loggedin': logged_status,
+            'blog_id': urlkey
+        }
         self.response.out.write(template.render(context))
 
 class CommentFormHandler(webapp2.RequestHandler):
     """Responds to a request to create a comment in a blog."""
-    def get(self):
+    def get(self, urlkey):
         """Render the form to create a comment entry."""
-        context = { 'entry_type': 'comment', 'with_title': False }
+        context = {
+            'entry_type': 'comment',
+            'with_title': False,
+            'blog_id': urlkey
+        }
         template = template_env.get_template('blog-form.html')
         self.response.out.write(template.render(context))
 
@@ -317,7 +339,7 @@ handlers = [
     (r'/create-blog', CreateBlogHandler),
     (r'/blog-form', BlogFormHandler),
     (r'/blog/(\S+)', ViewBlogHandler),
-    (r'/comment-form', CommentFormHandler),
-    (r'/create-comment', CreateCommentHandler)
+    (r'/comment-form/(\S+)', CommentFormHandler),
+    (r'/create-comment/(\S+)', CreateCommentHandler)
 ]
 application = webapp2.WSGIApplication(handlers, debug=True)
