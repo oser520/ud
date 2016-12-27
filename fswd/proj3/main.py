@@ -310,10 +310,13 @@ class ViewBlogHandler(webapp2.RequestHandler):
         blog = key.get()
         template = template_env.get_template('blog.html')
         logged_status = util.is_session_req(self.request)
+        q = models.BlogComment.query(models.BlogComment.blog == key)
+        comments = q.order(models.BlogComment.date).fetch()
         context = {
             'blog': blog ,
             'loggedin': logged_status,
-            'blog_id': urlkey
+            'blog_id': urlkey,
+            'comments': comments
         }
         self.response.out.write(template.render(context))
 

@@ -26,6 +26,17 @@
         {% endif %}
       </div>
     </section>
+    <section class="blog-comments">
+      {% for comment in comments %}
+        <div class="row">
+          <div class="col-md-12">
+            <p>{{ comment.user }}</p>
+            <p>{{ comment.date }}</p>
+            <p>{{ comment.comment }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </section>
   </div>
 {% endblock %}
 {% block js %}
