@@ -178,14 +178,6 @@ class DoRegisterHandler(webapp2.RequestHandler):
         # Redirect to main page with full access
         return self.redirect('/')
 
-class SaveBlogHandler(webapp2.RequestHandler):
-    """Handle requests to save a blog."""
-    def get(self):
-        """TODO: implement logic to save a blog after it has been edited, or
-        upon creation.
-        """
-        self.response.out.write('SaveBlogHandler not implemented yet')
-
 # Blog comment handlers
 
 class CreateCommentHandler(webapp2.RequestHandler):
