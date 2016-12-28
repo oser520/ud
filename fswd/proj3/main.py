@@ -30,8 +30,6 @@ class LoginHandler(webapp2.RequestHandler):
         if util.is_session_req(self.request):
             self.redirect('/')
             return
-
-        # TODO: get username and password from form and login user to system
         template = template_env.get_template('login.html')
         self.response.out.write(template.render())
 
