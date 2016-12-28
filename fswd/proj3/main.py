@@ -203,12 +203,6 @@ class CreateCommentHandler(webapp2.RequestHandler):
             # TODO: Handle error
             return
 
-class EditBlogHandler(webapp2.RequestHandler):
-    """Handle requests to edit a blog."""
-    def get(self):
-        """TODO: implement"""
-        self.response.out.write('EditBlogHandler not implemented yet')
-
 class SignoutHandler(webapp2.RequestHandler):
     """Handle requests to signout."""
     def get(self):
