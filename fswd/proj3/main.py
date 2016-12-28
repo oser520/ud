@@ -220,6 +220,7 @@ class CreateBlogHandler(webapp2.RequestHandler):
         if action == 'create':
             self.create()
         self.redirect('/')
+
     def create(self):
         """Creates a blog entry."""
         name = self.request.cookies.get('name')
