@@ -305,6 +305,27 @@ class LikeBlogHandler(webapp2.RequestHandler):
                 # TODO: Handle error
                 pass
 
+class UnlikeBlogHandler(webapp2.RequestHandler):
+    """Responds to a request to unlike a blog entry."""
+    def get(self, urlkey):
+        """Adds like if user is logged in."""
+        if util.is_session_req(self.request):
+            self.unlike(urlkey)
+        return self.redirect('/blog/%s' % urlkey)
+
+    def unlike(self, urlkey):
+        name = self.request.cookies.get('name')
+        account = models.Account.get_by_id(name)
+        blog = ndb.Key(urlsafe=urlkey).get()
+        try:
+            blog.likes.remove(account.key)
+            blog.put()
+        except ValueError:
+            pass
+        except ndb.TransactionFailedError:
+            # TODO: handle error
+            pass
+
 handlers = [
     (r'/', MainHandler),
     (r'/login', LoginHandler),
@@ -317,6 +338,7 @@ handlers = [
     (r'/blog/(\S+)', ViewBlogHandler),
     (r'/comment-form/(\S+)', CommentFormHandler),
     (r'/create-comment/(\S+)', CreateCommentHandler),
-    (r'/like/(\S+)', LikeBlogHandler)
+    (r'/like/(\S+)', LikeBlogHandler),
+    (r'/unlike/(\S+)', UnlikeBlogHandler)
 ]
 application = webapp2.WSGIApplication(handlers, debug=True)
