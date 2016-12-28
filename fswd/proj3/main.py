@@ -250,17 +250,24 @@ class ViewBlogHandler(webapp2.RequestHandler):
         Args:
             urlkey: The blog key in URL representation.
         """
-        key = ndb.Key(urlsafe=urlkey)
-        blog = key.get()
+        blog = ndb.Key(urlsafe=urlkey).get()
         template = template_env.get_template('blog.html')
         logged_status = util.is_session_req(self.request)
-        q = models.BlogComment.query(models.BlogComment.blog == key)
+        like_status = 'like'
+        # check if user likes blog
+        if logged_status:
+            name = self.request.cookies.get('name')
+            account = models.Account.get_by_id(name)
+            if account.key in blog.likes:
+                like_status = 'unlike'
+        q = models.BlogComment.query(models.BlogComment.blog == blog.key)
         comments = q.order(models.BlogComment.date).fetch()
         context = {
             'blog': blog ,
             'loggedin': logged_status,
             'blog_id': urlkey,
-            'comments': comments
+            'comments': comments,
+            'like_status': like_status
         }
         self.response.out.write(template.render(context))
 
@@ -276,6 +283,28 @@ class CommentFormHandler(webapp2.RequestHandler):
         template = template_env.get_template('blog-form.html')
         self.response.out.write(template.render(context))
 
+class LikeBlogHandler(webapp2.RequestHandler):
+    """Responds to a request to like a blog entry."""
+    def get(self, urlkey):
+        """Adds like if user is logged in."""
+        login_status = util.is_session_req(self.request)
+        if login_status:
+            self.addlike(urlkey)
+        # TODO: redirect to login page if user is not logged in
+        return self.redirect('/blog/%s' % urlkey)
+
+    def addlike(self, urlkey):
+        name = self.request.cookies.get('name')
+        account = models.Account.get_by_id(name)
+        blog = ndb.Key(urlsafe=urlkey).get()
+        if not account.key in blog.likes:
+            blog.likes.append(account.key)
+            try:
+                blog.put()
+            except ndb.TransactionFailedError:
+                # TODO: Handle error
+                pass
+
 handlers = [
     (r'/', MainHandler),
     (r'/login', LoginHandler),
@@ -287,6 +316,7 @@ handlers = [
     (r'/blog-form', BlogFormHandler),
     (r'/blog/(\S+)', ViewBlogHandler),
     (r'/comment-form/(\S+)', CommentFormHandler),
-    (r'/create-comment/(\S+)', CreateCommentHandler)
+    (r'/create-comment/(\S+)', CreateCommentHandler),
+    (r'/like/(\S+)', LikeBlogHandler)
 ]
 application = webapp2.WSGIApplication(handlers, debug=True)

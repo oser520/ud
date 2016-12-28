@@ -18,13 +18,13 @@
         <p>{{ blog.text }}</p>
       </div>
     </section>
-    <section class="row">
-      <div class="col-md-12">
-        <a class="btn btn-primary btn-lg h1" href="/" role="button">Back</a>
-        {% if loggedin %}
-          <a class="btn btn-primary btn-lg h1" href="/comment-form/{{ blog_id }}" role="button">Respond</a>
-        {% endif %}
-      </div>
+    <section class="btn-group">
+      <a class="btn btn-primary btn-lg h1" href="/" role="button">Back</a>
+      {% if loggedin %}
+        <a class="btn btn-primary btn-lg h1" href="/comment-form/{{ blog_id }}" role="button">Respond</a>
+      {% endif %}
+      <a class="btn btn-primary btn-lg h1" href="/{{ like_status }}/{{ blog_id }}" role="button">{{ like_status|capitalize }}</a>
+      <a class="btn btn-lg h1" href="#" role="button">{{ blog.likes|count }}</a>
     </section>
     <section class="blog-comments">
       {% for comment in comments %}
