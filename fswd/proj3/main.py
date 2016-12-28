@@ -203,12 +203,6 @@ class CreateCommentHandler(webapp2.RequestHandler):
             # TODO: Handle error
             return
 
-class SaveCommentHandler(webapp2.RequestHandler):
-    """Handle requests to create a comment on a blog."""
-    def get(self):
-        """TODO: implement"""
-        self.response.out.write('CreateCommentHandler not implemented yet')
-
 class DeleteCommentHandler(webapp2.RequestHandler):
     """Handle requests to delete a comment on a blog."""
     def get(self):
