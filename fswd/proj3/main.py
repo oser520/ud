@@ -28,8 +28,7 @@ class LoginHandler(webapp2.RequestHandler):
         """Render the login page."""
         # If the request is made as part of a session, then user has already signed in.
         if util.is_session_req(self.request):
-            self.redirect('/')
-            return
+            return self.redirect('/')
         template = template_env.get_template('login.html')
         self.response.out.write(template.render())
 
@@ -45,8 +44,7 @@ class DoLoginHandler(webapp2.RequestHandler):
         # Should not be the case if we got here, but check if this is a session
         # request.
         if util.is_session_req(self.request):
-            self.redirect('/')
-            return
+            return self.redirect('/')
 
         context = {
             'badname': False,
@@ -61,16 +59,14 @@ class DoLoginHandler(webapp2.RequestHandler):
         if not user:
             context['badname'] = True
             template = template_env.get_template('login.html')
-            self.response.out.write(template.render(context))
-            return
+            return self.response.out.write(template.render(context))
 
         # validate password
         pwd = self.request.get('password')
         if not pwd:
             context['badpwd'] = True
             template = template_env.get_template('login.html')
-            self.response.out.write(template.render(context))
-            return
+            return self.response.out.write(template.render(context))
 
         # verify account exists
         account = models.Account.get_by_id(user)
@@ -78,23 +74,21 @@ class DoLoginHandler(webapp2.RequestHandler):
             context['badaccount'] = True
             context['name'] = user
             template = template_env.get_template('login.html')
-            self.response.out.write(template.render(context))
-            return
+            return self.response.out.write(template.render(context))
 
         # verify password is correct
         hsh = util.get_hash(account.salt, pwd)
         if hsh != account.pwd_hash:
             context['badpwd'] = True
             template = template_env.get_template('login.html')
-            self.response.out.write(template.render(context))
-            return
+            return self.response.out.write(template.render(context))
 
         # set session cookies
         self.response.set_cookie('name', user)
         self.response.set_cookie('secret', hsh)
 
         # Redirect to main page with full access
-        self.redirect('/')
+        return self.redirect('/')
 
 class RegisterHandler(webapp2.RequestHandler):
     """Handle requests to register as a user of the blog site."""
@@ -102,8 +96,7 @@ class RegisterHandler(webapp2.RequestHandler):
         """Render the registration page."""
         # If the request is made as part of a session, then user has already signed in.
         if util.is_session_req(self.request):
-            self.redirect('/')
-            return
+            return self.redirect('/')
 
         context = {
             'badname': False,
@@ -186,7 +179,7 @@ class CreateCommentHandler(webapp2.RequestHandler):
         if action == 'create':
             self.create(urlkey)
         """TODO: redirect to comment"""
-        self.redirect('/')
+        return self.redirect('/')
 
     def create(self, urlkey):
         """Stores a blog comment in the datastore."""
@@ -199,7 +192,7 @@ class CreateCommentHandler(webapp2.RequestHandler):
             comment.put()
         except ndb.TransactionFailedError:
             # TODO: Handle error
-            return
+            pass
 
 class SignoutHandler(webapp2.RequestHandler):
     """Handle requests to signout."""
@@ -207,7 +200,7 @@ class SignoutHandler(webapp2.RequestHandler):
         """Deletes session cookies and redirects to the main content page."""
         self.response.delete_cookie('name')
         self.response.delete_cookie('secret')
-        self.redirect('/')
+        return self.redirect('/')
 
 class CreateBlogHandler(webapp2.RequestHandler):
     """Handle requests to create a brand new blog entry."""
@@ -217,7 +210,7 @@ class CreateBlogHandler(webapp2.RequestHandler):
         action = self.request.get('action')
         if action == 'create':
             self.create()
-        self.redirect('/')
+        return self.redirect('/')
 
     def create(self):
         """Creates a blog entry."""
@@ -229,7 +222,7 @@ class CreateBlogHandler(webapp2.RequestHandler):
             blog.put()
         except ndb.TransactionFailedError:
             # TODO: Handle error
-            return
+            pass
 
 class BlogFormHandler(webapp2.RequestHandler):
     """Renders the blog form to create a blog entry."""
@@ -240,7 +233,7 @@ class BlogFormHandler(webapp2.RequestHandler):
             'with_title': True
         }
         template = template_env.get_template('blog-form.html')
-        self.response.out.write(template.render(context))
+        return self.response.out.write(template.render(context))
 
 class ViewBlogHandler(webapp2.RequestHandler):
     """Handlers requests to view a blog entry."""
@@ -269,7 +262,7 @@ class ViewBlogHandler(webapp2.RequestHandler):
             'comments': comments,
             'like_status': like_status
         }
-        self.response.out.write(template.render(context))
+        return self.response.out.write(template.render(context))
 
 class CommentFormHandler(webapp2.RequestHandler):
     """Responds to a request to create a comment in a blog."""
@@ -281,7 +274,7 @@ class CommentFormHandler(webapp2.RequestHandler):
             'blog_id': urlkey
         }
         template = template_env.get_template('blog-form.html')
-        self.response.out.write(template.render(context))
+        return self.response.out.write(template.render(context))
 
 class LikeBlogHandler(webapp2.RequestHandler):
     """Responds to a request to like a blog entry."""
