@@ -222,7 +222,7 @@ class CreateBlogHandler(webapp2.RequestHandler):
             blog.put()
         except ndb.TransactionFailedError:
             # TODO: Handle error
-            pass
+            return
 
 class BlogFormHandler(webapp2.RequestHandler):
     """Renders the blog form to create a blog entry."""
@@ -253,25 +253,38 @@ class ViewBlogHandler(webapp2.RequestHandler):
             urlkey: The blog key in URL-friendly form.
         """
         blog = ndb.Key(urlsafe=urlkey).get()
-        template = template_env.get_template('blog.html')
-        logged_status = util.is_session_req(self.request)
-        like_status = 'like'
-        # check if user likes blog
-        if logged_status:
-            name = self.request.cookies.get('name')
-            account = models.Account.get_by_id(name)
-            if account.key in blog.likes:
-                like_status = 'unlike'
+        login_status = util.is_session_req(self.request)
         q = models.BlogComment.query(models.BlogComment.blog == blog.key)
         comments = q.order(models.BlogComment.date).fetch()
+        context = self.get_context(blog, login_status, comments)
+        # check if user likes blog
+        if login_status:
+            name = self.request.cookies.get('name')
+            if blog.user == name:
+                context['isauthor'] = True
+            account = models.Account.get_by_id(name)
+            if account.key in blog.likes:
+                context['like_status'] = 'unlike'
+        template = template_env.get_template('blog.html')
+        return self.response.out.write(template.render(context))
+
+    def get_context(self, blog, login_status, comments):
+        """Creates the dictionary context for the template.
+
+        Args:
+            blog: The blog entry model.
+            login_status: Login status of user making request.
+            comments: List of blog comments.
+        """
         context = {
             'blog': blog ,
-            'loggedin': logged_status,
-            'blog_id': urlkey,
+            'loggedin': login_status,
+            'blog_id': blog.key.urlsafe(),
             'comments': comments,
-            'like_status': like_status
+            'like_status': 'like',
+            'isauthor' : False
         }
-        return self.response.out.write(template.render(context))
+        return context
 
 class CommentFormHandler(webapp2.RequestHandler):
     """Responds to a request to create a comment in a blog."""

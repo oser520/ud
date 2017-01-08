@@ -21,6 +21,9 @@
     <section class="btn-group">
       <a class="btn btn-primary btn-lg h1" href="/" role="button">Back</a>
       {% if loggedin %}
+        {% if isauthor %}
+          <a class="btn btn-primary btn-lg h1" href="/edit-blog/{{ blog_id }}" role="button">Edit</a>
+        {% endif %}
         <a class="btn btn-primary btn-lg h1" href="/comment-form/{{ blog_id }}" role="button">Respond</a>
         <a class="btn btn-primary btn-lg h1" href="/{{ like_status }}/{{ blog_id }}" role="button">{{ like_status|capitalize }}</a>
       {% else %}
