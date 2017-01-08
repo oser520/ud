@@ -225,15 +225,20 @@ class CreateBlogHandler(webapp2.RequestHandler):
             return
 
 class BlogFormHandler(webapp2.RequestHandler):
-    """Renders the blog form to create a blog entry."""
+    """Handles request initial request to create a blog entry."""
     def get(self):
         """Render the form to create a blog entry."""
-        context = {
-            'entry_type': 'blog',
-            'with_title': True
-        }
         template = template_env.get_template('blog-form.html')
-        return self.response.out.write(template.render(context))
+        return self.response.out.write(template.render(self.get_context()))
+
+    def get_context(self):
+        """Creates the context for the template."""
+        context = {
+            'action': 'create-blog',
+            'with_title': True,
+            'label_title': 'Blog'
+        }
+        return context
 
 class EditBlogFormHandler(webapp2.RequestHandler):
     """Handles a request to edit a blog entry."""
@@ -290,13 +295,18 @@ class CommentFormHandler(webapp2.RequestHandler):
     """Responds to a request to create a comment in a blog."""
     def get(self, urlkey):
         """Render the form to create a comment entry."""
-        context = {
-            'entry_type': 'comment',
-            'with_title': False,
-            'blog_id': urlkey
-        }
         template = template_env.get_template('blog-form.html')
+        context = self.get_context(urlkey)
         return self.response.out.write(template.render(context))
+
+    def get_context(self, urlkey):
+        """Create the context for the comment form template."""
+        return {
+            'action': 'create-comment',
+            'with_title': False,
+            'blog_id': urlkey,
+            'label_title': 'Comment'
+        }
 
 class LikeBlogHandler(webapp2.RequestHandler):
     """Responds to a request to like a blog entry."""
@@ -355,6 +365,7 @@ handlers = [
     (r'/comment-form/(\S+)', CommentFormHandler),
     (r'/create-comment/(\S+)', CreateCommentHandler),
     (r'/like/(\S+)', LikeBlogHandler),
-    (r'/unlike/(\S+)', UnlikeBlogHandler)
+    (r'/unlike/(\S+)', UnlikeBlogHandler),
+    (r'/edit-blog/(\S+)', EditBlogFormHandler)
 ]
 application = webapp2.WSGIApplication(handlers, debug=True)
