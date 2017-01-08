@@ -235,6 +235,13 @@ class BlogFormHandler(webapp2.RequestHandler):
         template = template_env.get_template('blog-form.html')
         return self.response.out.write(template.render(context))
 
+class EditBlogFormHandler(webapp2.RequestHandler):
+    """Handles a request to edit a blog entry."""
+    def get(self, urlkey):
+        """Renders the form to edit a blog entry."""
+        # TODO: implement
+        pass
+
 class ViewBlogHandler(webapp2.RequestHandler):
     """Handlers requests to view a blog entry."""
     def get(self, urlkey):
