@@ -240,6 +240,8 @@ class EditBlogFormHandler(webapp2.RequestHandler):
     def get(self, urlkey):
         """Renders the form to edit a blog entry."""
         # TODO: implement
+        # Create button/link to edit blog.
+        # Create button/link to cancel edit.
         pass
 
 class ViewBlogHandler(webapp2.RequestHandler):
@@ -291,6 +293,7 @@ class LikeBlogHandler(webapp2.RequestHandler):
         if login_status:
             self.addlike(urlkey)
         # TODO: redirect to login page if user is not logged in
+        # TODO: don't allow users to like their own post
         return self.redirect('/blog/%s' % urlkey)
 
     def addlike(self, urlkey):
