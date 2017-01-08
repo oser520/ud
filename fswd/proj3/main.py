@@ -244,10 +244,24 @@ class EditBlogFormHandler(webapp2.RequestHandler):
     """Handles a request to edit a blog entry."""
     def get(self, urlkey):
         """Renders the form to edit a blog entry."""
+        blog = ndb.Key(urlsafe=urlkey).get()
+        context = self.get_context(blog)
+        template = template_env.get_template('blog-form.html')
+        return self.response.out.write(template.render(context))
         # TODO: implement
         # Create button/link to edit blog.
         # Create button/link to cancel edit.
-        pass
+
+    def get_context(self, blog):
+        """Create the context for the edit form template."""
+        return {
+            'action': 'edit-blog',
+            'with_title': True,
+            'blog_id': blog.key.urlsafe(),
+            'label_title': 'Blog',
+            'title_value': blog.title,
+            'text_value': blog.text
+        }
 
 class ViewBlogHandler(webapp2.RequestHandler):
     """Handlers requests to view a blog entry."""

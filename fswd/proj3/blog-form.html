@@ -13,7 +13,8 @@
           <div class="form-group col-xs-6">
             <label for="blog-title">Title</label>
             <input type="text" class="form-control" id="blog-title" name="title" pattern="^\w.*"
-              title="The must contain at least one non-white space character">
+              title="The must contain at least one non-white space character"
+              value="{{ title_value if title_value }}">
           </div>
         </div>
       {% endif %}
@@ -22,12 +23,15 @@
         <!-- TODO: find way to resize textarea automatically -->
         <div class="form-group col-xs-12">
           <label for="{{ action }}-text">{{ label_title }}</label>
-          <textarea rows="10" class="form-control" id="{{ action }}-text" name="text" minlength="1"></textarea>
+          <textarea rows="10" class="form-control" id="{{ action }}-text" name="text" minlength="1">{{ text_value if text_value }}</textarea>
         </div>
       </div>
       <div class="btn-group">
-        <button type="submit" class="btn btn-primary" name="action" value="create">Create</button>
+        <button type="submit" class="btn btn-primary" name="action" value="{{ "save" if text_value else "create" }}">{{ "Save" if text_value else "Create" }}</button>
         <button type="submit" class="btn btn-primary" name="action" value="cancel">Cancel</button>
+        {% if text_value %}
+          <button type="submit" class="btn btn-primary" name="action" value="delete">Delete</button>
+        {% endif %}
       </div>
     </form>
   </div>
