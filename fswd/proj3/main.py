@@ -250,7 +250,7 @@ class ViewBlogHandler(webapp2.RequestHandler):
         """Renders a blog entry.
 
         Args:
-            urlkey: The blog key in URL representation.
+            urlkey: The blog key in URL-friendly form.
         """
         blog = ndb.Key(urlsafe=urlkey).get()
         template = template_env.get_template('blog.html')
