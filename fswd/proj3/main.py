@@ -263,6 +263,20 @@ class EditBlogFormHandler(webapp2.RequestHandler):
             'text_value': blog.text
         }
 
+class EditBlogHandler(webapp2.RequestHandler):
+    """Handles a request to save a blog after an edit."""
+    def get(self, urlkey):
+        """Saves a blog entry after it has been edited."""
+        # TODO: implement
+        # Create button/link to edit blog.
+        # Create button/link to cancel edit.
+        """
+        blog = ndb.Key(urlsafe=urlkey).get()
+        context = self.get_context(blog)
+        template = template_env.get_template('blog-form.html')
+        """
+        return self.response.out.write(template.render(context))
+
 class ViewBlogHandler(webapp2.RequestHandler):
     """Handlers requests to view a blog entry."""
     def get(self, urlkey):
