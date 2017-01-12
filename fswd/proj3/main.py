@@ -46,14 +46,7 @@ class DoLoginHandler(webapp2.RequestHandler):
         if util.is_session_req(self.request):
             return self.redirect('/')
 
-        context = {
-            'badname': False,
-            'badpwd': False,
-            'badaccount': False,
-            'badpwd': False,
-            'name': None
-        }
-
+        context = self.get_context()
         # validate username
         user = self.request.get('user')
         if not user:
@@ -90,6 +83,16 @@ class DoLoginHandler(webapp2.RequestHandler):
         # Redirect to main page with full access
         return self.redirect('/')
 
+    def get_context(self):
+        """Return the context for the login.html template."""
+        return {
+            'badname': False,
+            'badpwd': False,
+            'badaccount': False,
+            'badpwd': False,
+            'name': None
+        }
+
 class RegisterHandler(webapp2.RequestHandler):
     """Handle requests to register as a user of the blog site."""
     def get(self):
@@ -97,15 +100,17 @@ class RegisterHandler(webapp2.RequestHandler):
         # If the request is made as part of a session, then user has already signed in.
         if util.is_session_req(self.request):
             return self.redirect('/')
+        template = template_env.get_template('register.html')
+        self.response.out.write(template.render(self.get_context()))
 
-        context = {
+    def get_context(self):
+        """Return the context for the register.html template."""
+        return {
             'badname': False,
             'nametaken': False,
             'badpwd': False,
             'name': None
         }
-        template = template_env.get_template('register.html')
-        self.response.out.write(template.render(context))
 
 class DoRegisterHandler(webapp2.RequestHandler):
     """Handle requests to register as a user of the blog site."""
@@ -121,13 +126,7 @@ class DoRegisterHandler(webapp2.RequestHandler):
         if util.is_session_req(self.request):
             return self.redirect('/')
 
-        context = {
-            'badname': True,
-            'nametaken': False,
-            'badpwd': False,
-            'name': None
-        }
-
+        context = self.get_context()
         # Validate user name
         user = self.request.get('user')
         user = util.process_username(user)
@@ -169,6 +168,15 @@ class DoRegisterHandler(webapp2.RequestHandler):
         # Redirect to main page with full access
         return self.redirect('/')
 
+    def get_context(self):
+        """Return the context for the main page template."""
+        return {
+            'badname': True,
+            'nametaken': False,
+            'badpwd': False,
+            'name': None
+        }
+
 # Blog comment handlers
 
 class CreateCommentHandler(webapp2.RequestHandler):
@@ -178,8 +186,7 @@ class CreateCommentHandler(webapp2.RequestHandler):
         action = self.request.get('action')
         if action == 'create':
             self.create(urlkey)
-        """TODO: redirect to comment"""
-        return self.redirect('/')
+        return self.redirect('/blog/%s' % urlkey)
 
     def create(self, urlkey):
         """Stores a blog comment in the datastore."""
@@ -328,7 +335,7 @@ class ViewBlogHandler(webapp2.RequestHandler):
             login_status: Login status of user making request.
             comments: List of blog comments.
         """
-        context = {
+        return {
             'blog': blog ,
             'loggedin': login_status,
             'blog_id': blog.key.urlsafe(),
@@ -336,7 +343,6 @@ class ViewBlogHandler(webapp2.RequestHandler):
             'like_status': 'like',
             'isauthor' : False
         }
-        return context
 
 class CommentFormHandler(webapp2.RequestHandler):
     """Responds to a request to create a comment in a blog."""
