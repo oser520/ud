@@ -248,14 +248,11 @@ class EditBlogFormHandler(webapp2.RequestHandler):
         context = self.get_context(blog)
         template = template_env.get_template('blog-form.html')
         return self.response.out.write(template.render(context))
-        # TODO: implement
-        # Create button/link to edit blog.
-        # Create button/link to cancel edit.
 
     def get_context(self, blog):
         """Create the context for the edit form template."""
         return {
-            'action': 'edit-blog',
+            'action': 'save-blog',
             'with_title': True,
             'blog_id': blog.key.urlsafe(),
             'label_title': 'Blog',
@@ -265,17 +262,39 @@ class EditBlogFormHandler(webapp2.RequestHandler):
 
 class EditBlogHandler(webapp2.RequestHandler):
     """Handles a request to save a blog after an edit."""
-    def get(self, urlkey):
-        """Saves a blog entry after it has been edited."""
-        # TODO: implement
-        # Create button/link to edit blog.
-        # Create button/link to cancel edit.
+    def post(self, urlkey):
+        """Saves, deletes, or cancels editing a blog entry.
+
+        Args:
+            urlkey: Blog key in url safe format.
+        """
+        action = self.request.get('action')
+        if action == 'cancel':
+            return self.redirect('/blog/%s' % urlkey)
+        elif action == 'delete':
+            ndb.Key(urlsafe=urlkey).delete()
+            return self.redirect('/')
+        elif action == 'save':
+            self.save_blog(urlkey)
+            return self.redirect('/blog/%s' % urlkey)
+        # should never get here, but just in case
+        return self.redirect('/blog/%s' % urlkey)
+
+    def save_blog(self, urlkey):
+        """Save the contents of the edited blog.
+
+        Args:
+            urlkey: Blog key in url safe format.
         """
         blog = ndb.Key(urlsafe=urlkey).get()
-        context = self.get_context(blog)
-        template = template_env.get_template('blog-form.html')
-        """
-        return self.response.out.write(template.render(context))
+        blog.title = self.request.get('title').strip()
+        blog.text = self.request.get('text').strip()
+        # TODO: might be a good idea to add a last edited field to blog model
+        try:
+            blog.put()
+        except ndb.TransactionFailedError:
+            # TODO: handle error
+            pass
 
 class ViewBlogHandler(webapp2.RequestHandler):
     """Handlers requests to view a blog entry."""
@@ -340,17 +359,20 @@ class LikeBlogHandler(webapp2.RequestHandler):
     """Responds to a request to like a blog entry."""
     def get(self, urlkey):
         """Adds like if user is logged in."""
-        login_status = util.is_session_req(self.request)
-        if login_status:
-            self.addlike(urlkey)
-        # TODO: redirect to login page if user is not logged in
-        # TODO: don't allow users to like their own post
+        # Should not get here if user is not logged in, but check either way
+        if not util.is_session_req(self.request):
+            return self.redirect('/login')
+        self.addlike(urlkey)
         return self.redirect('/blog/%s' % urlkey)
 
     def addlike(self, urlkey):
         name = self.request.cookies.get('name')
         account = models.Account.get_by_id(name)
         blog = ndb.Key(urlsafe=urlkey).get()
+        # Don't allow users to like their own blogs
+        if name == blog.user:
+            return
+        # Don't allow users to like a blog more than once
         if not account.key in blog.likes:
             blog.likes.append(account.key)
             try:
@@ -394,6 +416,7 @@ handlers = [
     (r'/create-comment/(\S+)', CreateCommentHandler),
     (r'/like/(\S+)', LikeBlogHandler),
     (r'/unlike/(\S+)', UnlikeBlogHandler),
-    (r'/edit-blog/(\S+)', EditBlogFormHandler)
+    (r'/edit-blog/(\S+)', EditBlogFormHandler),
+    (r'/save-blog/(\S+)', EditBlogHandler)
 ]
 application = webapp2.WSGIApplication(handlers, debug=True)
