@@ -28,7 +28,7 @@
         <header class="col-sm-12">
           <h3><a href="/blog/{{ item.key.urlsafe() }}">{{ item.title }}</a></h3>
           <p>{{ item.user }}</p>
-          <p>{{ item.date }}</p>
+          <p><time datetime="{{ item.date }}">{{ item.date.strftime('%A, %d. %B %Y.') }}</time></p>
           <p>{{ item.likes|length }}</p>
         </header>
         <div class="col-sm-12">
