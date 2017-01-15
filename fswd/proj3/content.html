@@ -2,6 +2,7 @@
 {% block title %}om-blog{% endblock %}
 {% block head %}
   {% include "bootstrap-css.html" %}
+  {% include "font-awesome.html" %}
   <link rel="stylesheet" href="css/style.css">
 {% endblock %}
 {% block content %}
@@ -29,11 +30,13 @@
         <time class="article-date" datetime="{{ item.date }}">
           Posted {{ item.date.strftime('%d %B %Y') }} by {{ item.user }}
         </time>
-        <p class="total-likes">{{ item.likes|length }}</p>
       </header>
       <div class="col-md-8 article-content col-centered">
         <p>{{ item.tease }}</p>
-        <p><a href="/blog/{{ item.key.urlsafe() }}">Read on...</a></p>
+        <p>
+          <i class="fa fa-thumbs-up"> {{ item.likes|count }}</i> &bull;
+          <a href="/blog/{{ item.key.urlsafe() }}">Read on...</a>
+        </p>
       </div>
     </article>
     {% endfor %}
