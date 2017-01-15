@@ -27,7 +27,7 @@
       <header class="col-md-8 preview-header width-padding col-centered">
         <h1 class="h2"><a href="/blog/{{ item.key.urlsafe() }}">{{ item.title }}</a></h1>
         <time class="article-date" datetime="{{ item.date }}">
-          Posted on {{ item.date.strftime('%A, %d. %B %Y') }} by {{ item.user }}
+          Posted {{ item.date.strftime('%d %B %Y') }} by {{ item.user }}
         </time>
         <p class="total-likes">{{ item.likes|length }}</p>
       </header>
