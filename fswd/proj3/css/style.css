@@ -14,7 +14,8 @@
     font-display: optional
 }
 
-html {
+html,
+html body {
     overflow-y: scroll;
     background: #f1f1f1;
     font-size: 15px;
@@ -23,7 +24,8 @@ html {
 }
 
 @media screen and (min-width: 530px) {
-    html {
+    html,
+    html body {
         font-size: 16px;
         color: #444
     }
@@ -45,6 +47,7 @@ body {
   background-color: black;
   color: white;
   position: relative;
+  margin-bottom: 0px;
 }
 
 .col-centered {
@@ -151,4 +154,10 @@ body {
 
 .btn {
   background: #FF8400;
+}
+
+.main-container {
+  max-width: 1066px;
+  background: #fff;
+  margin: 0 auto
 }
