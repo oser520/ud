@@ -6,20 +6,20 @@
 {% endblock %}
 {% block content %}
   <div class="jumbotron">
-  <div class="container">
-    <header class="header-background">
-      <h1 class="text-center">OM-BLOG</h1>
-      <p class="login-buttons">
-        {% if loggedin %}
-        <a class="btn btn-primary" href="/blog-form" role="button">Create Blog</a>
-        <a class="btn btn-primary" href="/signout" role="button">Signout</a>
-        {% else %}
-        <a class="btn btn-primary" href="/login" role="button">Login</a>
-        <a class="btn btn-primary" href="/register" role="button">Register</a>
-        {% endif %}
-      </p>
-    </header>
-  </div>
+    <div class="container">
+      <header class="header-background">
+        <h1>OM-BLOG</h1>
+        <p class="login-buttons">
+          {% if loggedin %}
+          <a class="btn btn-primary" href="/blog-form" role="button">Create Blog</a>
+          <a class="btn btn-primary" href="/signout" role="button">Signout</a>
+          {% else %}
+          <a class="btn btn-primary" href="/login" role="button">Login</a>
+          <a class="btn btn-primary" href="/register" role="button">Register</a>
+          {% endif %}
+        </p>
+      </header>
+    </div>
   </div>
   <div class="container">
     {% for item in blog_titles %}

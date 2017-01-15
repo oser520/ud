@@ -114,17 +114,23 @@ body {
 }
 
 @media screen and (min-width: 530px) {
-    .article-date {
-        padding: 6px 10px 5px 32px;
-        margin-left: -32px;
-        margin-right: -32px
-    }
+  .article-date {
+    padding: 6px 10px 5px 32px;
+    margin-left: -32px;
+    margin-right: -32px
+  }
 }
 
-.login-buttons {
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
+@media screen and (min-width: 530px) {
+  .login-buttons {
+    position: absolute;
+    bottom: 0px;
+    right: 1px;
+  }
+
+  .jumbotron h1 {
+    text-align: center;
+  }
 }
 
 .article-content a:link,
