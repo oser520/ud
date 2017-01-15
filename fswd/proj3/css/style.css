@@ -1,9 +1,148 @@
+@font-face {
+    font-family: 'Inconsolata';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://themes.googleusercontent.com/static/fonts/inconsolata/v6/BjAYBlHtW3CJxDcjzrnZCCwlidHJgAgmTjOEEzwu1L8.ttf) format("truetype");
+    font-display: optional
+}
+
+@font-face {
+    font-family: 'PT Serif';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://themes.googleusercontent.com/static/fonts/ptserif/v5/EgBlzoNBIHxNPCMwXaAhYHYhjbSpvc47ee6xR_80Hnw.ttf) format("truetype");
+    font-display: optional
+}
+
+html {
+    overflow-y: scroll;
+    background: #f1f1f1;
+    font-size: 15px;
+    font-family: sans-serif;
+    line-height: 1.9
+}
+
+@media screen and (min-width: 530px) {
+    html {
+        font-size: 16px;
+        color: #444
+    }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  -webkit-text-size-adjust: 100%
+}
+
 .h1-style {
   font-size: 36px;
   margin-top: 20px;
   margin-bottom: 10px;
 }
 
-.header-background {
-  background-color: powderblue;
+.jumbotron {
+  background-color: black;
+  color: white;
+  position: relative;
+}
+
+.col-centered {
+  float: none;
+  margin: 0 auto;
+}
+
+.post-preview:after {
+  content: " ";
+  display: table
+}
+
+.post-preview:after {
+  clear: both
+}
+
+.post-preview h1 {
+  margin-top: 0
+}
+
+.post-preview h1 a:link,
+.post-preview h1 a:visited {
+  display: block;
+  color: #fff
+}
+
+.post-preview h1 a:hover,
+.post-preview h1 a:active {
+  color: #fff;
+  text-decoration: underline
+}
+
+.h2 {
+  background: #009D81;
+  color: #FFF;
+  margin: 35px 0 0;
+  font-family: "PT Serif", georgia, serif;
+  font-size: 1.6rem;
+  font-weight: normal;
+  line-height: 1;
+  padding: 7px 20px 10px 20px;
+  margin-left: -20px
+}
+
+@media screen and (min-width: 530px) {
+  .h2 {
+    font-size: 1.9rem;
+    padding: 10px 35px 13px 62px;
+    margin-right: -32px;
+    margin-left: -65px
+  }
+}
+
+@media screen and (min-width: 1066px) {
+  .h2 {
+    border-radius: 32px 0 0 32px
+  }
+}
+
+.article-date {
+    font-size: 0.8rem;
+    display: block;
+    background: #FFE454;
+    color: #000;
+    padding: 6px 20px 5px 20px;
+    margin: 0 0 0 -20px
+}
+
+@media screen and (min-width: 530px) {
+    .article-date {
+        padding: 6px 10px 5px 32px;
+        margin-left: -32px;
+        margin-right: -32px
+    }
+}
+
+.login-buttons {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+
+.article-content a:link,
+.article-content a:visited {
+  text-decoration: none;
+  color: #CC2100
+}
+
+.article-content a:active,
+.article-content a:hover,
+.article-content a:focus {
+  color: #FF8F00
+}
+
+.article-content a:active {
+  text-decoration: underline
+}
+
+.btn {
+  background: #FF8400;
 }

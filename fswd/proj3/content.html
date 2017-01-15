@@ -5,38 +5,38 @@
   <link rel="stylesheet" href="css/style.css">
 {% endblock %}
 {% block content %}
+  <div class="jumbotron">
   <div class="container">
-    <header class="row header-background">
-      <div class="col-md-9 col-xs-12">
-        <h1 class="text-center">om-blog</h1>
-      </div>
-      <div class="col-md-3 col-xs-12">
-        <p class="pull-right">
-          {% if loggedin %}
-            <a class="btn btn-primary btn-lg h1" href="/blog-form" role="button">Create Blog</a>
-            <a class="btn btn-primary btn-lg h1" href="/signout" role="button">Signout</a>
-          {% else %}
-            <a class="btn btn-primary btn-lg h1" href="/login" role="button">Login</a>
-            <a class="btn btn-primary btn-lg h1" href="/register" role="button">Register</a>
-          {% endif %}
-        </p>
-      </div>
+    <header class="header-background">
+      <h1 class="text-center">OM-BLOG</h1>
+      <p class="login-buttons">
+        {% if loggedin %}
+        <a class="btn btn-primary" href="/blog-form" role="button">Create Blog</a>
+        <a class="btn btn-primary" href="/signout" role="button">Signout</a>
+        {% else %}
+        <a class="btn btn-primary" href="/login" role="button">Login</a>
+        <a class="btn btn-primary" href="/register" role="button">Register</a>
+        {% endif %}
+      </p>
     </header>
-    <article class="blog-titles">
+  </div>
+  </div>
+  <div class="container">
     {% for item in blog_titles %}
-      <section class="row item">
-        <header class="col-sm-12">
-          <h3><a href="/blog/{{ item.key.urlsafe() }}">{{ item.title }}</a></h3>
-          <p>{{ item.user }}</p>
-          <p><time datetime="{{ item.date }}">{{ item.date.strftime('%A, %d. %B %Y.') }}</time></p>
-          <p>{{ item.likes|length }}</p>
-        </header>
-        <div class="col-sm-12">
-          <p>{{ item.tease }}</p>
-        </div>
-      </section>
-    {% endfor %}
+    <article class="row post-preview">
+      <header class="col-md-8 preview-header width-padding col-centered">
+        <h1 class="h2"><a href="/blog/{{ item.key.urlsafe() }}">{{ item.title }}</a></h1>
+        <time class="article-date" datetime="{{ item.date }}">
+          Posted on {{ item.date.strftime('%A, %d. %B %Y') }} by {{ item.user }}
+        </time>
+        <p class="total-likes">{{ item.likes|length }}</p>
+      </header>
+      <div class="col-md-8 article-content col-centered">
+        <p>{{ item.tease }}</p>
+        <p><a href="/blog/{{ item.key.urlsafe() }}">Read on...</a></p>
+      </div>
     </article>
+    {% endfor %}
   </div>
 {% endblock %}
 {% block js %}
