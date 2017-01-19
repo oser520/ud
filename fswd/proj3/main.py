@@ -324,6 +324,8 @@ class ViewBlogHandler(webapp2.RequestHandler):
             account = models.Account.get_by_id(name)
             if account.key in blog.likes:
                 context['like_status'] = 'unlike'
+                context['heart'] = 'red-heart'
+                context['recommend'] = 'Recommended'
         template = template_env.get_template('blog.html')
         return self.response.out.write(template.render(context))
 
@@ -341,7 +343,9 @@ class ViewBlogHandler(webapp2.RequestHandler):
             'blog_id': blog.key.urlsafe(),
             'comments': comments,
             'like_status': 'like',
-            'isauthor' : False
+            'isauthor' : False,
+            'heart': 'normal',
+            'recommend': 'Recommend'
         }
 
 class CommentFormHandler(webapp2.RequestHandler):

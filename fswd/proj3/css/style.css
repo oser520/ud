@@ -152,6 +152,33 @@ body {
   text-decoration: underline
 }
 
+.article-title {
+    background: #FF8400;
+    color: #FFF;
+    margin: 0;
+    font-family: "PT Serif", georgia, serif;
+    font-size: 2.5rem;
+    font-weight: normal;
+    line-height: 1.1;
+    margin-left: -20px;
+    padding: 7px 20px 13px 20px
+}
+
+@media screen and (min-width: 530px) {
+    .article-title {
+        font-size: 3.4rem;
+        padding: 10px 36px 17px 62px;
+        margin-left: -65px;
+        margin-right: -32px
+    }
+}
+
+@media screen and (min-width: 1066px) {
+    .article-title {
+        border-radius: 32px 0 0 32px
+    }
+}
+
 .btn {
   background: #FF8400;
 }
@@ -160,4 +187,20 @@ body {
   max-width: 1066px;
   background: #fff;
   margin: 0 auto
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background-color: #e1e1ea;
+}
+
+.red-heart {
+  color: #ff6666;
+}
+
+.likes-number {
+  background: #e1e1ea;
+  padding-left: 3px;
+  padding-right: 3px;
 }
