@@ -335,9 +335,6 @@ class ViewBlogHandler(webapp2.RequestHandler):
             login_status: Login status of user making request.
             comments: List of blog comments.
         """
-        # TODO: might be better to provide all the pieces to the context,
-        # instead of using a single entity to populate more than one
-        # template entry, to avoid errors during rendering of the page
         return {
             'blog': blog ,
             'loggedin': login_status,
