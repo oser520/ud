@@ -21,15 +21,21 @@
         <p>{{ blog.text }}</p>
       </div>
     </article>
-    <div class="row">
+    <div class="row like-control">
       <div class="col-md-8 col-centered">
         <hr>
-        <!-- TODO: make the color of the heart red when someone cliks on
-        recommend, increase the number of likes, and change word to Recommended
-        -->
-        <p><span class="{{ heart }}">&hearts;</span> {{ recommend }} <span class="likes-number">{{ blog.likes|count }}</span></p>
+        <a href="/{{ like_status }}/{{ blog_id }}">
+          <p><span class="{{ heart }}">&hearts;</span> {{ recommend }} <span class="likes-number">{{ blog.likes|count }}</span></p>
+        </a>
       </div>
     </div>
+    <form class="row" method="post" action="/create-comment/{{ blog_id }}">
+      <div class="col-md-8 col-centered">
+        <textarea class="form-control input-lg comment-input"
+          name="text" placeholder="Join the discussion..."></textarea>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
     <section class="btn-group">
       <a class="btn btn-primary btn-lg h1" href="/" role="button">Back</a>
       {% if loggedin %}
