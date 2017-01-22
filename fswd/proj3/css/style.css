@@ -136,19 +136,19 @@ body {
   }
 }
 
-.article-content a:link,
-.article-content a:visited {
+.read-on-link:link,
+.read-on-link:visited {
   text-decoration: none;
   color: #CC2100
 }
 
-.article-content a:active,
-.article-content a:hover,
-.article-content a:focus {
+.read-on-link:active,
+.read-on-link:hover,
+.read-on-link:focus {
   color: #FF8F00
 }
 
-.article-content a:active {
+.read-on-link:active {
   text-decoration: underline
 }
 
@@ -177,10 +177,6 @@ body {
   .article-title {
     border-radius: 32px 0 0 32px
   }
-}
-
-.btn {
-  background: #FF8400;
 }
 
 .container {
@@ -228,6 +224,6 @@ textarea {
   margin-bottom: 3px;
 }
 
-#edit-button {
-  color: white;
+.login-buttons {
+  color: #444;
 }

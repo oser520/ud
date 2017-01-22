@@ -10,11 +10,11 @@
     <h1>OM-BLOG</h1>
     <p class="login-buttons">
       {% if loggedin %}
-      <a class="btn btn-primary" href="/blog-form" role="button">Create Blog</a>
-      <a class="btn btn-primary" href="/signout" role="button">Signout</a>
+      <a class="btn btn-default" href="/blog-form" role="button">Create Blog</a>
+      <a class="btn btn-default" href="/signout" role="button">Signout</a>
       {% else %}
-      <a class="btn btn-primary" href="/login" role="button">Login</a>
-      <a class="btn btn-primary" href="/register" role="button">Register</a>
+      <a class="btn btn-default" href="/login" role="button">Login</a>
+      <a class="btn btn-default" href="/register" role="button">Register</a>
       {% endif %}
     </p>
   </header>
@@ -31,7 +31,7 @@
         <p>{{ item.tease }}</p>
         <p>
           <i class="fa fa-thumbs-up"> {{ item.likes|count }}</i> &bull;
-          <a href="/blog/{{ item.key.urlsafe() }}">Read on...</a>
+          <a class="read-on-link" href="/blog/{{ item.key.urlsafe() }}">Read on...</a>
         </p>
       </div>
     </article>
