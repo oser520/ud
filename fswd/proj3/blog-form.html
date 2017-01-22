@@ -6,7 +6,7 @@
 {% block content %}
   <!-- TODO: move styling to css -->
   <div class="container" style="margin-top: 40px;">
-    <form method="post" action="/{{ action }}{{ '/%s' % blog_id if blog_id }}" class="{{ action }}-form" id="{{ action }}-form">
+    <form method="post" action="/{{ action }}{{ '/%s' % entry_id if entry_id }}" class="{{ action }}-form" id="{{ action }}-form">
       {% if with_title %}
         <div class="row">
           <!-- input for blog title -->

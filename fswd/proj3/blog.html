@@ -7,6 +7,15 @@
 {% block content %}
   <header class="jumbotron">
     <h1><a href="/">OM-BLOG</a></h1>
+    <p class="login-buttons">
+      {% if loggedin %}
+      <a class="btn btn-default" href="/blog-form" role="button">Create Blog</a>
+      <a class="btn btn-default" href="/signout" role="button">Signout</a>
+      {% else %}
+      <a class="btn btn-default" href="/login" role="button">Login</a>
+      <a class="btn btn-default" href="/register" role="button">Register</a>
+      {% endif %}
+    </p>
   </header>
   <div class="container">
     <header class="row">
@@ -19,7 +28,7 @@
     <article class="row article-content col-centered">
       <div class="col-md-8 col-centered">
         <p>{{ blog.text }}</p>
-        {% if loggedin and isauthor %}
+        {% if loggedin and blog.is_author(user) %}
         <a class="btn btn-default pull-right" href="/edit-blog/{{ blog_id }}" role="button">Edit</a>
         {% endif %}
       </div>
@@ -54,8 +63,10 @@
               <b>{{ comment.user }}</b> &bull; <small>{{ comment.get_timedelta() }}</small>
             </time>
             <p>{{ comment.comment }}</p>
-            <a class="btn btn-default" href="#"><small>Edit</small></a>
-            <a class="btn btn-default" href="#"><small>Delete</small></a>
+            {% if comment.is_author(user) %}
+            <a class="btn btn-default" href="/edit-comment/{{ comment.key.urlsafe() }}""><small>Edit</small></a>
+            <a class="btn btn-default" href="/delete-comment/{{comment.key.urlsafe() }}""><small>Delete</small></a>
+            {% endif %}
           </div>
         </div>
       {% endfor %}

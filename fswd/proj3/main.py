@@ -184,7 +184,6 @@ class CreateCommentHandler(webapp2.RequestHandler):
     def post(self, urlkey):
         """Stores a comment in the datastore and redirects user to main page."""
         name = self.request.cookies.get('name')
-        title = self.request.get('title')
         text = self.request.get('text')
         blogkey = ndb.Key(urlsafe=urlkey)
         comment = models.BlogComment(blog=blogkey, user=name, comment=text)
@@ -313,8 +312,7 @@ class ViewBlogHandler(webapp2.RequestHandler):
         # check if user likes blog
         if login_status:
             name = self.request.cookies.get('name')
-            if blog.user == name:
-                context['isauthor'] = True
+            context['user'] = name
             account = models.Account.get_by_id(name)
             if account.key in blog.likes:
                 context['like_status'] = 'unlike'
@@ -322,7 +320,7 @@ class ViewBlogHandler(webapp2.RequestHandler):
         template = template_env.get_template('blog.html')
         return self.response.out.write(template.render(context))
 
-    def get_context(self, blog, login_status, comments):
+    def get_context(self, blog, login_status, comments, user=None):
         """Creates the dictionary context for the template.
 
         Args:
@@ -336,26 +334,69 @@ class ViewBlogHandler(webapp2.RequestHandler):
             'blog_id': blog.key.urlsafe(),
             'comments': comments,
             'like_status': 'like',
-            'isauthor' : False,
-            'heart': 'normal'
+            'heart': 'normal',
+            'user': user
         }
 
-class CommentFormHandler(webapp2.RequestHandler):
-    """Responds to a request to create a comment in a blog."""
+class EditCommentHandler(webapp2.RequestHandler):
+    """Responds to a request to edit a comment in a blog."""
     def get(self, urlkey):
-        """Render the form to create a comment entry."""
+        """Renders the form to edit a comment entry."""
+        comment = ndb.Key(urlsafe=urlkey).get()
         template = template_env.get_template('blog-form.html')
-        context = self.get_context(urlkey)
+        context = self.get_context(comment)
         return self.response.out.write(template.render(context))
 
-    def get_context(self, urlkey):
+    def get_context(self, comment):
         """Create the context for the comment form template."""
         return {
-            'action': 'create-comment',
+            'action': 'save-comment',
             'with_title': False,
-            'blog_id': urlkey,
-            'label_title': 'Comment'
+            'entry_id': comment.key.urlsafe(),
+            'label_title': 'Comment',
+            'text_value': comment.comment
         }
+
+class SaveCommentHandler(webapp2.RequestHandler):
+    """Responds to a request to save a blog comment after it has been edited."""
+    def post(self, urlkey):
+        """Saves or deletes the comment and redirects to blog post."""
+        comment = ndb.Key(urlsafe=urlkey).get()
+        action = self.request.get('action')
+        if action == 'cancel':
+            return self.redirect('/blog/'+comment.blog.urlsafe())
+        if action == 'delete':
+            return self.redirect('/delete-comment/'+urlkey)
+        text = self.request.get('text').strip()
+        # Delete if comment is empty
+        if not len(text):
+            return self.redirect('/delete-comment/'+urlkey)
+        # Don't commit if comment hasn't changed
+        if comment.comment == text:
+            return self.redirect('/blog/'+comment.blog.urlsafe())
+        comment.comment = text;
+        try:
+            comment.put()
+        except ndb.TransactionFailedError:
+            # TODO: handle error
+            pass
+        return self.redirect('/blog/'+comment.blog.urlsafe())
+
+class DeleteCommentHandler(webapp2.RequestHandler):
+    """Responds to a request to delete a comment in a blog."""
+    def get(self, urlkey):
+        """Deletes a comment from the DB and redirects to blog post.
+
+            Args:
+                urlkey: A url-safe version of the comment DB key.
+        """
+        comment = ndb.Key(urlsafe=urlkey).get()
+        try:
+            comment.key.delete()
+        except ndb.TransactionFailedError:
+            # TODO: handle error
+            pass
+        return self.redirect('/blog/'+comment.blog.urlsafe())
 
 class LikeBlogHandler(webapp2.RequestHandler):
     """Responds to a request to like a blog entry."""
@@ -414,8 +455,10 @@ handlers = [
     (r'/create-blog', CreateBlogHandler),
     (r'/blog-form', BlogFormHandler),
     (r'/blog/(\S+)', ViewBlogHandler),
-    (r'/comment-form/(\S+)', CommentFormHandler),
     (r'/create-comment/(\S+)', CreateCommentHandler),
+    (r'/edit-comment/(\S+)', EditCommentHandler),
+    (r'/save-comment/(\S+)', SaveCommentHandler),
+    (r'/delete-comment/(\S+)', DeleteCommentHandler),
     (r'/like/(\S+)', LikeBlogHandler),
     (r'/unlike/(\S+)', UnlikeBlogHandler),
     (r'/edit-blog/(\S+)', EditBlogFormHandler),
