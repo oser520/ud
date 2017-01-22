@@ -50,8 +50,9 @@
       {% for comment in comments %}
         <div class="row">
           <div class="col-md-8 col-centered">
-            <p>{{ comment.user }}</p>
-            <p>{{ comment.date }}</p>
+            <time class="comment-date" datetime="{{ comment.date }}">
+              <b>{{ comment.user }}</b> &bullet; <small>{{ comment.get_timedelta() }}</small>
+            </time>
             <p>{{ comment.comment }}</p>
           </div>
         </div>

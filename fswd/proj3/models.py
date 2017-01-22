@@ -1,3 +1,5 @@
+from datetime import datetime
+from datetime import timedelta
 from google.appengine.ext import ndb
 
 def check_str_not_empty(prop, content):
@@ -82,3 +84,50 @@ class BlogComment(ndb.Model):
     user = ndb.StringProperty(required=True)
     date = ndb.DateTimeProperty(required=True, auto_now_add=True)
     comment = ndb.TextProperty(required=True, validator=check_str_not_empty)
+
+    def get_timedelta(self):
+        """Returns a string representing the timedelta since the comment was
+        creted.
+        """
+        if not self.date:
+            raise ValueError("comment has not been created yet")
+        delta = datetime.now() - self.date
+        if delta.days:
+            if delta.days >= 365:
+                years = delta.days / 365
+                if years > 1:
+                    return "%d years ago" % years
+                else:
+                    return "1 year ago"
+            elif delta.days > 30:
+                months = delta.days / 30
+                if months > 1:
+                    return "d% months ago" % months
+                else:
+                    return "1 month ago"
+            elif delta.days > 7:
+                weeks = delta.days / 7
+                if weeks > 1:
+                    return "%d weeks ago" % weeks
+                else:
+                    return "1 week ago"
+            elif delta.days > 1:
+                return "%d days ago" % delta.days
+            else:
+                return "1 day ago"
+        if delta.seconds > 3600:
+            hours = delta.seconds / 3600
+            if hours > 1:
+                return "%d hours ago" % hours
+            else:
+                return "1 hour ago"
+        elif delta.seconds > 60:
+            minutes = delta.seconds / 60
+            if minutes > 1:
+                return "%d minutes ago" % minutes
+            else:
+                return "1 minute ago"
+        elif delta.seconds == 1:
+            return "1 second ago"
+        else:
+            return "%d seconds ago"
