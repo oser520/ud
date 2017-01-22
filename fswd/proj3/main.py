@@ -240,7 +240,7 @@ class BlogFormHandler(webapp2.RequestHandler):
         }
         return context
 
-class EditBlogFormHandler(webapp2.RequestHandler):
+class EditBlogHandler(webapp2.RequestHandler):
     """Handles a request to edit a blog entry."""
     def get(self, urlkey):
         """Renders the form to edit a blog entry."""
@@ -254,13 +254,13 @@ class EditBlogFormHandler(webapp2.RequestHandler):
         return {
             'action': 'save-blog',
             'with_title': True,
-            'blog_id': blog.key.urlsafe(),
+            'entry_id': blog.key.urlsafe(),
             'label_title': 'Blog',
             'title_value': blog.title,
             'text_value': blog.text
         }
 
-class EditBlogHandler(webapp2.RequestHandler):
+class SaveBlogHandler(webapp2.RequestHandler):
     """Handles a request to save a blog after an edit."""
     def post(self, urlkey):
         """Saves, deletes, or cancels editing a blog entry.
@@ -461,7 +461,7 @@ handlers = [
     (r'/delete-comment/(\S+)', DeleteCommentHandler),
     (r'/like/(\S+)', LikeBlogHandler),
     (r'/unlike/(\S+)', UnlikeBlogHandler),
-    (r'/edit-blog/(\S+)', EditBlogFormHandler),
-    (r'/save-blog/(\S+)', EditBlogHandler)
+    (r'/edit-blog/(\S+)', EditBlogHandler),
+    (r'/save-blog/(\S+)', SaveBlogHandler)
 ]
 application = webapp2.WSGIApplication(handlers, debug=True)
