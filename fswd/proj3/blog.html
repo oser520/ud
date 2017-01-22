@@ -6,7 +6,7 @@
 {% endblock %}
 {% block content %}
   <header class="jumbotron">
-    <h1>OM-BLOG</h1>
+    <h1><a href="/">OM-BLOG</a></h1>
   </header>
   <div class="container">
     <header class="row">
@@ -19,37 +19,33 @@
     <article class="row article-content col-centered">
       <div class="col-md-8 col-centered">
         <p>{{ blog.text }}</p>
+        {% if loggedin and isauthor %}
+        <a class="btn btn-primary pull-right" id="edit-button" href="/edit-blog/{{ blog_id }}" role="button">Edit</a>
+        {% endif %}
       </div>
     </article>
     <div class="row like-control">
       <div class="col-md-8 col-centered">
         <hr>
+        {% if loggedin %}
         <a href="/{{ like_status }}/{{ blog_id }}">
-          <p><span class="{{ heart }}">&hearts;</span> {{ recommend }} <span class="likes-number">{{ blog.likes|count }}</span></p>
+        {% else %}
+        <a href="/login">
+        {% endif %}
+          <p><span class="{{ heart }}">&hearts;</span> {{ 'Recommended' if like_status else 'Recommend' }} <span class="likes-number">{{ blog.likes|count }}</span></p>
         </a>
       </div>
     </div>
+    {% if loggedin %}
     <form class="row" method="post" action="/create-comment/{{ blog_id }}">
+    {% else %}
+    <form class="row" method="post" action="/login">
+    {% endif %}
       <div class="col-md-8 col-centered">
-        <textarea class="form-control input-lg comment-input"
-          name="text" placeholder="Join the discussion..."></textarea>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <textarea class="form-control input-lg comment-input" name="text" placeholder="Join the discussion..."></textarea>
+        <button type="submit" class="btn btn-primary pull-right">Submit</button>
       </div>
     </form>
-    <section class="btn-group">
-      <a class="btn btn-primary btn-lg h1" href="/" role="button">Back</a>
-      {% if loggedin %}
-        {% if isauthor %}
-          <a class="btn btn-primary btn-lg h1" href="/edit-blog/{{ blog_id }}" role="button">Edit</a>
-        {% endif %}
-        <a class="btn btn-primary btn-lg h1" href="/comment-form/{{ blog_id }}" role="button">Respond</a>
-        <a class="btn btn-primary btn-lg h1" href="/{{ like_status }}/{{ blog_id }}" role="button">{{ like_status|capitalize }}</a>
-      {% else %}
-        <a class="btn btn-primary btn-lg h1" href="/login" role="button">Respond</a>
-        <a class="btn btn-primary btn-lg h1" href="/login" role="button">Like</a>
-      {% endif %}
-      <a class="btn btn-lg h1" href="#" role="button">{{ blog.likes|count }}</a>
-    </section>
     <section class="blog-comments">
       {% for comment in comments %}
         <div class="row">

@@ -183,13 +183,6 @@ class CreateCommentHandler(webapp2.RequestHandler):
     """Handle requests to create a comment on a blog."""
     def post(self, urlkey):
         """Stores a comment in the datastore and redirects user to main page."""
-        action = self.request.get('action')
-        if action == 'create':
-            self.create(urlkey)
-        return self.redirect('/blog/%s' % urlkey)
-
-    def create(self, urlkey):
-        """Stores a blog comment in the datastore."""
         name = self.request.cookies.get('name')
         title = self.request.get('title')
         text = self.request.get('text')
@@ -200,6 +193,7 @@ class CreateCommentHandler(webapp2.RequestHandler):
         except ndb.TransactionFailedError:
             # TODO: Handle error
             pass
+        return self.redirect('/blog/%s' % urlkey)
 
 class SignoutHandler(webapp2.RequestHandler):
     """Handle requests to signout."""
@@ -325,7 +319,6 @@ class ViewBlogHandler(webapp2.RequestHandler):
             if account.key in blog.likes:
                 context['like_status'] = 'unlike'
                 context['heart'] = 'red-heart'
-                context['recommend'] = 'Recommended'
         template = template_env.get_template('blog.html')
         return self.response.out.write(template.render(context))
 
@@ -344,8 +337,7 @@ class ViewBlogHandler(webapp2.RequestHandler):
             'comments': comments,
             'like_status': 'like',
             'isauthor' : False,
-            'heart': 'normal',
-            'recommend': 'Recommend'
+            'heart': 'normal'
         }
 
 class CommentFormHandler(webapp2.RequestHandler):
