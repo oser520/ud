@@ -29,8 +29,17 @@ class LoginHandler(webapp2.RequestHandler):
         # If the request is made as part of a session, then user has already signed in.
         if util.is_session_req(self.request):
             return self.redirect('/')
-        template = template_env.get_template('login.html')
-        self.response.out.write(template.render())
+        template = template_env.get_template('signin.html')
+        return self.response.out.write(template.render(self.get_context()))
+
+    def get_context(self):
+        '''Create the context for the login page.'''
+        return {
+            'action': 'sign in',
+            'primary_action': 'do-login',
+            'secondary_action': 'register',
+            'message': "Don't have an account yet? Register..."
+        }
 
 class DoLoginHandler(webapp2.RequestHandler):
     """Handle requests to login as a user of the blog site."""
@@ -100,16 +109,16 @@ class RegisterHandler(webapp2.RequestHandler):
         # If the request is made as part of a session, then user has already signed in.
         if util.is_session_req(self.request):
             return self.redirect('/')
-        template = template_env.get_template('register.html')
+        template = template_env.get_template('signin.html')
         self.response.out.write(template.render(self.get_context()))
 
     def get_context(self):
         """Return the context for the register.html template."""
         return {
-            'badname': False,
-            'nametaken': False,
-            'badpwd': False,
-            'name': None
+            'action': 'register',
+            'primary_action': 'do-register',
+            'secondary_action': 'login',
+            'message': "Have an account already? Sign in..."
         }
 
 class DoRegisterHandler(webapp2.RequestHandler):

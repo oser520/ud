@@ -48,7 +48,7 @@
     {% if loggedin %}
     <form class="row" method="post" action="/create-comment/{{ blog_id }}">
     {% else %}
-    <form class="row" method="post" action="/login">
+    <form class="row" method="get" action="/login">
     {% endif %}
       <div class="col-md-8 col-centered">
         <textarea class="form-control input-lg comment-input" name="text" placeholder="Join the discussion..."></textarea>
