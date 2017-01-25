@@ -74,5 +74,38 @@ function checkRegister(e) {
     this.submit();
 }
 
+function checkInput() {
+  var form = document.getElementById('account-form');
+  addEvent(form, 'submit', function(e, options) {
+
+  var user = form.elements.user.value;
+  var pwd = form.elements.password.value;
+  options = options || {};
+  if (!options.email_check_complete) {
+    $.ajax({
+      type: 'POST',
+      url: '/do-register',
+      dataType: 'json',
+      data: JSON.stringify({
+        'user': form.elements.user.value,
+        'password': form.elements.password.value
+      }),
+    })
+    .then(function() {
+      /* TODO: get response and check result */
+    }
+  }
+    ev.preventDefault();
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+      if (xhr.status == 200) {
+        var response = JSON.parse(xhr.responseText);
+        if (response.usergood) {
+        }
+      }
+    }
+  });
+}
+
 var form = document.getElementById('register-form');
 addEvent(form, 'submit', checkRegister);
