@@ -22,6 +22,7 @@ function addEvent(el, event, callback) {
  * @param id The id of the input element where the class name may be added.
  * @param className The name of the class.
  */
+/*
 function enableClass(flag, id, className) {
   var cl = document.getElementById(id).classList;
   if (flag && cl.contains(className)
@@ -29,6 +30,7 @@ function enableClass(flag, id, className) {
   else if (!flag && !cl.contains(className)
     cl.add(className);
 }
+*/
 
 /* Checks that the username is valid.
  * @detail The username is valid if it contains between 3 and 35 alphanumeric
@@ -39,12 +41,14 @@ function enableClass(flag, id, className) {
  * username.
  * @return True if the username is valid, false otherwise.
  */
+/*
 function checkUsername(formEl, id, className) {
   var val = el.elements.user.value;
   var valid = /^[a-z][a-z\d._]{3,35}$/.test(val);
   enableClass(valid, id, className);
   return valid;
 }
+*/
 
 /* Checks that the password is valid.
  * @detail The password is valid if it contains between 6 and 35 non-white space
@@ -54,18 +58,19 @@ function checkUsername(formEl, id, className) {
  * @param className The name of the class that may be added as an attribute.
  * @return True if the password is valid, false otherwise.
  */
+/*
 function checkPassword(formEl, id, className) {
   var val = el.elements.password.value;
   var valid = /^\S{6,35}$/.test(val) && /\d/.test(val) && /[a-z]/.test(val);
   enableClass(valid, id, className);
   return valid;
 }
+*/
 
 /* Checks the username and passwords are valid.
  * @detail Enables warnings if the username or password are not valid, or
  * submits the form if they are.
  * @param e The event whose default behavior we want to stop.
- */
 function checkRegister(e) {
   e.preventDefault();
   validUser = checkUsername(this, 'input-username', 'warning-username');
@@ -73,39 +78,35 @@ function checkRegister(e) {
   if (usercheck.good && pwdcheck.good)
     this.submit();
 }
+ */
 
-function checkInput() {
+// TODO: should only use this on registration form. Need something else for
+// login form.
+(function doRegister() {
   var form = document.getElementById('account-form');
-  addEvent(form, 'submit', function(e, options) {
-
-  var user = form.elements.user.value;
-  var pwd = form.elements.password.value;
-  options = options || {};
-  if (!options.email_check_complete) {
-    $.ajax({
-      type: 'POST',
-      url: '/do-register',
-      dataType: 'json',
-      data: JSON.stringify({
-        'user': form.elements.user.value,
-        'password': form.elements.password.value
-      }),
-    })
-    .then(function() {
-      /* TODO: get response and check result */
-    }
-  }
-    ev.preventDefault();
+  addEvent(form, 'submit', function(e) {
+    console.log('caught submit request')
+    e.preventDefault();
     var xhr = new XMLHttpRequest();
-    xhr.onload = function() {
-      if (xhr.status == 200) {
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        console.log('Got a response from the server:');
+        console.log(xhr.responseText);
         var response = JSON.parse(xhr.responseText);
-        if (response.usergood) {
+        if (response.good) {
+          window.location.assign('/');
+        } else {
+          var cl = document.querySelector('.hidden-warning').classList;
+          cl.remove('hidden-warning');
         }
       }
-    }
+    };
+    var user = form.elements.user.value;
+    var pwd = form.elements.password.value;
+    console.log('username = ' + user);
+    console.log('pwd      = ' + pwd);
+    var msg = JSON.stringify({'user': user, 'password': pwd});
+    xhr.open('POST', '/do-register', true);
+    xhr.send(msg);
   });
-}
-
-var form = document.getElementById('register-form');
-addEvent(form, 'submit', checkRegister);
+})();

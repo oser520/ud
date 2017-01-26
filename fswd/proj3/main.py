@@ -5,6 +5,7 @@ import webapp2
 import util
 import models
 import hmac
+import json
 from google.appengine.ext import ndb
 
 template_env = jinja2.Environment(loader=jinja2.FileSystemLoader(os.getcwd()))
@@ -131,9 +132,47 @@ class DoRegisterHandler(webapp2.RequestHandler):
         username. The user is redirected to the main blog page after
         registration is complete.
         """
+        #TODO: use AJAX to handle registration
         # If the request is made as part of a session, then user has already signed in.
         if util.is_session_req(self.request):
             return self.redirect('/')
+
+        data = json.loads(self.request.body)
+        user = data['user']
+        pwd = data['password']
+        print "debug user = ", user
+        print "debug pwd  = ", pwd
+
+        ### experimenting from here
+        # Check that username doesn't already exist
+        account = models.Account.get_by_id(user)
+        if account:
+            print 'debug 1: account found'
+            data['good'] = False
+            return self.response.out.write(json.dumps(data))
+
+        # Validate password
+        if not util.process_password(pwd):
+            print 'debug 2: bad password'
+            data['good'] = False
+            return self.response.out.write(json.dumps(data))
+
+        # Create account
+        salt = util.gensalt()
+        hsh = util.get_hash(salt, pwd)
+        account = models.Account(id=user, salt=salt, pwd_hash=hsh)
+        try:
+            account.put()
+        except ndb.TransactionFailedError:
+            print 'debug 3: error creating account'
+            data['good'] = False
+            return self.response.out.write(json.dumps(data))
+        data['good'] = True
+        # set session cookies
+        self.response.set_cookie('name', user)
+        self.response.set_cookie('secret', hsh)
+        return self.response.out.write(json.dumps(data))
+        # experimenting to here -----------------------------------
 
         context = self.get_context()
         # Validate user name
