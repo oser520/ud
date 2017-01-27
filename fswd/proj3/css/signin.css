@@ -30,3 +30,9 @@
 .hidden-warning {
   display: none;
 }
+.warning {
+  border: 1px solid #ccc;
+  background-color: #F6A08E;
+  padding-left: 5px;
+  border-radius: 4px;
+}

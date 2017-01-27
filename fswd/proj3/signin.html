@@ -11,11 +11,11 @@
   </header>
   <div class="container">
     <form id="account-form" class="form-signin" action="/{{ primary_action }}" method="post">
-      <p class="hidden-warning">The username is already taken<p>
+      <p id="warning-msg" class="hidden-warning warning"><b id="username-taken"></b> is already taken. Please select a different username.<p>
       <h2 class="form-signin-heading">Please {{ action }}</h2>
       <label for="inputUsername" class="sr-only">Username</label>
       <input type="text" id="inputUsername" class="form-control" name="user" placeholder="Username"
-        pattern="^[a-z][a-z\d._]{3,35}" required autofocus
+        pattern="^[a-z][a-z\d._]{2,34}" required autofocus
         title="The username must begin with a letter, and must contain between 3 and 35 alphanumeric characters, dots, or underscores.">
       <label for="inputPassword" class="sr-only">Password</label>
       <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password"
