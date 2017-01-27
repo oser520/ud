@@ -132,7 +132,6 @@ class DoRegisterHandler(webapp2.RequestHandler):
         username. The user is redirected to the main blog page after
         registration is complete.
         """
-        #TODO: use AJAX to handle registration
         # If the request is made as part of a session, then user has already signed in.
         if util.is_session_req(self.request):
             return self.redirect('/')
@@ -140,21 +139,16 @@ class DoRegisterHandler(webapp2.RequestHandler):
         data = json.loads(self.request.body)
         user = data['user']
         pwd = data['password']
-        print "debug user = ", user
-        print "debug pwd  = ", pwd
 
-        ### experimenting from here
         # Check that username doesn't already exist
         account = models.Account.get_by_id(user)
         if account:
-            print 'debug 1: account found'
-            data['good'] = False
+            data['success'] = False
             return self.response.out.write(json.dumps(data))
 
         # Validate password
         if not util.process_password(pwd):
-            print 'debug 2: bad password'
-            data['good'] = False
+            data['success'] = False
             return self.response.out.write(json.dumps(data))
 
         # Create account
@@ -164,66 +158,13 @@ class DoRegisterHandler(webapp2.RequestHandler):
         try:
             account.put()
         except ndb.TransactionFailedError:
-            print 'debug 3: error creating account'
-            data['good'] = False
+            data['success'] = False
             return self.response.out.write(json.dumps(data))
-        data['good'] = True
-        # set session cookies
+
+        data['success'] = True
         self.response.set_cookie('name', user)
         self.response.set_cookie('secret', hsh)
         return self.response.out.write(json.dumps(data))
-        # experimenting to here -----------------------------------
-
-        context = self.get_context()
-        # Validate user name
-        user = self.request.get('user')
-        user = util.process_username(user)
-        if not user:
-            context['badname'] = True
-            template = template_env.get_template('register.html')
-            return self.response.out.write(template.render(context))
-
-        # Check that username doesn't already exist
-        account = models.Account.get_by_id(user)
-        if account:
-            context['nametaken'] = True
-            context['name'] = user
-            template = template_env.get_template('register.html')
-            return self.response.out.write(template.render(context))
-
-        # Validate password
-        pwd = self.request.get('password')
-        if not util.process_password(pwd):
-            context['badpwd'] = True
-            template = template_env.get_template('register.html')
-            return self.response.out.write(template.render(context))
-
-        # Create account
-        salt = util.gensalt()
-        hsh = util.get_hash(salt, pwd)
-        account = models.Account(id=user, salt=salt, pwd_hash=hsh)
-        try:
-            account.put()
-        except ndb.TransactionFailedError:
-            # TODO: redirect to a page with a better error message
-            s = 'Error: Unable to create account. Please try again.'
-            return self.response.out.write(s)
-
-        # set session cookies
-        self.response.set_cookie('name', user)
-        self.response.set_cookie('secret', hsh)
-
-        # Redirect to main page with full access
-        return self.redirect('/')
-
-    def get_context(self):
-        """Return the context for the main page template."""
-        return {
-            'badname': True,
-            'nametaken': False,
-            'badpwd': False,
-            'name': None
-        }
 
 # Blog comment handlers
 
