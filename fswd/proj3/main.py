@@ -149,15 +149,17 @@ class CreateCommentHandler(webapp2.RequestHandler):
     def post(self, urlkey):
         """Stores a comment in the datastore and redirects user to main page."""
         name = self.request.cookies.get('name')
-        text = self.request.get('text')
         blogkey = ndb.Key(urlsafe=urlkey)
+        text = json.loads(self.request.body)['text']
         comment = models.BlogComment(blog=blogkey, user=name, comment=text)
         try:
             comment.put()
         except ndb.TransactionFailedError:
-            # TODO: Handle error
+            # TODO: handle error as internal server error
             pass
-        return self.redirect('/blog/%s' % urlkey)
+        template = template_env.get_template('comment.html')
+        msg = template.render(user=name, comment=comment)
+        return self.response.out.write(msg)
 
 class SignoutHandler(webapp2.RequestHandler):
     """Handle requests to signout."""

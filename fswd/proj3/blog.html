@@ -57,18 +57,7 @@
     </form>
     <section class="blog-comments">
       {% for comment in comments %}
-        <div class="row">
-          <div class="col-md-8 col-centered">
-            <time class="comment-date" datetime="{{ comment.date }}">
-              <b>{{ comment.user }}</b> &bull; <small>{{ comment.get_timedelta() }}</small>
-            </time>
-            <p>{{ comment.comment }}</p>
-            {% if comment.is_author(user) %}
-            <a class="btn btn-default" href="/edit-comment/{{ comment.key.urlsafe() }}""><small>Edit</small></a>
-            <a class="btn btn-default" href="/delete-comment/{{comment.key.urlsafe() }}""><small>Delete</small></a>
-            {% endif %}
-          </div>
-        </div>
+        {% include 'comment.html' %}
       {% endfor %}
     </section>
   </div>
