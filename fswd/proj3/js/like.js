@@ -1,5 +1,4 @@
 function createComment(e) {
-  console.log('intercepted request to create a new comment');
   e.preventDefault();
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
@@ -12,7 +11,6 @@ function createComment(e) {
   };
   var form = document.querySelector('form');
   xhr.open('POST', form.action, true);
-  console.log('text: ' + form.elements.text.value);
   var msg = JSON.stringify({'text': form.elements.text.value});
   xhr.send(msg);
 }
@@ -51,7 +49,6 @@ function clickLike(e) {
 
 var form = document.querySelector('form');
 if (form.action.includes('create-comment')) {
-  console.log('found action create-comment');
   addEvent(form, 'submit', createComment);
 }
 addEvent(document.getElementById('like-button'), 'click', clickLike);
