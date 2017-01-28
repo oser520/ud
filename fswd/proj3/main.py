@@ -56,52 +56,28 @@ class DoLoginHandler(webapp2.RequestHandler):
         if util.is_session_req(self.request):
             return self.redirect('/')
 
-        context = self.get_context()
-        # validate username
-        user = self.request.get('user')
-        if not user:
-            context['badname'] = True
-            template = template_env.get_template('login.html')
-            return self.response.out.write(template.render(context))
-
-        # validate password
-        pwd = self.request.get('password')
-        if not pwd:
-            context['badpwd'] = True
-            template = template_env.get_template('login.html')
-            return self.response.out.write(template.render(context))
+        data = json.loads(self.request.body)
+        data['success'] = False
+        user = data['user']
+        pwd = data['password']
 
         # verify account exists
         account = models.Account.get_by_id(user)
         if not account:
-            context['badaccount'] = True
-            context['name'] = user
-            template = template_env.get_template('login.html')
-            return self.response.out.write(template.render(context))
+            data['baduser'] = True
+            return self.response.out.write(json.dumps(data))
 
         # verify password is correct
         hsh = util.get_hash(account.salt, pwd)
         if hsh != account.pwd_hash:
-            context['badpwd'] = True
-            template = template_env.get_template('login.html')
-            return self.response.out.write(template.render(context))
+            data['badpwd'] = True
+            return self.response.out.write(json.dumps(data))
 
         # set session cookies
+        data['success'] = True
         self.response.set_cookie('name', user)
         self.response.set_cookie('secret', hsh)
-
-        # Redirect to main page with full access
-        return self.redirect('/')
-
-    def get_context(self):
-        """Return the context for the login.html template."""
-        return {
-            'badname': False,
-            'badpwd': False,
-            'badaccount': False,
-            'badpwd': False,
-            'name': None
-        }
+        return self.response.out.write(json.dumps(data))
 
 class RegisterHandler(webapp2.RequestHandler):
     """Handle requests to register as a user of the blog site."""
