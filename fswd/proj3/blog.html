@@ -37,11 +37,11 @@
       <div class="col-md-8 col-centered">
         <hr>
         {% if loggedin %}
-        <a href="/{{ like_status }}/{{ blog_id }}">
+        <a id="like-button" href="/like/{{ blog_id }}">
         {% else %}
         <a href="/login">
         {% endif %}
-          <p><span class="{{ heart }}">&hearts;</span> {{ 'Recommended' if like_status else 'Recommend' }} <span class="likes-number">{{ blog.likes|count }}</span></p>
+          <p><span id="likes-heart" class="{{ heart }}">&hearts;</span> {{ 'Recommended' if like_status else 'Recommend' }} <span class="likes-number">{{ blog.likes|count }}</span></p>
         </a>
       </div>
     </div>
@@ -76,4 +76,6 @@
 {% block js %}
   {% include "jquery-js.html" %}
   {% include "bootstrap-js.html" %}
+  <script src="/js/util.js"></script>
+  <script src="/js/like.js"></script>
 {% endblock %}

@@ -280,7 +280,7 @@ class ViewBlogHandler(webapp2.RequestHandler):
             context['user'] = name
             account = models.Account.get_by_id(name)
             if account.key in blog.likes:
-                context['like_status'] = 'unlike'
+                context['like_status'] = True
                 context['heart'] = 'red-heart'
         template = template_env.get_template('blog.html')
         return self.response.out.write(template.render(context))
@@ -298,7 +298,7 @@ class ViewBlogHandler(webapp2.RequestHandler):
             'loggedin': login_status,
             'blog_id': blog.key.urlsafe(),
             'comments': comments,
-            'like_status': 'like',
+            'like_status': False,
             'heart': 'normal',
             'user': user
         }
@@ -370,45 +370,34 @@ class LikeBlogHandler(webapp2.RequestHandler):
         # Should not get here if user is not logged in, but check either way
         if not util.is_session_req(self.request):
             return self.redirect('/login')
-        self.addlike(urlkey)
-        return self.redirect('/blog/%s' % urlkey)
-
-    def addlike(self, urlkey):
         name = self.request.cookies.get('name')
         account = models.Account.get_by_id(name)
         blog = ndb.Key(urlsafe=urlkey).get()
+        data = {'add': False, 'remove': False}
         # Don't allow users to like their own blogs
-        if name == blog.user:
-            return
-        # Don't allow users to like a blog more than once
-        if not account.key in blog.likes:
-            blog.likes.append(account.key)
+        if blog.is_author(name):
+            return self.response.out.write(json.dumps(data))
+
+        # User is unliking
+        if account.key in blog.likes:
+            blog.likes.remove(account.key)
             try:
                 blog.put()
+                data['remove'] = True
             except ndb.TransactionFailedError:
-                # TODO: Handle error
+                # TODO: handle error as internal server error
                 pass
+            return self.response.out.write(json.dumps(data))
 
-class UnlikeBlogHandler(webapp2.RequestHandler):
-    """Responds to a request to unlike a blog entry."""
-    def get(self, urlkey):
-        """Adds like if user is logged in."""
-        if util.is_session_req(self.request):
-            self.unlike(urlkey)
-        return self.redirect('/blog/%s' % urlkey)
-
-    def unlike(self, urlkey):
-        name = self.request.cookies.get('name')
-        account = models.Account.get_by_id(name)
-        blog = ndb.Key(urlsafe=urlkey).get()
+        # User is liking
+        blog.likes.append(account.key)
         try:
-            blog.likes.remove(account.key)
             blog.put()
-        except ValueError:
-            pass
+            data['add'] = True
         except ndb.TransactionFailedError:
-            # TODO: handle error
+            # TODO: handle error as internal server error
             pass
+        return self.response.out.write(json.dumps(data))
 
 handlers = [
     (r'/', MainHandler),
@@ -425,7 +414,6 @@ handlers = [
     (r'/save-comment/(\S+)', SaveCommentHandler),
     (r'/delete-comment/(\S+)', DeleteCommentHandler),
     (r'/like/(\S+)', LikeBlogHandler),
-    (r'/unlike/(\S+)', UnlikeBlogHandler),
     (r'/edit-blog/(\S+)', EditBlogHandler),
     (r'/save-blog/(\S+)', SaveBlogHandler)
 ]
