@@ -1,12 +1,31 @@
+function deleteComment(e) {
+  e.preventDefault();
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      var data = JSON.parse(xhr.responseText);
+      if (data.id) {
+        var el = document.getElementById(data.id);
+        el.parentNode.removeChild(el);
+      }
+    }
+  };
+  xhr.open('GET', e.currentTarget.href, true);
+  xhr.send();
+}
+
 function createComment(e) {
   e.preventDefault();
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4 && xhr.status == 200) {
+      var data = JSON.parse(xhr.responseText);
       var comments = document.querySelector('.blog-comments');
-      comments.insertAdjacentHTML('beforeend', xhr.responseText);
+      comments.insertAdjacentHTML('beforeend', data.comment);
       document.querySelector('form').reset();
       comments.lastChild.scrollIntoView();
+      var el = comments.lastChild.querySelector('.delete-comment');
+      addEvent(el, 'click', deleteComment);
     }
   };
   var form = document.querySelector('form');
@@ -47,8 +66,14 @@ function clickLike(e) {
   xhr.send();
 }
 
+var delLinks = document.querySelectorAll('.delete-comment');
+for (let i = 0; i < delLinks.length; i++) {
+  addEvent(delLinks[i], 'click', deleteComment);
+}
+
 var form = document.querySelector('form');
 if (form.action.includes('create-comment')) {
   addEvent(form, 'submit', createComment);
 }
+
 addEvent(document.getElementById('like-button'), 'click', clickLike);

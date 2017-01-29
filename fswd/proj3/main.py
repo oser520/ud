@@ -159,7 +159,8 @@ class CreateCommentHandler(webapp2.RequestHandler):
             pass
         template = template_env.get_template('comment.html')
         msg = template.render(user=name, comment=comment)
-        return self.response.out.write(msg)
+        data = {'id': urlkey, 'comment': msg}
+        return self.response.out.write(json.dumps(data))
 
 class SignoutHandler(webapp2.RequestHandler):
     """Handle requests to signout."""
@@ -358,12 +359,14 @@ class DeleteCommentHandler(webapp2.RequestHandler):
                 urlkey: A url-safe version of the comment DB key.
         """
         comment = ndb.Key(urlsafe=urlkey).get()
+        data = {'id': None}
         try:
             comment.key.delete()
+            data['id'] = urlkey
         except ndb.TransactionFailedError:
-            # TODO: handle error
+            # TODO: handle error as internal server error
             pass
-        return self.redirect('/blog/'+comment.blog.urlsafe())
+        return self.response.out.write(json.dumps(data))
 
 class LikeBlogHandler(webapp2.RequestHandler):
     """Responds to a request to like a blog entry."""
