@@ -2,15 +2,28 @@
 {% block title %}om-blog{% endblock %}
 {% block head %}
   {% include "bootstrap-css.html" %}
+  <link rel="stylesheet" href="/css/style.css">
 {% endblock %}
 {% block content %}
   <!-- TODO: move styling to css -->
-  <div class="container" style="margin-top: 40px;">
+  <header class="jumbotron">
+    <h1><a href="/">OM-BLOG</a></h1>
+    <p class="login-buttons">
+      {% if text_value %}
+      <a class="btn btn-default" href="/blog/{{ entry_id }}" role="button">Cancel</a>
+      <a class="btn btn-default" href="/delete-blog/{{ entry_id }}" role="button">Delete</a>
+      {% else %}
+      <a class="btn btn-default" href="/" role="button">Cancel</a>
+      {% endif %}
+      <a class="btn btn-default" href="/signout" role="button">Signout</a>
+    </p>
+  </header>
+  <div class="container">
     <form method="post" action="/{{ action }}{{ '/%s' % entry_id if entry_id }}" class="{{ action }}-form" id="{{ action }}-form">
       {% if with_title %}
         <div class="row">
           <!-- input for blog title -->
-          <div class="form-group col-xs-6">
+          <div class="form-group col-md-8 col-centered">
             <label for="blog-title">Title</label>
             <input type="text" class="form-control" id="blog-title" name="title" pattern="^\w.*"
               title="The must contain at least one non-white space character"
@@ -19,19 +32,13 @@
         </div>
       {% endif %}
       <div class="row">
-        <!-- input for blog content -->
-        <!-- TODO: find way to resize textarea automatically -->
-        <div class="form-group col-xs-12">
+        <div class="form-group col-md-8 col-centered">
           <label for="{{ action }}-text">{{ label_title }}</label>
-          <textarea rows="10" class="form-control" id="{{ action }}-text" name="text" minlength="1">{{ text_value if text_value }}</textarea>
+          <textarea class="form-control input-lg" id="{{ action }}-text" name="text" minlength="1">{{ text_value if text_value }}</textarea>
         </div>
-      </div>
-      <div class="btn-group">
-        <button type="submit" class="btn btn-primary" name="action" value="{{ "save" if text_value else "create" }}">{{ "Save" if text_value else "Create" }}</button>
-        <button type="submit" class="btn btn-primary" name="action" value="cancel">Cancel</button>
-        {% if text_value %}
-        <button type="submit" class="btn btn-primary" name="action" value="delete">Delete</button>
-        {% endif %}
+        <div class="col-md-8 col-centered">
+          <button type="submit" class="btn btn-default" value="{{ "save" if text_value else "create" }}">{{ "Save" if text_value else "Create" }}</button>
+        </div>
       </div>
     </form>
   </div>

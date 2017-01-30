@@ -175,22 +175,16 @@ class CreateBlogHandler(webapp2.RequestHandler):
     def post(self):
         """Handles a post request to create a blog entry."""
         # TODO: verify request is made in session context
-        action = self.request.get('action')
-        if action == 'create':
-            self.create()
-        return self.redirect('/')
-
-    def create(self):
-        """Creates a blog entry."""
         name = self.request.cookies.get('name')
         title = self.request.get('title')
         text = self.request.get('text')
         blog = models.Blog(user=name, title=title, text=text)
         try:
             blog.put()
+            return self.redirect('/blog/%s' % blog.key.urlsafe())
         except ndb.TransactionFailedError:
             # TODO: Handle error
-            return
+            return self.redirect('/')
 
 class BlogFormHandler(webapp2.RequestHandler):
     """Handles request initial request to create a blog entry."""
@@ -231,25 +225,7 @@ class EditBlogHandler(webapp2.RequestHandler):
 class SaveBlogHandler(webapp2.RequestHandler):
     """Handles a request to save a blog after an edit."""
     def post(self, urlkey):
-        """Saves, deletes, or cancels editing a blog entry.
-
-        Args:
-            urlkey: Blog key in url safe format.
-        """
-        action = self.request.get('action')
-        if action == 'cancel':
-            return self.redirect('/blog/%s' % urlkey)
-        elif action == 'delete':
-            ndb.Key(urlsafe=urlkey).delete()
-            return self.redirect('/')
-        elif action == 'save':
-            self.save_blog(urlkey)
-            return self.redirect('/blog/%s' % urlkey)
-        # should never get here, but just in case
-        return self.redirect('/blog/%s' % urlkey)
-
-    def save_blog(self, urlkey):
-        """Save the contents of the edited blog.
+        """Saves a blog after it is edited.
 
         Args:
             urlkey: Blog key in url safe format.
@@ -261,8 +237,9 @@ class SaveBlogHandler(webapp2.RequestHandler):
         try:
             blog.put()
         except ndb.TransactionFailedError:
-            # TODO: handle error
+            # TODO: handle error as internal server error
             pass
+        return self.redirect('/blog/%s' % urlkey)
 
 class ViewBlogHandler(webapp2.RequestHandler):
     """Handlers requests to view a blog entry."""
