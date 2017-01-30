@@ -241,6 +241,21 @@ class SaveBlogHandler(webapp2.RequestHandler):
             pass
         return self.redirect('/blog/%s' % urlkey)
 
+class DeleteBlogHandler(webapp2.RequestHandler):
+    """Handles a request to delete a blog entry."""
+    def get(self, urlkey):
+        """Deletes a blog entry and redirects to the main page.
+
+        Args:
+            urlkey: Blog key in url safe format.
+        """
+        try:
+            ndb.Key(urlsafe=urlkey).delete()
+        except ndb.TransactionFailedError:
+            # TODO: handle error as internal server error
+            pass
+        return self.redirect('/')
+
 class ViewBlogHandler(webapp2.RequestHandler):
     """Handlers requests to view a blog entry."""
     def get(self, urlkey):
@@ -397,6 +412,7 @@ handlers = [
     (r'/delete-comment/(\S+)', DeleteCommentHandler),
     (r'/like/(\S+)', LikeBlogHandler),
     (r'/edit-blog/(\S+)', EditBlogHandler),
-    (r'/save-blog/(\S+)', SaveBlogHandler)
+    (r'/save-blog/(\S+)', SaveBlogHandler),
+    (r'/delete-blog/(\S+)', DeleteBlogHandler)
 ]
 application = webapp2.WSGIApplication(handlers, debug=True)
