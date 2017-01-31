@@ -17,11 +17,15 @@ class MainHandler(webapp2.RequestHandler):
         logged_status = util.is_session_req(self.request)
         template = template_env.get_template('content.html')
         context = {
-            'blog_titles': models.Blog.query().order(-models.Blog.date).fetch(),
+            'blog_titles': self.get_blogs(),
             'loggedin': logged_status
         }
         self.response.headers.add('Cache-Control', 'no-store')
-        self.response.out.write(template.render(context))
+        return self.response.out.write(template.render(context))
+
+    def get_blogs(self):
+        '''Returns all blog entries in reverse chronological date.'''
+        return models.Blog.query().order(-models.Blog.date).fetch()
 
 class LoginHandler(webapp2.RequestHandler):
     """Handle requests to login as a user of the blog site."""
