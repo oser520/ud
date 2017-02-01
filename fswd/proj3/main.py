@@ -6,9 +6,11 @@ import util
 import models
 import hmac
 import json
+from collections import deque
 from google.appengine.ext import ndb
 
 template_env = jinja2.Environment(loader=jinja2.FileSystemLoader(os.getcwd()))
+qBlogsDeleted = deque()
 
 class MainHandler(webapp2.RequestHandler):
     """Handle requests to the main blog site."""
@@ -25,7 +27,14 @@ class MainHandler(webapp2.RequestHandler):
 
     def get_blogs(self):
         '''Returns all blog entries in reverse chronological date.'''
-        return models.Blog.query().order(-models.Blog.date).fetch()
+        blogs = models.Blog.query().order(-models.Blog.date).fetch()
+        while len(qBlogsDeleted):
+            b = qBlogsDeleted.pop()
+            try:
+                blogs.remove(b)
+            except ValueError:
+                pass
+        return blogs
 
 class LoginHandler(webapp2.RequestHandler):
     """Handle requests to login as a user of the blog site."""
@@ -254,7 +263,9 @@ class DeleteBlogHandler(webapp2.RequestHandler):
             urlkey: Blog key in url safe format.
         """
         try:
-            ndb.Key(urlsafe=urlkey).delete()
+            blog = ndb.Key(urlsafe=urlkey).get()
+            blog.key.delete()
+            qBlogsDeleted.append(blog)
         except ndb.TransactionFailedError:
             # TODO: handle error as internal server error
             pass
