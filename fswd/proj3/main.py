@@ -10,6 +10,8 @@ from collections import deque
 from google.appengine.ext import ndb
 
 template_env = jinja2.Environment(loader=jinja2.FileSystemLoader(os.getcwd()))
+# Use this to handle problem of getting a page with a blog entry that has just
+# been deleted.
 qBlogsDeleted = deque()
 
 class MainHandler(webapp2.RequestHandler):
