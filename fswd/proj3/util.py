@@ -96,3 +96,20 @@ def is_session_req(req):
     if not account or secret != account.pwd_hash:
         return False
     return True
+
+def squeeze(letters, char):
+    '''Replace each input sequence of a repeated character with a single
+    occurence of that character.
+
+    :param letters
+        A sequence of letters
+    :param char
+        The character which must be squeezed
+    :return A new string with repeated characters removed.
+    '''
+    if not letters or not char: return ''
+    seq = [None]
+    for letter in letters:
+        if char != letter or char != seq[-1]:
+            seq += letter
+    return ''.join(seq[1:])

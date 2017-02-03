@@ -191,8 +191,8 @@ class CreateBlogHandler(webapp2.RequestHandler):
         """Handles a post request to create a blog entry."""
         # TODO: verify request is made in session context
         name = self.request.cookies.get('name')
-        title = self.request.get('title')
-        text = self.request.get('text')
+        title = self.request.get('title').strip()
+        text = self.request.get('text').strip()
         blog = models.Blog(user=name, title=title, text=text)
         try:
             blog.put()
