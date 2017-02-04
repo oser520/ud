@@ -98,15 +98,16 @@ def is_session_req(req):
     return True
 
 def squeeze(letters, chars):
-    '''Replace each input sequence of a repeated character with a single
-    occurence of that character.
+    """Replace each input sequence of a set of repeated characters with a single
+    occurence of each respective character.
 
     :param letters
         A sequence of letters
     :param chars
         The set of characters to squeeze
-    :return A new string with repeated characters removed.
-    '''
+    :return
+        A new string with repeated characters removed.
+    """
     if not letters:
         return ''
     if not chars:
