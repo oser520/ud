@@ -35,8 +35,28 @@ function createEditCommentForm(commentNode) {
   return form;
 }
 
-// TODO: define replaceEditForm which replaces form created to edit comment
-// with reply from server, which contains modified comment.
+// Removes the form to edit a comment, the old comment, and adds the modified
+// comment.
+function refreshComment(data) {
+  let form = document.getElementById(data.id + '-edit');
+  let oldComment = form.previousSibling;
+  let comments = oldComment.parentNode;
+  comments.removeChild(form);
+  if (!oldComment.previousSibling) {
+    // This comment is first comment
+    comments.removeChild(oldComment);
+    comments.insertAdjacentHTML('afterbegin', data.comment);
+  } else {
+    // This is not the first comment
+    let sibling = oldComment.previousSibling;
+    comments.removeChild(oldComment);
+    sibling.insertAdjacentHTML('afterend', data.comment);
+  }
+  let comment = comments.querySelector('#' + data.id);
+  addEvent(comment.querySelector('.delete-comment'), 'click', deleteComment);
+  // TODO: uncomment this when editComment is defined
+  // addEvent(comment.querySelector('.edit-comment'), 'click', editComment);
+}
 
 // Removes the form to edit a comment and re-displays the original comment.
 function putCommentBack(form) {
@@ -55,7 +75,7 @@ function editComment(e) {
   xhr.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       var data = JSON.parse(this.responseText);
-      replaceEditForm(data);
+      refreshComment(data);
     }
   };
   xhr.open('POST', '/edit-comment/' + form.id, true);
