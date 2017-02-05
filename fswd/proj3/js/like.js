@@ -61,8 +61,8 @@ function deleteComment(e) {
   e.preventDefault();
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
-    if (xhr.readyState == 4 && xhr.status == 200) {
-      var data = JSON.parse(xhr.responseText);
+    if (this.readyState == 4 && this.status == 200) {
+      var data = JSON.parse(this.responseText);
       if (data.id) {
         var el = document.getElementById(data.id);
         el.parentNode.removeChild(el);
@@ -77,8 +77,8 @@ function createComment(e) {
   e.preventDefault();
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
-    if (xhr.readyState == 4 && xhr.status == 200) {
-      var data = JSON.parse(xhr.responseText);
+    if (this.readyState == 4 && this.status == 200) {
+      var data = JSON.parse(this.responseText);
       var comments = document.querySelector('.blog-comments');
       comments.insertAdjacentHTML('beforeend', data.comment);
       document.querySelector('form').reset();
@@ -97,8 +97,8 @@ function clickLike(e) {
   e.preventDefault();
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
-    if (xhr.readyState == 4 && xhr.status == 200) {
-      var response = JSON.parse(xhr.responseText);
+    if (this.readyState == 4 && this.status == 200) {
+      var response = JSON.parse(this.responseText);
       if (response.add) {
         // Enable red heart and increase likes count
         var cl = document.getElementById('likes-heart').classList;
