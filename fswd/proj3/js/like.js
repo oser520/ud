@@ -65,8 +65,7 @@ function refreshComment(data) {
   }
   let comment = comments.querySelector('#' + data.id);
   addEvent(comment.querySelector('.delete-comment'), 'click', deleteComment);
-  // TODO: uncomment this when editComment is defined
-  // addEvent(comment.querySelector('.edit-comment'), 'click', editComment);
+  addEvent(comment.querySelector('.edit-comment'), 'click', editComment);
 }
 
 // Removes the form to edit a comment and re-displays the original comment.
@@ -87,9 +86,11 @@ function editComment(e) {
     if (this.readyState == 4 && this.status == 200) {
       var data = JSON.parse(this.responseText);
       refreshComment(data);
+    } else {
+      putCommentBack(form);
     }
   };
-  xhr.open('POST', '/edit-comment/' + form.id, true);
+  xhr.open('POST', '/edit-comment/' + form.dataset.id, true);
   var msg = JSON.stringify({'text': form.elements.text.value});
   xhr.send(msg);
 }
@@ -166,6 +167,11 @@ function clickLike(e) {
   let delLinks = document.querySelectorAll('.delete-comment');
   for (let i = 0; i < delLinks.length; i++) {
     addEvent(delLinks[i], 'click', deleteComment);
+  }
+
+  let editLinks = document.querySelectorAll('.edit-comment');
+  for (let i = 0; i < delLinks.length; i++) {
+    addEvent(editLinks[i], 'click', editComment);
   }
 
   let form = document.querySelector('form');
