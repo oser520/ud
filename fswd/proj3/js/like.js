@@ -1,3 +1,62 @@
+// Create a form input element that listens to click events.
+function createInputSubmit(action, value) {
+  let input = document.createElement('input');
+  input.type = 'submit';
+  input.formAction = action;
+  input.value = value;
+  addEvent(input, 'click', function(e) {
+    let el = e.currentTarget;
+    el.form.action = el.formAction;
+  });
+  return input;
+}
+
+function createEditCommentForm(commentNode) {
+  var form = document.createElement('form');
+  form.id = commentNode.id;
+  form.classList.add('row');
+  form.method = 'post';
+  form.action = commentNode.querySelector('.edit-comment').href;
+
+  var div = document.createElement('div');
+  div.classList.add('col-md-8 col-centered');
+
+  var textArea = document.createElement('textarea');
+  textArea.classList.add('form-control input-lg');
+  textArea.name = 'text';
+  textArea.value = commenteNode.querySelector('p').innerHTML;
+
+  div.appendChild(textArea);
+  div.appendChild(createInputSubmit('cancel', 'Cancel'));
+  div.appendChild(createInputSubmit('save', 'Save'));
+  form.appendChild(div);
+
+  return form;
+}
+
+// TODO: define putCommentBack after user cancels editing a comment
+// TODO: define replaceEditForm which replaces form created to edit comment
+// with reply from server, which contains modified comment.
+
+function editComment(e) {
+  e.preventDefault();
+  var form = e.currentTarget;
+  if (form.action.includes('cancel')) {
+    putCommentBack(form);
+    return;
+  }
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var data = JSON.parse(this.responseText);
+      replaceEditForm(data);
+    }
+  };
+  xhr.open('POST', '/edit-comment/' + form.id, true);
+  var msg = JSON.stringify({'text': form.elements.text.value});
+  xhr.send(msg);
+}
+
 function deleteComment(e) {
   e.preventDefault();
   var xhr = new XMLHttpRequest();
@@ -66,14 +125,16 @@ function clickLike(e) {
   xhr.send();
 }
 
-var delLinks = document.querySelectorAll('.delete-comment');
-for (let i = 0; i < delLinks.length; i++) {
-  addEvent(delLinks[i], 'click', deleteComment);
-}
+(function() {
+  let delLinks = document.querySelectorAll('.delete-comment');
+  for (let i = 0; i < delLinks.length; i++) {
+    addEvent(delLinks[i], 'click', deleteComment);
+  }
 
-var form = document.querySelector('form');
-if (form.action.includes('create-comment')) {
-  addEvent(form, 'submit', createComment);
-}
+  let form = document.querySelector('form');
+  if (form.action.includes('create-comment')) {
+    addEvent(form, 'submit', createComment);
+  }
 
-addEvent(document.getElementById('like-button'), 'click', clickLike);
+  addEvent(document.getElementById('like-button'), 'click', clickLike);
+})();

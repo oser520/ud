@@ -5,7 +5,7 @@
     </time>
     <p>{{ comment.comment }}</p>
     {% if comment.is_author(user) %}
-    <a class="btn btn-default" href="/edit-comment/{{ comment.key.urlsafe() }}"><small>Edit</small></a>
+    <a class="btn btn-default edit-comment" href="/edit-comment/{{ comment.key.urlsafe() }}"><small>Edit</small></a>
     <a class="btn btn-default delete-comment" href="/delete-comment/{{ comment.key.urlsafe() }}"><small>Delete</small></a>
     {% endif %}
   </div>
