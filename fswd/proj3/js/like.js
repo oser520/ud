@@ -13,7 +13,8 @@ function createInputSubmit(action, value) {
 
 function createEditCommentForm(commentNode) {
   var form = document.createElement('form');
-  form.id = commentNode.id;
+  form.id = commentNode.id + '-edit';
+  form.dataset.id = commentNode.id;
   form.classList.add('row');
   form.method = 'post';
   form.action = commentNode.querySelector('.edit-comment').href;
@@ -34,9 +35,14 @@ function createEditCommentForm(commentNode) {
   return form;
 }
 
-// TODO: define putCommentBack after user cancels editing a comment
 // TODO: define replaceEditForm which replaces form created to edit comment
 // with reply from server, which contains modified comment.
+
+// Removes the form to edit a comment and re-displays the original comment.
+function putCommentBack(form) {
+  document.getElementById(form.dataset.id).style.display = 'block';
+  form.parendNode.removeChild(form);
+}
 
 function editComment(e) {
   e.preventDefault();
