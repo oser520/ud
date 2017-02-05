@@ -35,6 +35,17 @@ function createCommentForm(commentNode) {
   return form;
 }
 
+// Hides a comment and displays a form to edit a given comment, bringing focus
+// to the form.
+function tryEditComment(e) {
+  let comment = document.getElementById(e.currentTarget.dataset.id);
+  let form = createCommentForm(comment);
+  addEvent(form, 'submit', editComment);
+  comment.style.display = 'none';
+  comment.insertAdjacentElement('afterend', form);
+  form.focus();
+}
+
 // Removes the form to edit a comment, the old comment, and adds the modified
 // comment.
 function refreshComment(data) {
