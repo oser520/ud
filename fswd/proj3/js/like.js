@@ -25,7 +25,7 @@ function createCommentForm(commentNode) {
   var textArea = document.createElement('textarea');
   textArea.classList.add('form-control', 'input-lg');
   textArea.name = 'text';
-  textArea.value = commenteNode.querySelector('p').innerHTML;
+  textArea.value = commentNode.querySelector('p').innerHTML;
 
   div.appendChild(textArea);
   div.appendChild(createInputSubmit('cancel', 'Cancel'));
@@ -38,6 +38,7 @@ function createCommentForm(commentNode) {
 // Hides a comment and displays a form to edit a given comment, bringing focus
 // to the form.
 function tryEditComment(e) {
+  e.preventDefault();
   let comment = document.getElementById(e.currentTarget.dataset.id);
   let form = createCommentForm(comment);
   addEvent(form, 'submit', editComment);
@@ -65,13 +66,13 @@ function refreshComment(data) {
   }
   let comment = comments.querySelector('#' + data.id);
   addEvent(comment.querySelector('.delete-comment'), 'click', deleteComment);
-  addEvent(comment.querySelector('.edit-comment'), 'click', editComment);
+  addEvent(comment.querySelector('.edit-comment'), 'click', tryEditComment);
 }
 
 // Removes the form to edit a comment and re-displays the original comment.
 function putCommentBack(form) {
-  document.getElementById(form.dataset.id).style.display = 'block';
-  form.parendNode.removeChild(form);
+  form.previousSibling.style.display = 'block';
+  form.parentNode.removeChild(form);
 }
 
 function editComment(e) {
@@ -171,7 +172,7 @@ function clickLike(e) {
 
   let editLinks = document.querySelectorAll('.edit-comment');
   for (let i = 0; i < delLinks.length; i++) {
-    addEvent(editLinks[i], 'click', editComment);
+    addEvent(editLinks[i], 'click', tryEditComment);
   }
 
   let form = document.querySelector('form');
