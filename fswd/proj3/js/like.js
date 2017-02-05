@@ -20,10 +20,10 @@ function createCommentForm(commentNode) {
   form.action = commentNode.querySelector('.edit-comment').href;
 
   var div = document.createElement('div');
-  div.classList.add('col-md-8 col-centered');
+  div.classList.add('col-md-8', 'col-centered');
 
   var textArea = document.createElement('textarea');
-  textArea.classList.add('form-control input-lg');
+  textArea.classList.add('form-control', 'input-lg');
   textArea.name = 'text';
   textArea.value = commenteNode.querySelector('p').innerHTML;
 
