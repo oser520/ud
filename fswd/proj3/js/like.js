@@ -11,7 +11,7 @@ function createInputSubmit(action, value) {
   return input;
 }
 
-function createEditCommentForm(commentNode) {
+function createCommentForm(commentNode) {
   var form = document.createElement('form');
   form.id = commentNode.id + '-edit';
   form.dataset.id = commentNode.id;
