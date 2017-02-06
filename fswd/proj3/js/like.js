@@ -87,7 +87,7 @@ function editComment(e) {
     if (this.readyState == 4 && this.status == 200) {
       var data = JSON.parse(this.responseText);
       refreshComment(data);
-    } 
+    }
     // TODO: need to revert changes if there is an error
   };
   xhr.open('POST', '/edit-comment', true);
@@ -110,8 +110,8 @@ function deleteComment(e) {
       }
     }
   };
-  xhr.open('GET', e.currentTarget.href, true);
-  xhr.send();
+  xhr.open('POST', '/delete-comment', true);
+  xhr.send(JSON.stringify({'id': e.currentTarget.dataset.id}));
 }
 
 function createComment(e) {
@@ -123,8 +123,8 @@ function createComment(e) {
       let comments = document.querySelector('.blog-comments');
       comments.insertAdjacentHTML('beforeend', data.comment);
       document.querySelector('form').reset();
-      comments.lastChild.scrollIntoView();
       let lc = comments.lastChild;
+      lc.scrollIntoView();
       addEvent(lc.querySelector('.edit-comment'), 'click', tryEditComment);
       addEvent(lc.querySelector('.delete-comment'), 'click', deleteComment);
     }

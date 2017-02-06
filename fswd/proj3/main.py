@@ -335,17 +335,15 @@ class EditCommentHandler(webapp2.RequestHandler):
 
 class DeleteCommentHandler(webapp2.RequestHandler):
     """Responds to a request to delete a comment in a blog."""
-    def get(self, urlkey):
-        """Deletes a comment from the DB and redirects to blog post.
-
-            Args:
-                urlkey: A url-safe version of the comment DB key.
-        """
-        comment = ndb.Key(urlsafe=urlkey).get()
-        data = {'id': None}
+    def post(self):
+        """Deletes a comment from the DB and responds to request."""
+        data = json.loads(self.request.body)
+        comment_id = data['id']
+        comment = ndb.Key(urlsafe=comment_id).get()
+        data['id'] = None
         try:
             comment.key.delete()
-            data['id'] = urlkey
+            data['id'] = comment_id
         except ndb.TransactionFailedError:
             # TODO: handle error as internal server error
             pass
@@ -399,7 +397,7 @@ handlers = [
     (r'/blog/(\S+)', ViewBlogHandler),
     (r'/create-comment/(\S+)', CreateCommentHandler),
     (r'/edit-comment', EditCommentHandler),
-    (r'/delete-comment/(\S+)', DeleteCommentHandler),
+    (r'/delete-comment', DeleteCommentHandler),
     (r'/like/(\S+)', LikeBlogHandler),
     (r'/edit-blog/(\S+)', EditBlogHandler),
     (r'/save-blog/(\S+)', SaveBlogHandler),
