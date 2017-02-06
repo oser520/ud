@@ -28,7 +28,7 @@ class MainHandler(webapp2.RequestHandler):
         return self.response.out.write(template.render(context))
 
     def get_blogs(self):
-        '''Returns all blog entries in reverse chronological date.'''
+        """Returns all blog entries in reverse chronological date."""
         blogs = models.Blog.query().order(-models.Blog.date).fetch()
         while len(qBlogsDeleted):
             b = qBlogsDeleted.pop()
@@ -49,7 +49,7 @@ class LoginHandler(webapp2.RequestHandler):
         return self.response.out.write(template.render(self.get_context()))
 
     def get_context(self):
-        '''Create the context for the login page.'''
+        """Create the context for the login page."""
         return {
             'action': 'sign in',
             'primary_action': 'do-login',
