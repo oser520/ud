@@ -316,48 +316,22 @@ class ViewBlogHandler(webapp2.RequestHandler):
         }
 
 class EditCommentHandler(webapp2.RequestHandler):
-    """Responds to a request to edit a comment in a blog."""
-    def get(self, urlkey):
-        """Renders the form to edit a comment entry."""
-        comment = ndb.Key(urlsafe=urlkey).get()
-        template = template_env.get_template('blog-form.html')
-        context = self.get_context(comment)
-        return self.response.out.write(template.render(context))
-
-    def get_context(self, comment):
-        """Create the context for the comment form template."""
-        return {
-            'action': 'save-comment',
-            'with_title': False,
-            'entry_id': comment.key.urlsafe(),
-            'label_title': 'Comment',
-            'text_value': comment.comment
-        }
-
-class SaveCommentHandler(webapp2.RequestHandler):
     """Responds to a request to save a blog comment after it has been edited."""
-    def post(self, urlkey):
+    def post(self):
         """Saves or deletes the comment and redirects to blog post."""
-        comment = ndb.Key(urlsafe=urlkey).get()
-        action = self.request.get('action')
-        if action == 'cancel':
-            return self.redirect('/blog/'+comment.blog.urlsafe())
-        if action == 'delete':
-            return self.redirect('/delete-comment/'+urlkey)
-        text = self.request.get('text').strip()
-        # Delete if comment is empty
-        if not len(text):
-            return self.redirect('/delete-comment/'+urlkey)
-        # Don't commit if comment hasn't changed
-        if comment.comment == text:
-            return self.redirect('/blog/'+comment.blog.urlsafe())
-        comment.comment = text;
+        data = json.loads(self.request.body)
+        comment = ndb.Key(urlsafe=data['id']).get()
+        comment.comment = data['text'].strip()
         try:
             comment.put()
         except ndb.TransactionFailedError:
-            # TODO: handle error
+            # TODO: handle error as internal server error
             pass
-        return self.redirect('/blog/'+comment.blog.urlsafe())
+        name = self.request.cookies.get('name')
+        template = template_env.get_template('comment.html')
+        msg = template.render(user=name, comment=comment)
+        data = {'id': data['id'], 'comment': msg}
+        return self.response.out.write(json.dumps(data))
 
 class DeleteCommentHandler(webapp2.RequestHandler):
     """Responds to a request to delete a comment in a blog."""
@@ -424,8 +398,7 @@ handlers = [
     (r'/blog-form', BlogFormHandler),
     (r'/blog/(\S+)', ViewBlogHandler),
     (r'/create-comment/(\S+)', CreateCommentHandler),
-    (r'/edit-comment/(\S+)', EditCommentHandler),
-    (r'/save-comment/(\S+)', SaveCommentHandler),
+    (r'/edit-comment', EditCommentHandler),
     (r'/delete-comment/(\S+)', DeleteCommentHandler),
     (r'/like/(\S+)', LikeBlogHandler),
     (r'/edit-blog/(\S+)', EditBlogHandler),

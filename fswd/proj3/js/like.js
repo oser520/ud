@@ -51,16 +51,16 @@ function tryEditComment(e) {
 // comment.
 function refreshComment(data) {
   let form = document.getElementById(data.id + '-edit');
-  let oldComment = form.previousSibling;
+  let oldComment = form.previousElementSibling;
   let comments = oldComment.parentNode;
   comments.removeChild(form);
-  if (!oldComment.previousSibling) {
+  if (!oldComment.previousElementSibling) {
     // This comment is first comment
     comments.removeChild(oldComment);
     comments.insertAdjacentHTML('afterbegin', data.comment);
   } else {
     // This is not the first comment
-    let sibling = oldComment.previousSibling;
+    let sibling = oldComment.previousElementSibling;
     comments.removeChild(oldComment);
     sibling.insertAdjacentHTML('afterend', data.comment);
   }
@@ -71,7 +71,7 @@ function refreshComment(data) {
 
 // Removes the form to edit a comment and re-displays the original comment.
 function putCommentBack(form) {
-  form.previousSibling.style.display = 'block';
+  form.previousElementSibling.style.display = 'block';
   form.parentNode.removeChild(form);
 }
 
@@ -87,12 +87,14 @@ function editComment(e) {
     if (this.readyState == 4 && this.status == 200) {
       var data = JSON.parse(this.responseText);
       refreshComment(data);
-    } else {
-      putCommentBack(form);
-    }
+    } 
+    // TODO: need to revert changes if there is an error
   };
-  xhr.open('POST', '/edit-comment/' + form.dataset.id, true);
-  var msg = JSON.stringify({'text': form.elements.text.value});
+  xhr.open('POST', '/edit-comment', true);
+  var msg = JSON.stringify({
+    'id': form.dataset.id,
+    'text': form.elements.text.value
+  });
   xhr.send(msg);
 }
 
@@ -122,8 +124,9 @@ function createComment(e) {
       comments.insertAdjacentHTML('beforeend', data.comment);
       document.querySelector('form').reset();
       comments.lastChild.scrollIntoView();
-      var el = comments.lastChild.querySelector('.delete-comment');
-      addEvent(el, 'click', deleteComment);
+      let lc = comments.lastChild;
+      addEvent(lc.querySelector('.edit-comment'), 'click', tryEditComment);
+      addEvent(lc.querySelector('.delete-comment'), 'click', deleteComment);
     }
   };
   var form = document.querySelector('form');
@@ -171,7 +174,7 @@ function clickLike(e) {
   }
 
   let editLinks = document.querySelectorAll('.edit-comment');
-  for (let i = 0; i < delLinks.length; i++) {
+  for (let i = 0; i < editLinks.length; i++) {
     addEvent(editLinks[i], 'click', tryEditComment);
   }
 
