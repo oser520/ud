@@ -12,17 +12,17 @@ function createInputSubmit(action, value) {
 }
 
 function createCommentForm(commentNode) {
-  var form = document.createElement('form');
+  let form = document.createElement('form');
   form.id = commentNode.id + '-edit';
   form.dataset.id = commentNode.id;
   form.classList.add('row');
   form.method = 'post';
   form.action = commentNode.querySelector('.edit-comment').href;
 
-  var div = document.createElement('div');
+  let div = document.createElement('div');
   div.classList.add('col-md-8', 'col-centered');
 
-  var textArea = document.createElement('textarea');
+  let textArea = document.createElement('textarea');
   textArea.classList.add('form-control', 'input-lg');
   textArea.name = 'text';
   textArea.value = commentNode.querySelector('p').innerHTML;
@@ -77,12 +77,12 @@ function putCommentBack(form) {
 
 function editComment(e) {
   e.preventDefault();
-  var form = e.currentTarget;
+  let form = e.currentTarget;
   if (form.action.includes('cancel')) {
     putCommentBack(form);
     return;
   }
-  var xhr = new XMLHttpRequest();
+  let xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       var data = JSON.parse(this.responseText);
@@ -91,7 +91,7 @@ function editComment(e) {
     // TODO: need to revert changes if there is an error
   };
   xhr.open('POST', '/edit-comment', true);
-  var msg = JSON.stringify({
+  let msg = JSON.stringify({
     'id': form.dataset.id,
     'text': form.elements.text.value
   });
@@ -100,7 +100,7 @@ function editComment(e) {
 
 function deleteComment(e) {
   e.preventDefault();
-  var xhr = new XMLHttpRequest();
+  let xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       var data = JSON.parse(this.responseText);
@@ -116,11 +116,11 @@ function deleteComment(e) {
 
 function createComment(e) {
   e.preventDefault();
-  var xhr = new XMLHttpRequest();
+  let xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      var data = JSON.parse(this.responseText);
-      var comments = document.querySelector('.blog-comments');
+      let data = JSON.parse(this.responseText);
+      let comments = document.querySelector('.blog-comments');
       comments.insertAdjacentHTML('beforeend', data.comment);
       document.querySelector('form').reset();
       comments.lastChild.scrollIntoView();
@@ -129,32 +129,32 @@ function createComment(e) {
       addEvent(lc.querySelector('.delete-comment'), 'click', deleteComment);
     }
   };
-  var form = document.querySelector('form');
+  let form = document.querySelector('form');
   xhr.open('POST', form.action, true);
-  var msg = JSON.stringify({'text': form.elements.text.value});
+  let msg = JSON.stringify({'text': form.elements.text.value});
   xhr.send(msg);
 }
 
 function clickLike(e) {
   e.preventDefault();
-  var xhr = new XMLHttpRequest();
+  let xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      var response = JSON.parse(this.responseText);
+      let response = JSON.parse(this.responseText);
       if (response.add) {
         // Enable red heart and increase likes count
-        var cl = document.getElementById('likes-heart').classList;
+        let cl = document.getElementById('likes-heart').classList;
         cl.add('red-heart');
         cl.remove('normal');
-        var el = document.querySelector('.likes-number');
+        let el = document.querySelector('.likes-number');
         el.innerText = parseInt(el.innerText, 10) + 1;
       } else if (response.remove) {
         // Disable red heart and decrease likes count
-        var cl = document.getElementById('likes-heart').classList;
+        let cl = document.getElementById('likes-heart').classList;
         cl.remove('red-heart');
         cl.add('normal');
-        var el = document.querySelector('.likes-number');
-        var count = parseInt(el.innerText, 10);
+        let el = document.querySelector('.likes-number');
+        let count = parseInt(el.innerText, 10);
         // double check that we are not taking number below zero
         if (count) {
           el.innerText = count - 1;
@@ -162,7 +162,7 @@ function clickLike(e) {
       }
     }
   };
-  var href = document.getElementById('like-button').href;
+  let href = document.getElementById('like-button').href;
   xhr.open('GET', href, true);
   xhr.send();
 }
