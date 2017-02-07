@@ -51,6 +51,15 @@ class Blog(ndb.Model):
         return self.user == author
 
     @property
+    def lines(self):
+        """Splits the blog text into lines.
+
+        :return
+            A list of strings.
+        """
+        return self.text.split('\n')
+
+    @property
     def tease(self):
         """Computes the tease of the blog."""
         MIN_TOKENS_IN_TEASE = 200
@@ -92,6 +101,15 @@ class BlogComment(ndb.Model):
     user = ndb.StringProperty(required=True)
     date = ndb.DateTimeProperty(required=True, auto_now_add=True)
     comment = ndb.TextProperty(required=True, validator=check_str_not_empty)
+
+    @property
+    def lines(self):
+        """Splits the blog text into lines.
+
+        :return
+            A list of strings.
+        """
+        return self.comment.split('\n')
 
     def is_author(self, author):
         """Returns true if the author is the author of this comment.
