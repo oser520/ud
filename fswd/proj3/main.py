@@ -7,6 +7,7 @@ import models
 import hmac
 import json
 from collections import deque
+import string
 from google.appengine.ext import ndb
 
 template_env = jinja2.Environment(loader=jinja2.FileSystemLoader(os.getcwd()))
@@ -166,6 +167,7 @@ class CreateCommentHandler(webapp2.RequestHandler):
         name = self.request.cookies.get('name')
         blogkey = ndb.Key(urlsafe=urlkey)
         text = json.loads(self.request.body)['text']
+        text = util.squeeze(text.strip(), string.whitespace)
         comment = models.BlogComment(blog=blogkey, user=name, comment=text)
         try:
             comment.put()
@@ -192,7 +194,9 @@ class CreateBlogHandler(webapp2.RequestHandler):
         # TODO: verify request is made in session context
         name = self.request.cookies.get('name')
         title = self.request.get('title').strip()
+        title = util.squeeze(title, string.whitespace)
         text = self.request.get('text').strip()
+        title = util.squeeze(text, string.whitespace)
         blog = models.Blog(user=name, title=title, text=text)
         try:
             blog.put()
