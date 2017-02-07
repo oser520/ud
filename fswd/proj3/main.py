@@ -1,14 +1,16 @@
 import datetime
-import jinja2
 import os
-import webapp2
-import util
 import models
 import hmac
 import json
 from collections import deque
 import string
+
+import jinja2
+import webapp2
 from google.appengine.ext import ndb
+
+import util
 
 template_env = jinja2.Environment(loader=jinja2.FileSystemLoader(os.getcwd()))
 # Use this to handle problem of getting a page with a blog entry that has just
