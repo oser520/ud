@@ -20,17 +20,15 @@
   </header>
   <div class="container">
     <form method="post" action="/{{ action }}{{ '/%s' % entry_id if entry_id }}" class="{{ action }}-form" id="{{ action }}-form">
-      {% if with_title %}
-        <div class="row">
-          <!-- input for blog title -->
-          <div class="form-group col-md-8 col-centered">
-            <label for="blog-title">Title</label>
-            <input type="text" class="form-control" id="blog-title" name="title" pattern="^\w.*"
-              title="The must contain at least one non-white space character"
-              value="{{ title_value if title_value }}">
-          </div>
+      <div class="row">
+        <!-- input for blog title -->
+        <div class="form-group col-md-8 col-centered">
+          <label for="blog-title">Title</label>
+          <input type="text" class="form-control input-lg" id="blog-title" name="title" pattern="^\w.*"
+            title="The must contain at least one non-white space character"
+            value="{{ title_value if title_value }}">
         </div>
-      {% endif %}
+      </div>
       <div class="row">
         <div class="form-group col-md-8 col-centered">
           <label for="{{ action }}-text">{{ label_title }}</label>

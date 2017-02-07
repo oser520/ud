@@ -216,7 +216,6 @@ class BlogFormHandler(webapp2.RequestHandler):
         """Creates the context for the template."""
         context = {
             'action': 'create-blog',
-            'with_title': True,
             'label_title': 'Blog'
         }
         return context
@@ -234,7 +233,6 @@ class EditBlogHandler(webapp2.RequestHandler):
         """Create the context for the edit form template."""
         return {
             'action': 'save-blog',
-            'with_title': True,
             'entry_id': blog.key.urlsafe(),
             'label_title': 'Blog',
             'title_value': blog.title,
