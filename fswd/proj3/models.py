@@ -1,5 +1,6 @@
 from datetime import datetime
 from datetime import timedelta
+
 from google.appengine.ext import ndb
 
 def check_str_not_empty(prop, content):

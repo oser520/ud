@@ -2,6 +2,7 @@ import hmac
 import random
 import re
 import string
+
 from models import Account
 
 def process_username(username):
