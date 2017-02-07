@@ -3,30 +3,30 @@ from datetime import timedelta
 from google.appengine.ext import ndb
 
 def check_str_not_empty(prop, content):
-    '''Returns a datastore_errors.BadValueError if the string value of a Text
+    """Returns a datastore_errors.BadValueError if the string value of a Text
     or String property is empty.
 
     Args:
         prop: The ndb property type.
         val: The blog content.
-    '''
+    """
     if not content.strip(): raise datastore_erros.BadValueError
     return content
 
 class Account(ndb.Model):
-    '''
+    """
     Represents a user with an account to write blogs.
 
     Fields:
         id: The user name for the account.
         salt: The salt for the password for login cookies.
         psswdhash: The hash of the salt and the password.
-    '''
+    """
     salt = ndb.StringProperty(required=True)
     pwd_hash = ndb.StringProperty(required=True)
 
 class Blog(ndb.Model):
-    '''
+    """
     Represents a blog entry.
 
     Fields:
@@ -35,7 +35,7 @@ class Blog(ndb.Model):
         date: The date-time the blog was created.
         blog: The blog content.
         likes: The number of like votes.
-    '''
+    """
     user = ndb.StringProperty(required=True)
     title = ndb.StringProperty(required=True)
     date = ndb.DateTimeProperty(required=True, auto_now_add=True)
@@ -43,11 +43,11 @@ class Blog(ndb.Model):
     likes = ndb.KeyProperty(kind=Account, repeated=True)
 
     def is_author(self, author):
-        '''Returns true if author is the author of this blog.
+        """Returns true if author is the author of this blog.
 
             Args:
                 author: A user name.
-        '''
+        """
         return self.user == author
 
     @property
@@ -79,7 +79,7 @@ class Blog(ndb.Model):
         return self.text[:MAX_TOKENS_IN_TEASE].rstrip()
 
 class BlogComment(ndb.Model):
-    '''
+    """
     A blog commment.
 
     Fields:
@@ -87,24 +87,24 @@ class BlogComment(ndb.Model):
         user: The user who posted this comment.
         date: The date-time the comment was posted.
         comment: The comment.
-    '''
+    """
     blog = ndb.KeyProperty(required=True)
     user = ndb.StringProperty(required=True)
     date = ndb.DateTimeProperty(required=True, auto_now_add=True)
     comment = ndb.TextProperty(required=True, validator=check_str_not_empty)
 
     def is_author(self, author):
-        '''Returns true if the author is the author of this comment.
+        """Returns true if the author is the author of this comment.
 
             Args:
                 author: A user name.
-        '''
+        """
         return self.user == author
 
     def get_timedelta(self):
-        '''Returns a string representing the timedelta since the comment was
+        """Returns a string representing the timedelta since the comment was
         creted.
-        '''
+        """
         if not self.date:
             raise ValueError("comment has not been created yet")
         delta = datetime.now() - self.date
