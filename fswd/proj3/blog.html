@@ -27,7 +27,9 @@
     </header>
     <article class="row article-content col-centered">
       <div class="col-md-8 col-centered">
-        <p>{{ blog.text }}</p>
+        {% for line in blog.lines %}
+        <p>{{ line }}</p>
+        {% endfor %}
         {% if loggedin and blog.is_author(user) %}
         <a class="btn btn-default pull-right" href="/edit-blog/{{ blog_id }}" role="button">Edit</a>
         {% endif %}
