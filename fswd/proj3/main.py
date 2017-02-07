@@ -19,6 +19,7 @@ qBlogsDeleted = deque()
 
 class MainHandler(webapp2.RequestHandler):
     """Handle requests to the main blog site."""
+
     def get(self):
         # Get session status
         logged_status = util.is_session_req(self.request)
@@ -41,8 +42,10 @@ class MainHandler(webapp2.RequestHandler):
                 pass
         return blogs
 
+
 class LoginHandler(webapp2.RequestHandler):
     """Handle requests to login as a user of the blog site."""
+
     def get(self):
         """Render the login page."""
         # If the request is made as part of a session, then user has already signed in.
@@ -60,8 +63,10 @@ class LoginHandler(webapp2.RequestHandler):
             'message': "Don't have an account yet? Register..."
         }
 
+
 class DoLoginHandler(webapp2.RequestHandler):
     """Handle requests to login as a user of the blog site."""
+
     def post(self):
         """Verifies the user is registered.
 
@@ -97,8 +102,10 @@ class DoLoginHandler(webapp2.RequestHandler):
         self.response.set_cookie('secret', hsh)
         return self.response.out.write(json.dumps(data))
 
+
 class RegisterHandler(webapp2.RequestHandler):
     """Handle requests to register as a user of the blog site."""
+
     def get(self):
         """Render the registration page."""
         # If the request is made as part of a session, then user has already signed in.
@@ -118,6 +125,7 @@ class RegisterHandler(webapp2.RequestHandler):
 
 class DoRegisterHandler(webapp2.RequestHandler):
     """Handle requests to register as a user of the blog site."""
+
     def post(self):
         """Registers a user.
 
@@ -160,10 +168,10 @@ class DoRegisterHandler(webapp2.RequestHandler):
         self.response.set_cookie('secret', hsh)
         return self.response.out.write(json.dumps(data))
 
-# Blog comment handlers
 
 class CreateCommentHandler(webapp2.RequestHandler):
     """Handle requests to create a comment on a blog."""
+
     def post(self, urlkey):
         """Stores a comment in the datastore and redirects user to main page."""
         name = self.request.cookies.get('name')
@@ -181,16 +189,20 @@ class CreateCommentHandler(webapp2.RequestHandler):
         data = {'id': urlkey, 'comment': msg}
         return self.response.out.write(json.dumps(data))
 
+
 class SignoutHandler(webapp2.RequestHandler):
     """Handle requests to signout."""
+
     def get(self):
         """Deletes session cookies and redirects to the main content page."""
         self.response.delete_cookie('name')
         self.response.delete_cookie('secret')
         return self.redirect('/')
 
+
 class CreateBlogHandler(webapp2.RequestHandler):
     """Handle requests to create a brand new blog entry."""
+
     def post(self):
         """Handles a post request to create a blog entry."""
         # TODO: verify request is made in session context
@@ -207,8 +219,10 @@ class CreateBlogHandler(webapp2.RequestHandler):
             # TODO: Handle error
             return self.redirect('/')
 
+
 class BlogFormHandler(webapp2.RequestHandler):
     """Handles request initial request to create a blog entry."""
+
     def get(self):
         """Render the form to create a blog entry."""
         template = template_env.get_template('blog-form.html')
@@ -221,8 +235,10 @@ class BlogFormHandler(webapp2.RequestHandler):
             'label_title': 'Blog'
         }
 
+
 class EditBlogHandler(webapp2.RequestHandler):
     """Handles a request to edit a blog entry."""
+
     def get(self, urlkey):
         """Renders the form to edit a blog entry."""
         blog = ndb.Key(urlsafe=urlkey).get()
@@ -240,8 +256,10 @@ class EditBlogHandler(webapp2.RequestHandler):
             'text_value': blog.text
         }
 
+
 class SaveBlogHandler(webapp2.RequestHandler):
     """Handles a request to save a blog after an edit."""
+
     def post(self, urlkey):
         """Saves a blog after it is edited.
 
@@ -259,8 +277,10 @@ class SaveBlogHandler(webapp2.RequestHandler):
             pass
         return self.redirect('/blog/%s' % urlkey)
 
+
 class DeleteBlogHandler(webapp2.RequestHandler):
     """Handles a request to delete a blog entry."""
+
     def get(self, urlkey):
         """Deletes a blog entry and redirects to the main page.
 
@@ -276,8 +296,10 @@ class DeleteBlogHandler(webapp2.RequestHandler):
             pass
         return self.redirect('/')
 
+
 class ViewBlogHandler(webapp2.RequestHandler):
     """Handlers requests to view a blog entry."""
+
     def get(self, urlkey):
         """Renders a blog entry.
 
@@ -318,8 +340,10 @@ class ViewBlogHandler(webapp2.RequestHandler):
             'user': user
         }
 
+
 class EditCommentHandler(webapp2.RequestHandler):
     """Responds to a request to save a blog comment after it has been edited."""
+
     def post(self):
         """Saves or deletes the comment and redirects to blog post."""
         data = json.loads(self.request.body)
@@ -336,6 +360,7 @@ class EditCommentHandler(webapp2.RequestHandler):
         data = {'id': data['id'], 'comment': msg}
         return self.response.out.write(json.dumps(data))
 
+
 class DeleteCommentHandler(webapp2.RequestHandler):
     """Responds to a request to delete a comment in a blog."""
     def post(self):
@@ -351,6 +376,7 @@ class DeleteCommentHandler(webapp2.RequestHandler):
             # TODO: handle error as internal server error
             pass
         return self.response.out.write(json.dumps(data))
+
 
 class LikeBlogHandler(webapp2.RequestHandler):
     """Responds to a request to like a blog entry."""
@@ -387,6 +413,7 @@ class LikeBlogHandler(webapp2.RequestHandler):
             # TODO: handle error as internal server error
             pass
         return self.response.out.write(json.dumps(data))
+
 
 handlers = [
     (r'/', MainHandler),

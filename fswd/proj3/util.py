@@ -21,6 +21,7 @@ def process_username(username):
     if m: return m.group()
     return None
 
+
 def process_password(password):
     """Returns true if the password is valid, false otherwise.
 
@@ -40,6 +41,7 @@ def process_password(password):
         if c in string.digits: return True
     return False
 
+
 def gensalt(length=16):
     """Generate a random salt value for a password.
 
@@ -50,6 +52,7 @@ def gensalt(length=16):
         raise ValueError('The salt length must be a positive integer')
     ALPHABET = string.ascii_letters + string.digits
     return ''.join(random.choice(ALPHABET) for _ in range(length))
+
 
 def get_hash(salt, psswd):
     """Create a hash from a salt and password.
@@ -62,6 +65,7 @@ def get_hash(salt, psswd):
         raise ValueError('The salt and password cannot be empty')
     return hmac.new(salt.encode(), psswd).hexdigest()
 
+
 def is_psswd_hash(salt, psswd, hsh):
     """Verify the hash equals the hash fo the salt and password.
 
@@ -72,6 +76,7 @@ def is_psswd_hash(salt, psswd, hsh):
     """
     return hsh == hmac.new(salt, psswd)
 
+
 def username_exists(username):
     """Return true if the username exists, false otherwise.
 
@@ -81,6 +86,7 @@ def username_exists(username):
     if Account.get_by_id(username):
         return True
     return False
+
 
 def is_session_req(req):
     """Return a pair of bools indicating if the name and secret cookies are set
@@ -97,6 +103,7 @@ def is_session_req(req):
     if not account or secret != account.pwd_hash:
         return False
     return True
+
 
 def squeeze(letters, chars):
     """Replace each input sequence of a set of repeated characters with a single

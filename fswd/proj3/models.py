@@ -14,6 +14,7 @@ def check_str_not_empty(prop, content):
     if not content.strip(): raise datastore_erros.BadValueError
     return content
 
+
 class Account(ndb.Model):
     """
     Represents a user with an account to write blogs.
@@ -25,6 +26,7 @@ class Account(ndb.Model):
     """
     salt = ndb.StringProperty(required=True)
     pwd_hash = ndb.StringProperty(required=True)
+
 
 class Blog(ndb.Model):
     """
@@ -87,6 +89,7 @@ class Blog(ndb.Model):
         if MAX_TOKENS_IN_TEASE > len(self.text):
             return self.text
         return self.text[:MAX_TOKENS_IN_TEASE].rstrip()
+
 
 class BlogComment(ndb.Model):
     """
