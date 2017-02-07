@@ -214,11 +214,10 @@ class BlogFormHandler(webapp2.RequestHandler):
 
     def get_context(self):
         """Creates the context for the template."""
-        context = {
+        return {
             'action': 'create-blog',
             'label_title': 'Blog'
         }
-        return context
 
 class EditBlogHandler(webapp2.RequestHandler):
     """Handles a request to edit a blog entry."""
