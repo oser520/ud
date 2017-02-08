@@ -17,6 +17,24 @@ template_env = jinja2.Environment(loader=jinja2.FileSystemLoader(os.getcwd()))
 # been deleted.
 qBlogsDeleted = deque()
 
+class BaseHandler(webapp2.RequestHandler):
+    """A wrapper to make request handlers less verbose to use."""
+
+    def __init__(self, request, response):
+        """Overrides initialization of request and response objects to get user
+        name.
+
+        :param request
+            The request object
+        :param response
+            The response object
+        """
+        self.initialize(request, response)
+        self.user = self.request.cookies.get('name') or None
+        # TODO: verify password hash
+        # TODO: define write()
+
+
 class MainHandler(webapp2.RequestHandler):
     """Handle requests to the main blog site."""
 
