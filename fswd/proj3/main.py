@@ -1,6 +1,5 @@
 import datetime
 import os
-import models
 import hmac
 import json
 import collections
@@ -11,6 +10,7 @@ import webapp2
 from google.appengine.ext import ndb
 
 import util
+import models
 
 def create_template_engine(path=None):
     """Creats the template engine.
@@ -49,9 +49,9 @@ class BaseHandler(webapp2.RequestHandler):
         self.is_session = False
         self.user = None
         user = self.request.cookies.get('name')
-        hsh = self.requet.cookies.get('secret')
+        hsh = self.request.cookies.get('secret')
         if user and hsh:
-            account = model.Account.get_by_id(user)
+            account = models.Account.get_by_id(user)
             if account and account.pwd_hash == hsh:
                 self.user = user
                 self.is_session = True
@@ -90,7 +90,7 @@ class BaseHandler(webapp2.RequestHandler):
         :param template
             The name of the file containing the template.
         """
-        eng = self.app.registry.get('template_engine')
+        eng = self.app.registry.get('template_eng')
         if not eng:
             raise ValueError('template_eng must be defined in registry')
         template = eng.get_template(template)
