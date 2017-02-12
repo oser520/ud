@@ -54,8 +54,6 @@ class BaseHandler(webapp2.RequestHandler):
         :param dictval
             The dictionary used to create the json response.
         """
-        if not isinstance(dictval, dict):
-            raise TypeError("dictval needs to be an instance of a dictionary")
         return self.write(json.dumps(dictval))
 
     def json_read(self):
