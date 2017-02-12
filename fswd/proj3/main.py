@@ -22,7 +22,7 @@ class BaseHandler(webapp2.RequestHandler):
 
     def __init__(self, request, response):
         """Overrides initialization of request and response objects to get user
-        name.
+        name, and initializes session info with user name.
 
         :param request
             The request object
@@ -30,9 +30,15 @@ class BaseHandler(webapp2.RequestHandler):
             The response object
         """
         self.initialize(request, response)
-        self.user = self.request.cookies.get('name') or None
-        # TODO: verify password hash
-        # TODO: define write()
+        self.is_session = False
+        self.user = None
+        user = self.request.cookies.get('name')
+        hsh = self.requet.cookies.get('secret')
+        if user and hsh:
+            account = model.Account.get_by_id(user)
+            if account and account.pwd_hash == hsh:
+                self.user = user
+                self.is_session = True
 
 
 class MainHandler(webapp2.RequestHandler):
