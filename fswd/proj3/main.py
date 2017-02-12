@@ -48,6 +48,16 @@ class BaseHandler(webapp2.RequestHandler):
         """
         return self.response.out.write(strval)
 
+    def json_write(self, dictval):
+        """Uses a dictionary to create a json response.
+
+        :param dictval
+            The dictionary used to create the json response.
+        """
+        if not isinstance(dictval, dict):
+            raise TypeError("dictval needs to be an instance of a dictionary")
+        return self.write(json.dumps(dictval))
+
 class MainHandler(webapp2.RequestHandler):
     """Handle requests to the main blog site."""
 
