@@ -64,6 +64,7 @@ class BaseHandler(webapp2.RequestHandler):
         """
         return json.loads(self.request.body)
 
+
 class MainHandler(webapp2.RequestHandler):
     """Handle requests to the main blog site."""
 
