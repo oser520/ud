@@ -12,6 +12,22 @@ from google.appengine.ext import ndb
 
 import util
 
+def create_template_engine(path=None):
+    """Creats the template engine.
+
+    :param path
+        The path to the directory containing the templates for the application.
+        Uses current working directory by default.
+    :return
+        A template environment.
+    """
+    if not path:
+        path = os.getcwd()
+    elif not os.listdir(path):
+        raise ValueError('path cannot be an empty dictionary')
+    loader = jinja2.FileSystemLoader(path)
+    return jinja2.Environment(loader=loader)
+
 template_env = jinja2.Environment(loader=jinja2.FileSystemLoader(os.getcwd()))
 # Use this to handle problem of getting a page with a blog entry that has just
 # been deleted.
@@ -495,3 +511,4 @@ handlers = [
     (r'/delete-blog/(\S+)', DeleteBlogHandler)
 ]
 app = webapp2.WSGIApplication(handlers, debug=True)
+app.registry['template_eng'] = create_template_engine()
