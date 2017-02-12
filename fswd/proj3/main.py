@@ -118,25 +118,22 @@ class MainHandler(BaseHandler):
         return blogs
 
 
-class LoginHandler(webapp2.RequestHandler):
+class LoginHandler(BaseHandler):
     """Handle requests to login as a user of the blog site."""
 
     def get(self):
         """Render the login page."""
-        # If the request is made as part of a session, then user has already signed in.
-        if util.is_session_req(self.request):
+        # Should not be possible, because only people who are not logged in
+        # should be able to see the link to sign in.
+        if self.is_session:
             return self.redirect('/')
-        template = template_env.get_template('signin.html')
-        return self.response.out.write(template.render(self.get_context()))
-
-    def get_context(self):
-        """Create the context for the login page."""
-        return {
+        context = {
             'action': 'sign in',
             'primary_action': 'do-login',
             'secondary_action': 'register',
             'message': "Don't have an account yet? Register..."
         }
+        return self.render(context, 'signin.html')
 
 
 class DoLoginHandler(webapp2.RequestHandler):
