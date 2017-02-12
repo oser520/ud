@@ -64,6 +64,22 @@ class BaseHandler(webapp2.RequestHandler):
         """
         return json.loads(self.request.body)
 
+    def render(self, context, template):
+        """Uses a context and template to render a page.
+
+        The template engine must be defined in the app's registry.
+
+        :param context
+            A dictionary containing the context for the template.
+        :param template
+            The name of the file containing the template.
+        """
+        eng = self.app.registry.get('template_engine')
+        if not eng:
+            raise ValueError('template_eng must be defined in registry')
+        template = eng.get_template(template)
+        return self.write(template.render(context))
+
 
 class MainHandler(webapp2.RequestHandler):
     """Handle requests to the main blog site."""
