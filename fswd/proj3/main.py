@@ -512,3 +512,4 @@ handlers = [
 ]
 app = webapp2.WSGIApplication(handlers, debug=True)
 app.registry['template_eng'] = create_template_engine()
+app.registry['deleted_blogs'] = collections.deque()
