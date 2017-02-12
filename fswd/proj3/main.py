@@ -494,4 +494,4 @@ handlers = [
     (r'/save-blog/(\S+)', SaveBlogHandler),
     (r'/delete-blog/(\S+)', DeleteBlogHandler)
 ]
-application = webapp2.WSGIApplication(handlers, debug=True)
+app = webapp2.WSGIApplication(handlers, debug=True)
