@@ -136,22 +136,22 @@ class LoginHandler(BaseHandler):
         return self.render(context, 'signin.html')
 
 
-class DoLoginHandler(webapp2.RequestHandler):
+class DoLoginHandler(BaseHandler):
     """Handle requests to login as a user of the blog site."""
 
     def post(self):
         """Verifies the user is registered.
 
         If the user is registered, then he is redirected to the main page,
-        otherwise the user gets an error message indicating either the username
-        does not exist, or the password is incorrect.
+        otherwise the user gets an error message indicating whether the
+        username or password are incorrect.
         """
-        # Should not be the case if we got here, but check if this is a session
-        # request.
-        if util.is_session_req(self.request):
+        # Should not be possible, because only people who are not logged in
+        # should be able to see the link to sign in.
+        if self.is_session:
             return self.redirect('/')
 
-        data = json.loads(self.request.body)
+        data = self.json_read()
         data['success'] = False
         user = data['user']
         pwd = data['password']
@@ -160,40 +160,38 @@ class DoLoginHandler(webapp2.RequestHandler):
         account = models.Account.get_by_id(user)
         if not account:
             data['baduser'] = True
-            return self.response.out.write(json.dumps(data))
+            return self.json_write(data)
 
         # verify password is correct
         hsh = util.get_hash(account.salt, pwd)
         if hsh != account.pwd_hash:
             data['badpwd'] = True
-            return self.response.out.write(json.dumps(data))
+            return self.json_write(data)
 
         # set session cookies
         data['success'] = True
         self.response.set_cookie('name', user)
         self.response.set_cookie('secret', hsh)
-        return self.response.out.write(json.dumps(data))
+        return self.json_write(data)
 
 
-class RegisterHandler(webapp2.RequestHandler):
+class RegisterHandler(BaseHandler):
     """Handle requests to register as a user of the blog site."""
 
     def get(self):
         """Render the registration page."""
-        # If the request is made as part of a session, then user has already signed in.
-        if util.is_session_req(self.request):
+        # Should not be possible, because only people who are not logged in
+        # should be able to see the link to sign in.
+        if self.is_session:
             return self.redirect('/')
-        template = template_env.get_template('signin.html')
-        self.response.out.write(template.render(self.get_context()))
-
-    def get_context(self):
-        """Return the context for the register.html template."""
-        return {
+        context = {
             'action': 'register',
             'primary_action': 'do-register',
             'secondary_action': 'login',
             'message': "Have an account already? Sign in..."
         }
+        return self.render(context, 'signin.html')
+
 
 class DoRegisterHandler(webapp2.RequestHandler):
     """Handle requests to register as a user of the blog site."""
