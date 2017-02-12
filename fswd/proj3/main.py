@@ -3,7 +3,7 @@ import os
 import models
 import hmac
 import json
-from collections import deque
+import collections
 import string
 
 import jinja2
@@ -31,7 +31,7 @@ def create_template_engine(path=None):
 template_env = jinja2.Environment(loader=jinja2.FileSystemLoader(os.getcwd()))
 # Use this to handle problem of getting a page with a blog entry that has just
 # been deleted.
-qBlogsDeleted = deque()
+qBlogsDeleted = collections.deque()
 
 class BaseHandler(webapp2.RequestHandler):
     """A wrapper to make request handlers less verbose to use."""
