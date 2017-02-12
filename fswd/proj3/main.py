@@ -82,11 +82,9 @@ class MainHandler(webapp2.RequestHandler):
         """Returns all blog entries in reverse chronological date."""
         blogs = models.Blog.query().order(-models.Blog.date).fetch()
         while len(qBlogsDeleted):
-            b = qBlogsDeleted.pop()
-            try:
+            blog = qBlogsDeleted.pop()
+            if blog in blogs:
                 blogs.remove(b)
-            except ValueError:
-                pass
         return blogs
 
 
