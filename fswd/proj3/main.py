@@ -97,18 +97,16 @@ class BaseHandler(webapp2.RequestHandler):
         return self.write(template.render(context))
 
 
-class MainHandler(webapp2.RequestHandler):
+class MainHandler(BaseHandler):
     """Handle requests to the main blog site."""
 
     def get(self):
-        # Get session status
-        logged_status = util.is_session_req(self.request)
-        template = template_env.get_template('content.html')
+        """Render the main page with all the blogs."""
         context = {
             'blog_titles': self.get_blogs(),
-            'loggedin': logged_status
+            'loggedin': self.is_session
         }
-        return self.response.out.write(template.render(context))
+        return self.render(context, 'content.html')
 
     def get_blogs(self):
         """Returns all blog entries in reverse chronological date."""
