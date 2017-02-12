@@ -40,6 +40,13 @@ class BaseHandler(webapp2.RequestHandler):
                 self.user = user
                 self.is_session = True
 
+    def write(self, strval):
+        """Wrapper around self.response.out.write.
+
+        :param strval
+            A string value.
+        """
+        return self.response.out.write(strval)
 
 class MainHandler(webapp2.RequestHandler):
     """Handle requests to the main blog site."""
