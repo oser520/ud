@@ -75,7 +75,6 @@ class MainHandler(webapp2.RequestHandler):
             'blog_titles': self.get_blogs(),
             'loggedin': logged_status
         }
-        self.response.headers.add('Cache-Control', 'no-store')
         return self.response.out.write(template.render(context))
 
     def get_blogs(self):
