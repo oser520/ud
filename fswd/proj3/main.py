@@ -58,6 +58,14 @@ class BaseHandler(webapp2.RequestHandler):
             raise TypeError("dictval needs to be an instance of a dictionary")
         return self.write(json.dumps(dictval))
 
+    def json_read(self):
+        """Reads the request body as a json object.
+
+        :return
+            A dictionary representing the json.
+        """
+        return json.loads(self.request.body)
+
 class MainHandler(webapp2.RequestHandler):
     """Handle requests to the main blog site."""
 
