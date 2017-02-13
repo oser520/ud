@@ -306,32 +306,22 @@ class BlogFormHandler(BaseHandler):
 
     def get(self):
         """Render the form to create a blog entry."""
-        context = {
-            'action': 'create-blog',
-            'label_title': 'Blog'
-        }
-        return self.render(context, 'blog-form.html')
+        return self.render({'action': 'create-blog'}, 'blog-form.html')
 
 
-class EditBlogHandler(webapp2.RequestHandler):
+class EditBlogHandler(BaseHandler):
     """Handles a request to edit a blog entry."""
 
     def get(self, urlkey):
         """Renders the form to edit a blog entry."""
         blog = ndb.Key(urlsafe=urlkey).get()
-        context = self.get_context(blog)
-        template = template_env.get_template('blog-form.html')
-        return self.response.out.write(template.render(context))
-
-    def get_context(self, blog):
-        """Create the context for the edit form template."""
-        return {
+        context = {
             'action': 'save-blog',
             'entry_id': blog.key.urlsafe(),
-            'label_title': 'Blog',
             'title_value': blog.title,
             'text_value': blog.text
         }
+        return self.render(context, 'blog-form.html')
 
 
 class SaveBlogHandler(webapp2.RequestHandler):
