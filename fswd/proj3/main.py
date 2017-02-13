@@ -331,8 +331,8 @@ class SaveBlogHandler(BaseHandler):
     def post(self, urlkey):
         """Saves a blog after it is edited.
 
-        Args:
-            urlkey: Blog key in url safe format.
+        :param urlkey
+            The blog key in url safe format.
         """
         blog = ndb.Key(urlsafe=urlkey).get()
         blog.title = self.request.get('title').strip()
@@ -353,8 +353,8 @@ class DeleteBlogHandler(BaseHandler):
     def get(self, urlkey):
         """Deletes a blog entry and redirects to the main page.
 
-        Args:
-            urlkey: Blog key in url safe format.
+        :param urlkey
+            The blog key in url safe format.
         """
         blog = ndb.Key(urlsafe=urlkey).get()
         query = models.BlogComment.query(models.BlogComment.blog == blog.key)
@@ -377,8 +377,8 @@ class ViewBlogHandler(BaseHandler):
     def get(self, urlkey):
         """Renders a blog entry.
 
-        Args:
-            urlkey: The blog key in URL-friendly form.
+        :param urlkey
+            The blog key in url safe format.
         """
         blog = ndb.Key(urlsafe=urlkey).get()
         q = models.BlogComment.query(models.BlogComment.blog == blog.key)
@@ -396,10 +396,14 @@ class ViewBlogHandler(BaseHandler):
     def get_context(self, blog, login_status, comments, user=None):
         """Creates the dictionary context for the template.
 
-        Args:
-            blog: The blog entry model.
-            login_status: Login status of user making request.
-            comments: List of blog comments.
+        :param blog
+            The blog entry model.
+        :param login_status
+            Login status of user making request.
+        :param comments
+            List of blog comments.
+        :return
+            A dictionary with the context values for the template.
         """
         return {
             'blog': blog ,
