@@ -29,9 +29,6 @@ def create_template_engine(path=None):
     return jinja2.Environment(loader=loader)
 
 template_env = jinja2.Environment(loader=jinja2.FileSystemLoader(os.getcwd()))
-# Use this to handle problem of getting a page with a blog entry that has just
-# been deleted.
-qBlogsDeleted = collections.deque()
 
 class BaseHandler(webapp2.RequestHandler):
     """A wrapper to make request handlers less verbose to use."""
@@ -121,7 +118,10 @@ class MainHandler(BaseHandler):
         return self.render(context, 'content.html')
 
     def get_blogs(self):
-        """Returns all blog entries in reverse chronological date."""
+        """Returns all blog entries in reverse chronological date, excluding
+        blogs that have very recently been deleted but perhaps not reflected
+        in this snapshot of blog entries.
+        """
         blogs = models.Blog.query().order(-models.Blog.date).fetch()
         deleted_blogs = self.app.registry.get('deleted_blogs')
         while len(deleted_blogs):
