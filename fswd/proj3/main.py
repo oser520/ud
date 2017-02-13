@@ -127,7 +127,7 @@ class MainHandler(BaseHandler):
         while len(deleted_blogs):
             blog = deleted_blogs.pop()
             if blog in blogs:
-                blogs.remove(b)
+                blogs.remove(blog)
         return blogs
 
 
