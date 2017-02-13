@@ -301,20 +301,16 @@ class CreateBlogHandler(BaseHandler):
             return self.redirect('/blog/%s' % blog.key.urlsafe())
 
 
-class BlogFormHandler(webapp2.RequestHandler):
+class BlogFormHandler(BaseHandler):
     """Handles request initial request to create a blog entry."""
 
     def get(self):
         """Render the form to create a blog entry."""
-        template = template_env.get_template('blog-form.html')
-        return self.response.out.write(template.render(self.get_context()))
-
-    def get_context(self):
-        """Creates the context for the template."""
-        return {
+        context = {
             'action': 'create-blog',
             'label_title': 'Blog'
         }
+        return self.render(context, 'blog-form.html')
 
 
 class EditBlogHandler(webapp2.RequestHandler):
