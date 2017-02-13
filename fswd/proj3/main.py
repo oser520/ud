@@ -346,7 +346,7 @@ class SaveBlogHandler(BaseHandler):
             return self.redirect('/blog/%s' % urlkey)
 
 
-class DeleteBlogHandler(webapp2.RequestHandler):
+class DeleteBlogHandler(BaseHandler):
     """Handles a request to delete a blog entry."""
 
     def get(self, urlkey):
@@ -355,14 +355,20 @@ class DeleteBlogHandler(webapp2.RequestHandler):
         Args:
             urlkey: Blog key in url safe format.
         """
+        blog = ndb.Key(urlsafe=urlkey).get()
         try:
-            blog = ndb.Key(urlsafe=urlkey).get()
             blog.key.delete()
-            qBlogsDeleted.append(blog)
         except ndb.TransactionFailedError:
             # TODO: handle error as internal server error
             pass
-        return self.redirect('/')
+        else:
+            self.add_deleted_blog(blog)
+        finally:
+            return self.redirect('/')
+
+    def add_deleted_blog(self, blog):
+        """Adds a deleted blog to the queue in the app's registry."""
+        self.app.registry.get('deleted_blogs').append(blog)
 
 
 class ViewBlogHandler(webapp2.RequestHandler):
