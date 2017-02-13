@@ -453,20 +453,19 @@ class DeleteCommentHandler(BaseHandler):
         return self.json_write(data)
 
 
-class LikeBlogHandler(webapp2.RequestHandler):
+class LikeBlogHandler(BaseHandler):
     """Responds to a request to like a blog entry."""
+
     def get(self, urlkey):
         """Adds like if user is logged in."""
-        # Should not get here if user is not logged in, but check either way
-        if not util.is_session_req(self.request):
+        if not self.is_session:
             return self.redirect('/login')
-        name = self.request.cookies.get('name')
-        account = models.Account.get_by_id(name)
+        account = models.Account.get_by_id(self.user)
         blog = ndb.Key(urlsafe=urlkey).get()
         data = {'add': False, 'remove': False}
         # Don't allow users to like their own blogs
-        if blog.is_author(name):
-            return self.response.out.write(json.dumps(data))
+        if blog.is_author(self.user):
+            return self.json_write(data)
 
         # User is unliking
         if account.key in blog.likes:
@@ -477,7 +476,7 @@ class LikeBlogHandler(webapp2.RequestHandler):
             except ndb.TransactionFailedError:
                 # TODO: handle error as internal server error
                 pass
-            return self.response.out.write(json.dumps(data))
+            return self.json_write(data)
 
         # User is liking
         blog.likes.append(account.key)
@@ -487,7 +486,7 @@ class LikeBlogHandler(webapp2.RequestHandler):
         except ndb.TransactionFailedError:
             # TODO: handle error as internal server error
             pass
-        return self.response.out.write(json.dumps(data))
+        return self.json_write(data)
 
 
 handlers = [
