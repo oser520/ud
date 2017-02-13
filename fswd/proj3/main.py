@@ -416,12 +416,12 @@ class ViewBlogHandler(BaseHandler):
         }
 
 
-class EditCommentHandler(webapp2.RequestHandler):
-    """Responds to a request to save a blog comment after it has been edited."""
+class EditCommentHandler(BaseHandler):
+    """Handles the request to edit a blog comment."""
 
     def post(self):
         """Saves or deletes the comment and redirects to blog post."""
-        data = json.loads(self.request.body)
+        data = self.json_read()
         comment = ndb.Key(urlsafe=data['id']).get()
         comment.comment = data['text'].strip()
         try:
@@ -429,11 +429,9 @@ class EditCommentHandler(webapp2.RequestHandler):
         except ndb.TransactionFailedError:
             # TODO: handle error as internal server error
             pass
-        name = self.request.cookies.get('name')
-        template = template_env.get_template('comment.html')
-        msg = template.render(user=name, comment=comment)
+        msg = self.render_str({'user': self.user}, 'comment.html')
         data = {'id': data['id'], 'comment': msg}
-        return self.response.out.write(json.dumps(data))
+        return self.json_write(data)
 
 
 class DeleteCommentHandler(webapp2.RequestHandler):
