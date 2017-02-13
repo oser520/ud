@@ -256,11 +256,11 @@ class CreateCommentHandler(BaseHandler):
     """Handle requests to create a comment on a blog."""
 
     def post(self, urlkey):
-        """Stores a comment in the datastore and redirects user to main page."""
-        blogkey = ndb.Key(urlsafe=urlkey)
+        """Stores comment in the DB."""
+        key = ndb.Key(urlsafe=urlkey)
         text = self.json_read()['text']
         text = util.squeeze(text.strip(), string.whitespace)
-        comment = models.BlogComment(blog=blogkey, user=self.user, comment=text)
+        comment = models.BlogComment(blog=key, user=self.user, comment=text)
         try:
             comment.put()
         except ndb.TransactionFailedError:
