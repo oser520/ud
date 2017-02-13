@@ -106,7 +106,7 @@ class BaseHandler(webapp2.RequestHandler):
         :param template
             The name of the file containing the template.
         """
-        return self.write(self.render_str(context))
+        return self.write(self.render_str(context, template))
 
 
 class MainHandler(BaseHandler):
@@ -252,25 +252,23 @@ class DoRegisterHandler(BaseHandler):
         return self.json_write(data)
 
 
-class CreateCommentHandler(webapp2.RequestHandler):
+class CreateCommentHandler(BaseHandler):
     """Handle requests to create a comment on a blog."""
 
     def post(self, urlkey):
         """Stores a comment in the datastore and redirects user to main page."""
-        name = self.request.cookies.get('name')
         blogkey = ndb.Key(urlsafe=urlkey)
-        text = json.loads(self.request.body)['text']
+        text = self.json_read()['text']
         text = util.squeeze(text.strip(), string.whitespace)
-        comment = models.BlogComment(blog=blogkey, user=name, comment=text)
+        comment = models.BlogComment(blog=blogkey, user=self.user, comment=text)
         try:
             comment.put()
         except ndb.TransactionFailedError:
             # TODO: handle error as internal server error
             pass
-        template = template_env.get_template('comment.html')
-        msg = template.render(user=name, comment=comment)
-        data = {'id': urlkey, 'comment': msg}
-        return self.response.out.write(json.dumps(data))
+        context = {'user': self.user, 'comment': comment}
+        msg = self.render_str(context, 'comment.html')
+        return self.json_write({'id': urlkey, 'comment': msg})
 
 
 class SignoutHandler(webapp2.RequestHandler):
