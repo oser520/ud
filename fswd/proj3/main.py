@@ -371,7 +371,7 @@ class DeleteBlogHandler(BaseHandler):
             return self.redirect('/')
 
 
-class ViewBlogHandler(webapp2.RequestHandler):
+class ViewBlogHandler(BaseHandler):
     """Handlers requests to view a blog entry."""
 
     def get(self, urlkey):
@@ -381,20 +381,17 @@ class ViewBlogHandler(webapp2.RequestHandler):
             urlkey: The blog key in URL-friendly form.
         """
         blog = ndb.Key(urlsafe=urlkey).get()
-        login_status = util.is_session_req(self.request)
         q = models.BlogComment.query(models.BlogComment.blog == blog.key)
         comments = q.order(models.BlogComment.date).fetch()
-        context = self.get_context(blog, login_status, comments)
+        context = self.get_context(blog, self.is_session, comments)
         # check if user likes blog
-        if login_status:
-            name = self.request.cookies.get('name')
-            context['user'] = name
-            account = models.Account.get_by_id(name)
+        if self.is_session:
+            context['user'] = self.user
+            account = models.Account.get_by_id(self.user)
             if account.key in blog.likes:
                 context['like_status'] = True
                 context['heart'] = 'red-heart'
-        template = template_env.get_template('blog.html')
-        return self.response.out.write(template.render(context))
+        return self.render(context, 'blog.html')
 
     def get_context(self, blog, login_status, comments, user=None):
         """Creates the dictionary context for the template.
