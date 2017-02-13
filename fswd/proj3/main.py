@@ -123,8 +123,9 @@ class MainHandler(BaseHandler):
     def get_blogs(self):
         """Returns all blog entries in reverse chronological date."""
         blogs = models.Blog.query().order(-models.Blog.date).fetch()
-        while len(qBlogsDeleted):
-            blog = qBlogsDeleted.pop()
+        deleted_blogs = self.app.registry.get('deleted_blogs')
+        while len(deleted_blogs):
+            blog = deleted_blogs.pop()
             if blog in blogs:
                 blogs.remove(b)
         return blogs
@@ -362,13 +363,9 @@ class DeleteBlogHandler(BaseHandler):
             # TODO: handle error as internal server error
             pass
         else:
-            self.add_deleted_blog(blog)
+            self.app.registry.get('deleted_blogs').append(blog)
         finally:
             return self.redirect('/')
-
-    def add_deleted_blog(self, blog):
-        """Adds a deleted blog to the queue in the app's registry."""
-        self.app.registry.get('deleted_blogs').append(blog)
 
 
 class ViewBlogHandler(webapp2.RequestHandler):
