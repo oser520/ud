@@ -28,7 +28,6 @@ def create_template_engine(path=None):
     loader = jinja2.FileSystemLoader(path)
     return jinja2.Environment(loader=loader)
 
-template_env = jinja2.Environment(loader=jinja2.FileSystemLoader(os.getcwd()))
 
 class BaseHandler(webapp2.RequestHandler):
     """A wrapper to make request handlers less verbose to use."""
