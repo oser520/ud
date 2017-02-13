@@ -435,11 +435,12 @@ class EditCommentHandler(BaseHandler):
         return self.json_write(data)
 
 
-class DeleteCommentHandler(webapp2.RequestHandler):
+class DeleteCommentHandler(BaseHandler):
     """Responds to a request to delete a comment in a blog."""
+
     def post(self):
         """Deletes a comment from the DB and responds to request."""
-        data = json.loads(self.request.body)
+        data = self.json_read()
         comment_id = data['id']
         comment = ndb.Key(urlsafe=comment_id).get()
         data['id'] = None
@@ -449,7 +450,7 @@ class DeleteCommentHandler(webapp2.RequestHandler):
         except ndb.TransactionFailedError:
             # TODO: handle error as internal server error
             pass
-        return self.response.out.write(json.dumps(data))
+        return self.json_write(data)
 
 
 class LikeBlogHandler(webapp2.RequestHandler):
