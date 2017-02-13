@@ -271,7 +271,7 @@ class CreateCommentHandler(BaseHandler):
         return self.json_write({'id': urlkey, 'comment': msg})
 
 
-class SignoutHandler(webapp2.RequestHandler):
+class SignoutHandler(BaseHandler):
     """Handle requests to signout."""
 
     def get(self):
@@ -324,7 +324,7 @@ class EditBlogHandler(BaseHandler):
         return self.render(context, 'blog-form.html')
 
 
-class SaveBlogHandler(webapp2.RequestHandler):
+class SaveBlogHandler(BaseHandler):
     """Handles a request to save a blog after an edit."""
 
     def post(self, urlkey):
@@ -342,7 +342,8 @@ class SaveBlogHandler(webapp2.RequestHandler):
         except ndb.TransactionFailedError:
             # TODO: handle error as internal server error
             pass
-        return self.redirect('/blog/%s' % urlkey)
+        finally:
+            return self.redirect('/blog/%s' % urlkey)
 
 
 class DeleteBlogHandler(webapp2.RequestHandler):
