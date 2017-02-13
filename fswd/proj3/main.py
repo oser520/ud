@@ -80,8 +80,8 @@ class BaseHandler(webapp2.RequestHandler):
         """
         return json.loads(self.request.body)
 
-    def render(self, context, template):
-        """Uses a context and template to render a page.
+    def render_str(self, context, template):
+        """Uses a context and template to output string.
 
         The template engine must be defined in the app's registry.
 
@@ -94,7 +94,19 @@ class BaseHandler(webapp2.RequestHandler):
         if not eng:
             raise ValueError('template_eng must be defined in registry')
         template = eng.get_template(template)
-        return self.write(template.render(context))
+        return template.render(context)
+
+    def render(self, context, template):
+        """Uses a context and template to render a page.
+
+        The template engine must be defined in the app's registry.
+
+        :param context
+            A dictionary containing the context for the template.
+        :param template
+            The name of the file containing the template.
+        """
+        return self.write(self.render_str(context))
 
 
 class MainHandler(BaseHandler):
@@ -193,7 +205,7 @@ class RegisterHandler(BaseHandler):
         return self.render(context, 'signin.html')
 
 
-class DoRegisterHandler(webapp2.RequestHandler):
+class DoRegisterHandler(BaseHandler):
     """Handle requests to register as a user of the blog site."""
 
     def post(self):
@@ -204,11 +216,12 @@ class DoRegisterHandler(webapp2.RequestHandler):
         username. The user is redirected to the main blog page after
         registration is complete.
         """
-        # If the request is made as part of a session, then user has already signed in.
-        if util.is_session_req(self.request):
+        # Should not be possible, because only people who are not logged in
+        # should be able to see the link to sign in.
+        if self.is_session:
             return self.redirect('/')
 
-        data = json.loads(self.request.body)
+        data = self.json_read()
         user = data['user']
         pwd = data['password']
 
@@ -216,12 +229,12 @@ class DoRegisterHandler(webapp2.RequestHandler):
         account = models.Account.get_by_id(user)
         if account:
             data['success'] = False
-            return self.response.out.write(json.dumps(data))
+            return self.json_write(data)
 
         # Validate password
         if not util.process_password(pwd):
             data['success'] = False
-            return self.response.out.write(json.dumps(data))
+            return self.json_write(data)
 
         # Create account
         salt = util.gensalt()
@@ -231,12 +244,12 @@ class DoRegisterHandler(webapp2.RequestHandler):
             account.put()
         except ndb.TransactionFailedError:
             data['success'] = False
-            return self.response.out.write(json.dumps(data))
+            return self.json_write(data)
 
         data['success'] = True
         self.response.set_cookie('name', user)
         self.response.set_cookie('secret', hsh)
-        return self.response.out.write(json.dumps(data))
+        return self.json_write(data)
 
 
 class CreateCommentHandler(webapp2.RequestHandler):
