@@ -281,24 +281,24 @@ class SignoutHandler(webapp2.RequestHandler):
         return self.redirect('/')
 
 
-class CreateBlogHandler(webapp2.RequestHandler):
+class CreateBlogHandler(BaseHandler):
     """Handle requests to create a brand new blog entry."""
 
     def post(self):
         """Handles a post request to create a blog entry."""
         # TODO: verify request is made in session context
-        name = self.request.cookies.get('name')
         title = self.request.get('title').strip()
         title = util.squeeze(title, string.whitespace)
         text = self.request.get('text').strip()
-        title = util.squeeze(text, string.whitespace)
-        blog = models.Blog(user=name, title=title, text=text)
+        text = util.squeeze(text, string.whitespace)
+        blog = models.Blog(user=self.user, title=title, text=text)
         try:
             blog.put()
-            return self.redirect('/blog/%s' % blog.key.urlsafe())
         except ndb.TransactionFailedError:
             # TODO: Handle error
             return self.redirect('/')
+        else:
+            return self.redirect('/blog/%s' % blog.key.urlsafe())
 
 
 class BlogFormHandler(webapp2.RequestHandler):
