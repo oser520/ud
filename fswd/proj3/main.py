@@ -24,7 +24,7 @@ def create_template_engine(path=None):
     if not path:
         path = os.getcwd()
     elif not os.listdir(path):
-        raise ValueError('path cannot be an empty dictionary')
+        raise ValueError('%s must exist and cannot be empty' % path)
     loader = jinja2.FileSystemLoader(path)
     return jinja2.Environment(loader=loader)
 
