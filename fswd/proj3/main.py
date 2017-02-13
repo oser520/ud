@@ -357,8 +357,11 @@ class DeleteBlogHandler(BaseHandler):
             urlkey: Blog key in url safe format.
         """
         blog = ndb.Key(urlsafe=urlkey).get()
+        query = models.BlogComment.query(models.BlogComment.blog == blog.key)
+        comment_keys = [comment.key for comment in query.fetch()]
         try:
             blog.key.delete()
+            ndb.delete_multi(comment_keys)
         except ndb.TransactionFailedError:
             # TODO: handle error as internal server error
             pass
