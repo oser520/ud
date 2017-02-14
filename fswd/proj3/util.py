@@ -88,23 +88,6 @@ def username_exists(username):
     return False
 
 
-def is_session_req(req):
-    """Return a pair of bools indicating if the name and secret cookies are set
-    and whether they are set for a valid account.
-
-    Args:
-        req: The request object.
-    """
-    name = req.cookies.get('name')
-    secret = req.cookies.get('secret')
-    if not name or not secret:
-        return False
-    account = Account.get_by_id(name)
-    if not account or secret != account.pwd_hash:
-        return False
-    return True
-
-
 def squeeze(letters, chars):
     """Replace each input sequence of a set of repeated characters with a single
     occurence of each respective character.
