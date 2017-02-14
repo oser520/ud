@@ -23,8 +23,15 @@ def create_template_engine(path=None):
     """
     if not path:
         path = os.getcwd()
-    elif not os.listdir(path):
+    elif isinstance(path, str) and not os.listdir(path):
         raise ValueError('%s must exist and cannot be empty' % path)
+    else:
+        # Assume path is iterable. At least one directory is not empty.
+        for directory in path:
+            if os.listdir(directory):
+                break;
+        else:
+            raise ValueError('path %s must contain at least one file' % path)
     loader = jinja2.FileSystemLoader(path)
     return jinja2.Environment(loader=loader)
 
@@ -507,5 +514,5 @@ handlers = [
     (r'/delete-blog/(\S+)', DeleteBlogHandler)
 ]
 app = webapp2.WSGIApplication(handlers, debug=True)
-app.registry['template_eng'] = create_template_engine()
+app.registry['template_eng'] = create_template_engine(('templates', 'html'))
 app.registry['deleted_blogs'] = collections.deque()
