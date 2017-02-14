@@ -48,10 +48,10 @@ def gensalt(length=16):
     Args:
         length: The lenght of the salt value, with default value of 16.
     """
-    if not length:
+    if not length or length < 0:
         raise ValueError('The salt length must be a positive integer')
-    ALPHABET = string.ascii_letters + string.digits
-    return ''.join(random.choice(ALPHABET) for _ in range(length))
+    alnum = string.ascii_letters + string.digits
+    return ''.join(random.choice(alnum) for _ in range(length))
 
 
 def get_hash(salt, psswd):
