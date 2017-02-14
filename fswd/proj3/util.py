@@ -66,17 +66,6 @@ def get_hash(salt, psswd):
     return hmac.new(salt.encode(), psswd).hexdigest()
 
 
-def username_exists(username):
-    """Return true if the username exists, false otherwise.
-
-    Args:
-        username: The username value.
-    """
-    if Account.get_by_id(username):
-        return True
-    return False
-
-
 def squeeze(letters, chars):
     """Replace each input sequence of a set of repeated characters with a single
     occurence of each respective character.
