@@ -66,17 +66,6 @@ def get_hash(salt, psswd):
     return hmac.new(salt.encode(), psswd).hexdigest()
 
 
-def is_psswd_hash(salt, psswd, hsh):
-    """Verify the hash equals the hash fo the salt and password.
-
-    Args:
-        salt: The salt value. Cannot be empty.
-        psswd: The password value. Cannot be empty.
-        hsh: The hash value. Cannot be empty.
-    """
-    return hsh == hmac.new(salt, psswd)
-
-
 def username_exists(username):
     """Return true if the username exists, false otherwise.
 
