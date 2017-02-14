@@ -11,7 +11,8 @@ def check_str_not_empty(prop, content):
         prop: The ndb property type.
         val: The blog content.
     """
-    if not content.strip(): raise datastore_erros.BadValueError
+    if not content.strip():
+        raise datastore_erros.BadValueError
     return content
 
 
