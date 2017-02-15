@@ -13,8 +13,8 @@ def process_username(username):
     characters long, and it may only contain alphanumeric characters, dots, and
     underscores.
 
-    Args:
-        username: The username to validate.
+    :param username
+        The username to validate.
     """
     username = username.strip().lower()
     m = re.match(r'[a-z][a-z\d._]{3,35}$', username)
