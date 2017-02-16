@@ -514,5 +514,5 @@ handlers = [
     (r'/delete-blog/(\S+)', DeleteBlogHandler)
 ]
 app = webapp2.WSGIApplication(handlers, debug=True)
-app.registry['template_eng'] = create_template_engine(('templates', 'html'))
+app.registry['template_eng'] = create_template_engine('templates')
 app.registry['deleted_blogs'] = collections.deque()
