@@ -15,6 +15,8 @@ def process_username(username):
 
     :param username
         The username to validate.
+    :return
+        None or the match group.
     """
     username = username.strip().lower()
     m = re.match(r'[a-z][a-z\d._]{3,35}$', username)
@@ -28,8 +30,8 @@ def process_password(password):
     The password is valid if it contains between 6 and 35 characters, at least
     one number, at least one alpha character, and no whitespace.
 
-    Args:
-        password: The password to validate.
+    :param password
+        The password to validate.
     """
     m = re.match(r'\S{6,35}$', password)
     if not m: return False
@@ -45,8 +47,11 @@ def process_password(password):
 def gensalt(length=16):
     """Generate a random salt value for a password.
 
-    Args:
-        length: The lenght of the salt value, with default value of 16.
+    :param length
+        The lenght of the salt value, with default value of 16.
+    :return
+        A string containing a randomly generated salt value composed of
+        alphanumeric characters.
     """
     if not length or length < 0:
         raise ValueError('The salt length must be a positive integer')
@@ -57,9 +62,12 @@ def gensalt(length=16):
 def get_hash(salt, psswd):
     """Create a hash from a salt and password.
 
-    Args:
-        salt: The salt value. Cannot be empty.
-        psswd: The password value. Cannot be empty.
+    :param salt
+        The salt value. Cannot be empty.
+    :param psswd
+        The password value. Cannot be empty.
+    :return
+        A hash value of the salt and password.
     """
     if not salt or not psswd:
         raise ValueError('The salt and password cannot be empty')
