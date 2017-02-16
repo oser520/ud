@@ -23,8 +23,9 @@ def create_template_engine(path=None):
     """
     if not path:
         path = os.getcwd()
-    elif isinstance(path, str) and not os.listdir(path):
-        raise ValueError('%s must exist and cannot be empty' % path)
+    elif isinstance(path, str):
+        if not os.listdir(path):
+            raise ValueError('%s must exist and cannot be empty' % path)
     else:
         # Assume path is iterable. At least one directory is not empty.
         for directory in path:
