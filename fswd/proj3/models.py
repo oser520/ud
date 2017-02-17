@@ -7,9 +7,10 @@ def check_str_not_empty(prop, content):
     """Returns a datastore_errors.BadValueError if the string value of a Text
     or String property is empty.
 
-    Args:
-        prop: The ndb property type.
-        val: The blog content.
+    :param prop
+        The ndb property type.
+    :content
+        The blog content.
     """
     if not content.strip():
         raise datastore_erros.BadValueError
