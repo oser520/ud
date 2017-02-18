@@ -120,8 +120,10 @@ class BlogComment(ndb.Model):
     def is_author(self, author):
         """Returns true if the author is the author of this comment.
 
-            Args:
-                author: A user name.
+        :param author
+            A user name.
+        :returns
+            True if author is the author of this blog comment.
         """
         return self.user == author
 
